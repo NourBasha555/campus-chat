@@ -3,33 +3,55 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#1f6f5c">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" href="icon-192.png">
-<title>شات الجامعة المجهول</title>
+<link rel="icon" href="icon.svg">
+<title>Campus Chat</title>
 <style>
 *{box-sizing:border-box}body{margin:0;font-family:system-ui,"Noto Sans Arabic",sans-serif;background:#f6f3ec;color:#1b1b1b}
-header{background:#1f6f5c;color:#fff;padding:16px}h1{margin:0;font-size:20px}header p{margin:6px 0 0;font-size:14px;opacity:.9}
-main{padding:12px;max-width:560px;margin:auto}section{background:#fff;border-radius:14px;padding:12px;margin-bottom:12px}
+header{background:#1f6f5c;color:#fff;padding:12px 16px;display:flex;align-items:center;gap:8px}
+header h1{margin:0;font-size:20px}header button{min-height:36px;padding:0 12px;background:#ffffff33}
+main{padding:12px;max-width:600px;margin:auto}
+section{background:#fff;border-radius:14px;padding:12px;margin-bottom:12px}
 h2{font-size:16px;margin:0 0 8px}.note{color:#555;font-size:14px;margin:6px 0}
-input[type=range]{width:100%;min-height:44px}
-.list{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
-.msg{background:#efe9dd;border-radius:12px;padding:10px 14px}.mine{background:#1f6f5c;color:#fff}.who{font-size:12px;opacity:.7;margin-bottom:2px}
-.form{display:flex;gap:8px}input[type=text]{flex:1;min-height:44px;padding:0 12px;font:inherit;border:1px solid #ccc;border-radius:10px}
-button{min-height:44px;padding:0 18px;font:inherit;border:0;border-radius:10px;background:#1f6f5c;color:#fff}
+select,input[type=text],input[type=password]{width:100%;min-height:44px;padding:0 10px;font:inherit;border:1px solid #ccc;border-radius:10px;background:#fff}
+button{min-height:44px;padding:0 16px;font:inherit;border:0;border-radius:10px;background:#1f6f5c;color:#fff;cursor:pointer}
+button.ghost{background:#efe9dd;color:#1b1b1b}button.small{min-height:32px;padding:0 10px;font-size:13px}
+button.danger{background:#b3261e}button:disabled{opacity:.45}
+.rooms{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.room{min-height:56px;background:#efe9dd;color:#1b1b1b;font-weight:600}.room.general{grid-column:1/-1;background:#1f6f5c;color:#fff}
+.room.locked{opacity:.4}
+.list{display:flex;flex-direction:column;gap:8px;margin:8px 0}
+.msg{background:#efe9dd;border-radius:12px;padding:10px 12px}.mine{background:#d7ebe4}
+.who{font-size:12px;opacity:.7;margin-bottom:2px}
+.reply{font-size:12px;border-inline-start:3px solid #1f6f5c;padding:2px 8px;margin-bottom:4px;background:#0000000d;border-radius:4px}
+.acts{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;align-items:center}
+.score{font-weight:700;min-width:24px;text-align:center}
+.form{display:flex;gap:8px}.form input{flex:1}
 .warn{background:#fdecea;color:#8a1c12;border-radius:10px;padding:10px;margin-top:10px;display:none}
+.banner{background:#fff3cd;border-radius:10px;padding:8px 10px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;font-size:14px}
+.modbar{background:#1f1f1f;color:#fff;border-radius:10px;padding:8px 10px;margin-bottom:8px;font-size:14px}
+.removed{background:#f3d9d6}
+.hidden{display:none!important}
+.modal{position:fixed;inset:0;background:#0008;display:flex;align-items:center;justify-content:center;padding:20px}
+.modal div{background:#fff;border-radius:14px;padding:16px;width:100%;max-width:340px}
 </style></head><body>
-<header><h1>شات الجامعة المجهول</h1><p>نسخة تجريبية. من غير اسم ولا صورة. بتشوف رسايل اللي في حدود 20 كم منك.</p></header>
+<header><div style="flex:1"><h1>Campus Chat</h1><div id="uni" style="font-size:13px;opacity:.9"></div></div><button id="mod" class="small" type="button"></button><button id="lang" class="small" type="button"></button></header>
 <main>
-<section><h2>مكانك (تجربة)</h2>
-<p class="note">في النسخة الحقيقية المكان بييجي من لوكيشن الموبايل. هنا اسحب الشريط: انت على بعد <b id="km">0</b> كم من الجامعة.</p>
-<input id="range" type="range" min="0" max="60" value="0" aria-label="بعدك عن الجامعة بالكيلومتر">
-<p class="note" id="hidden"></p></section>
-<section><h2>الشات</h2><div class="list" id="list"></div>
-<div class="form"><input id="text" type="text" placeholder="اكتب رسالة..." autocomplete="off"><button id="send" type="button">إرسال</button></div>
-<div class="warn" id="warn">الرسالة دي اتمنعت: فيها ألفاظ مش مسموحة. اكتبها بشكل محترم.</div></section>
-<p class="note">ده نموذج على موبايلك بس: الرسائل مش بتتبعت لناس تانية لسه.</p>
+<section id="locSec"><h2 id="tLoc"></h2><p class="note" id="tLocNote"></p><select id="loc"></select></section>
+<section id="roomsSec"><h2 id="tRooms"></h2><div class="rooms" id="rooms"></div></section>
+<section id="chatSec" class="hidden">
+ <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px"><button id="back" class="ghost small" type="button"></button><h2 id="roomTitle" style="margin:0;flex:1"></h2></div>
+ <div class="modbar hidden" id="modbar"></div>
+ <div class="list" id="list"></div>
+ <div class="banner hidden" id="replyBanner"><span id="replyTxt"></span><button id="cancelReply" class="ghost small" type="button">✕</button></div>
+ <div class="form"><input id="text" type="text" maxlength="500" autocomplete="off"><button id="send" type="button"></button></div>
+ <div class="warn" id="warn"></div>
+ <div id="remSec" class="hidden"><h2 id="tRemoved" style="margin-top:14px"></h2><div class="list" id="remList"></div></div>
+</section>
+<p class="note" id="tDemo"></p>
 </main>
+<div class="modal hidden" id="modal"><div><h2 id="tPin"></h2><input id="pin" type="password" inputmode="numeric"><p class="note" id="pinErr" style="color:#b3261e"></p><div style="display:flex;gap:8px;margin-top:8px"><button id="pinOk" type="button"></button><button id="pinNo" class="ghost" type="button"></button></div></div></div>
 <script>
-const RADIUS = 20;
+// Bad-language filter (same as the first version). Loaded before app.js.
 function norm(t){
   return t.toLowerCase()
    .replace(/[\u064B-\u065F\u0670\u0640]/g,'')
@@ -85,29 +107,148 @@ function isBlocked(raw){
 }
 
 
-const SEED=[
-{id:1,who:'طالب مجهول 12',km:2,text:'حد عارف امتحان الصبح اتأجل ولا لأ؟'},
-{id:2,who:'طالب مجهول 7',km:9,text:'المحاضرة الجاية في قاعة 3'},
-{id:3,who:'طالب مجهول 31',km:18,text:'في زحمة جامدة على الدائري'},
-{id:4,who:'طالب مجهول 44',km:45,text:'أنا بعيد عن الجامعة، المفروض مش هتشوفوا الرسالة دي من الجامعة'}];
-let msgs=SEED.slice(),pos=0;const me='طالب مجهول '+(100+Math.floor(Math.random()*900));
+
+
+</script>
+<script>
+// CHANGE THE UNIVERSITY NAME HERE (one place only):
+const UNIVERSITY={en:'Capital University',ar:'جامعة العاصمة'};
+const MOD_PIN='1234'; // demo only. Real version uses a real login.
+const REPORT_LIMIT=5, HALLS=18;
+const T={ar:{
+ loc:'مكانك (تجربة)',locNote:'في النسخة الحقيقية المكان بييجي من لوكيشن الموبايل. هنا اختار مكانك عشان تجرب.',
+ rooms:'الغرف',general:'الغرفة العامة',hall:'مدرج ',lock:'🔒 لازم تكون قريب من المدرج',farMsg:'إنت بعيد عن الجامعة.',
+ atHall:'عند مدرج ',campus:'في الجامعة (مش عند مدرج)',far:'بعيد عن الجامعة',
+ back:'رجوع',ph:'اكتب رسالة...',send:'إرسال',blocked:'الرسالة دي اتمنعت: فيها ألفاظ مش مسموحة. اكتبها بشكل محترم.',
+ reply:'رد',report:'إبلاغ',reported:'تم الإبلاغ',replyTo:'ردًا على: ',student:'طالب مجهول ',you:'إنت',
+ empty:'مفيش رسائل لسه. ابدأ إنت.',mod:'مودريتور',modOut:'خروج المودريتور',modbar:'وضع المودريتور: تقدر تعدل وتمسح وتشوف المتمسح.',
+ edit:'تعديل',del:'مسح',restore:'استرجاع',removed:'الرسائل المتمسحة (إنت بس اللي بتشوفها)',noRemoved:'مفيش رسائل متمسحة.',
+ editPrompt:'عدّل الرسالة:',pin:'رقم المودريتور',pinNo:'إلغاء',pinOk:'دخول',pinBad:'الرقم غلط',
+ demo:'ده نموذج على موبايلك بس: الرسائل مش بتتبعت لناس تانية لسه. رسالة "جرب الإبلاغ" في الغرفة العامة عليها 4 بلاغات، بلغ عنها وهي هتتمسح (5 بلاغات).',
+ removedBy:'اتمسحت (5 بلاغات)',by:'مسحها المودريتور'},
+ en:{
+ loc:'Your location (demo)',locNote:'In the real version this comes from the phone GPS. Here, pick a place to try it.',
+ rooms:'Rooms',general:'Campus-wide room',hall:'Hall ',lock:'🔒 You must be near this hall',farMsg:'You are far from campus.',
+ atHall:'At Hall ',campus:'On campus (not at a hall)',far:'Far from campus',
+ back:'Back',ph:'Write a message...',send:'Send',blocked:'This message was blocked: it has words that are not allowed. Please write it politely.',
+ reply:'Reply',report:'Report',reported:'Reported',replyTo:'Replying to: ',student:'Student ',you:'You',
+ empty:'No messages yet. Be the first.',mod:'Moderator',modOut:'Exit moderator',modbar:'Moderator mode: you can edit, delete and see deleted messages.',
+ edit:'Edit',del:'Delete',restore:'Restore',removed:'Deleted messages (only you can see these)',noRemoved:'No deleted messages.',
+ editPrompt:'Edit message:',pin:'Moderator PIN',pinNo:'Cancel',pinOk:'Enter',pinBad:'Wrong PIN',
+ demo:'This is a demo on your phone only: messages are not sent to other people yet. The "try reporting" message in the General room already has 4 reports. Report it and it disappears (5 reports).',
+ removedBy:'removed (5 reports)',by:'deleted by moderator'}};
 const $=id=>document.getElementById(id);
-function render(){
- const vis=msgs.filter(m=>Math.abs(m.km-pos)<=RADIUS),h=msgs.length-vis.length;
- $('km').textContent=pos;
- $('hidden').textContent=h>0?h+' رسالة مش ظاهرة لك لأنها أبعد من '+RADIUS+' كم.':'كل الرسائل ظاهرة لك.';
- const l=$('list');l.textContent='';
- if(!vis.length){const p=document.createElement('p');p.className='note';p.textContent='مفيش رسائل قريبة منك دلوقتي.';l.appendChild(p);}
- vis.forEach(m=>{const d=document.createElement('div');d.className='msg'+(m.mine?' mine':'');
-  const w=document.createElement('div');w.className='who';w.textContent=m.mine?'انت ('+m.who+')':m.who;
-  const t=document.createElement('div');t.textContent=m.text;d.append(w,t);l.appendChild(d);});
+const KEY='campus_chat_state_v2';
+function seed(){
+ const now=Date.now(),m={},r={};
+ m.general=[
+  {id:'s1',text:'Anyone know if tomorrow\'s exam is postponed?',anon:12,up:3,down:0,reports:0,replyTo:null,t:now-3600e3},
+  {id:'s2',text:'حد عنده ملخص المحاضرة الأخيرة؟',anon:7,up:5,down:1,reports:0,replyTo:null,t:now-2400e3},
+  {id:'s3',text:'جرب الإبلاغ: بلغ عن الرسالة دي',anon:31,up:0,down:2,reports:4,replyTo:null,t:now-1200e3}];
+ m.hall7=[{id:'s4',text:'المحاضرة هتبدأ متأخر 10 دقايق',anon:44,up:2,down:0,reports:0,replyTo:null,t:now-900e3}];
+ return {msgs:m,removed:r,votes:{},reported:{},lang:'ar',loc:'campus',mod:false,anon:100+Math.floor(Math.random()*900)};
 }
-function send(){const t=$('text').value.trim();if(!t)return;
- if(isBlocked(t)){$('warn').style.display='block';return;}
- $('warn').style.display='none';msgs.push({id:Date.now(),who:me,km:pos,text:t,mine:true});$('text').value='';render();}
-$('range').addEventListener('input',e=>{pos=Number(e.target.value);render();});
+let S;try{S=JSON.parse(localStorage.getItem(KEY))||seed();}catch(e){S=seed();}
+S.mod=false;
+function save(){localStorage.setItem(KEY,JSON.stringify(S));}
+let room=null,replying=null;
+const t=k=>T[S.lang][k];
+const roomName=r=>r==='general'?t('general'):t('hall')+r.slice(4);
+function allowed(r){
+ if(S.loc==='far')return false;
+ if(r==='general')return true;
+ return S.loc==='hall'+r.slice(4);
+}
+function applyLang(){
+ document.documentElement.lang=S.lang;document.documentElement.dir=S.lang==='ar'?'rtl':'ltr';
+ $('lang').textContent=S.lang==='ar'?'English':'العربية';
+ $('tLoc').textContent=t('loc');$('tLocNote').textContent=t('locNote');$('tRooms').textContent=t('rooms');
+ $('back').textContent=t('back');$('text').placeholder=t('ph');$('send').textContent=t('send');$('warn').textContent=t('blocked');
+ $('tDemo').textContent=t('demo');$('tRemoved').textContent=t('removed');$('modbar').textContent=t('modbar');
+ $('tPin').textContent=t('pin');$('pinOk').textContent=t('pinOk');$('pinNo').textContent=t('pinNo');
+ $('uni').textContent=UNIVERSITY[S.lang];
+ $('mod').textContent=S.mod?t('modOut'):t('mod');
+ const sel=$('loc');sel.textContent='';
+ const opts=[['far',t('far')],['campus',t('campus')]];
+ for(let i=1;i<=HALLS;i++)opts.push(['hall'+i,t('atHall')+i]);
+ opts.forEach(([v,l])=>{const o=document.createElement('option');o.value=v;o.textContent=l;sel.appendChild(o);});
+ sel.value=S.loc;
+}
+function renderRooms(){
+ const box=$('rooms');box.textContent='';
+ const mk=r=>{const b=document.createElement('button');b.type='button';
+  b.className='room'+(r==='general'?' general':'')+(allowed(r)?'':' locked');
+  b.textContent=(allowed(r)?'':'🔒 ')+roomName(r);
+  b.addEventListener('click',()=>{ if(!allowed(r)){alert(S.loc==='far'?t('farMsg'):t('lock'));return;} openRoom(r);});
+  box.appendChild(b);};
+ mk('general');for(let i=1;i<=HALLS;i++)mk('hall'+i);
+}
+function openRoom(r){room=r;replying=null;$('roomsSec').classList.add('hidden');$('locSec').classList.add('hidden');$('chatSec').classList.remove('hidden');renderChat();}
+function closeRoom(){room=null;$('chatSec').classList.add('hidden');$('roomsSec').classList.remove('hidden');$('locSec').classList.remove('hidden');renderRooms();}
+function sweepReports(){
+ // messages with enough reports move to the removed list (only the moderator can see them)
+ for(const r in S.msgs){S.msgs[r]=S.msgs[r].filter(m=>{
+  if(m.reports>=REPORT_LIMIT){(S.removed[r]=S.removed[r]||[]).push(Object.assign({},m,{why:'reports'}));return false;}return true;});}
+}
+function btn(label,fn,cls){const b=document.createElement('button');b.type='button';b.className='small '+(cls||'ghost');b.textContent=label;b.addEventListener('click',fn);return b;}
+function renderChat(){
+ sweepReports();save();
+ $('roomTitle').textContent=roomName(room);
+ $('modbar').classList.toggle('hidden',!S.mod);$('remSec').classList.toggle('hidden',!S.mod);
+ const l=$('list');l.textContent='';
+ const arr=(S.msgs[room]||[]).slice().sort((a,b)=>a.t-b.t);
+ if(!arr.length){const p=document.createElement('p');p.className='note';p.textContent=t('empty');l.appendChild(p);}
+ arr.forEach(m=>{
+  const d=document.createElement('div');d.className='msg'+(m.mine?' mine':'');
+  const w=document.createElement('div');w.className='who';w.textContent=m.mine?t('you'):t('student')+m.anon;d.appendChild(w);
+  if(m.replyTo){const q=document.createElement('div');q.className='reply';q.textContent=t('replyTo')+m.replyTo.text;d.appendChild(q);}
+  const tx=document.createElement('div');tx.textContent=m.text;d.appendChild(tx);
+  const a=document.createElement('div');a.className='acts';
+  const v=S.votes[m.id];
+  const up=btn('👍',()=>vote(m,1),v===1?'':'ghost'),dn=btn('👎',()=>vote(m,-1),v===-1?'':'ghost');
+  if(v){up.disabled=dn.disabled=true;}
+  const sc=document.createElement('span');sc.className='score';sc.textContent=m.up-m.down;
+  a.append(up,sc,dn,btn(t('reply'),()=>{replying=m;showReply();$('text').focus();}));
+  const rp=btn(S.reported[m.id]?t('reported'):t('report'),()=>report(m));if(S.reported[m.id])rp.disabled=true;a.appendChild(rp);
+  if(S.mod){a.append(btn(t('edit'),()=>{const n=prompt(t('editPrompt'),m.text);if(n&&n.trim()){m.text=n.trim().slice(0,500);m.edited=true;save();renderChat();}}),
+   btn(t('del'),()=>{S.msgs[room]=S.msgs[room].filter(x=>x.id!==m.id);(S.removed[room]=S.removed[room]||[]).push(Object.assign({},m,{why:'mod'}));save();renderChat();},'danger'));}
+  d.appendChild(a);l.appendChild(d);
+ });
+ const rl=$('remList');rl.textContent='';
+ if(S.mod){const rem=S.removed[room]||[];
+  if(!rem.length){const p=document.createElement('p');p.className='note';p.textContent=t('noRemoved');rl.appendChild(p);}
+  rem.forEach(m=>{const d=document.createElement('div');d.className='msg removed';
+   const w=document.createElement('div');w.className='who';w.textContent=t('student')+m.anon+' · '+(m.why==='reports'?t('removedBy'):t('by'));
+   const tx=document.createElement('div');tx.textContent=m.text;
+   const a=document.createElement('div');a.className='acts';
+   a.appendChild(btn(t('restore'),()=>{S.removed[room]=S.removed[room].filter(x=>x.id!==m.id);const c=Object.assign({},m);delete c.why;c.reports=0;(S.msgs[room]=S.msgs[room]||[]).push(c);save();renderChat();}));
+   d.append(w,tx,a);rl.appendChild(d);});}
+ showReply();
+}
+function showReply(){const b=$('replyBanner');if(replying){b.classList.remove('hidden');$('replyTxt').textContent=t('replyTo')+replying.text.slice(0,60);}else b.classList.add('hidden');}
+function vote(m,v){if(S.votes[m.id])return;S.votes[m.id]=v;if(v===1)m.up++;else m.down++;save();renderChat();}
+function report(m){if(S.reported[m.id])return;S.reported[m.id]=true;m.reports++;save();renderChat();}
+function send(){
+ const x=$('text').value.trim();if(!x)return;
+ if(isBlocked(x)){$('warn').style.display='block';return;}
+ $('warn').style.display='none';
+ const m={id:'m'+Date.now()+Math.floor(Math.random()*1000),text:x,anon:S.anon,mine:true,up:0,down:0,reports:0,
+  replyTo:replying?{id:replying.id,text:replying.text.slice(0,60)}:null,t:Date.now()};
+ (S.msgs[room]=S.msgs[room]||[]).push(m);replying=null;$('text').value='';save();renderChat();
+}
 $('send').addEventListener('click',send);
 $('text').addEventListener('keydown',e=>{if(e.key==='Enter')send();});
-render();
+$('back').addEventListener('click',closeRoom);
+$('cancelReply').addEventListener('click',()=>{replying=null;showReply();});
+$('loc').addEventListener('change',e=>{S.loc=e.target.value;save();if(room&&!allowed(room))closeRoom();else renderRooms();});
+$('lang').addEventListener('click',()=>{S.lang=S.lang==='ar'?'en':'ar';save();applyLang();renderRooms();if(room)renderChat();});
+$('mod').addEventListener('click',()=>{
+ if(S.mod){S.mod=false;applyLang();if(room)renderChat();return;}
+ $('pin').value='';$('pinErr').textContent='';$('modal').classList.remove('hidden');$('pin').focus();});
+$('pinNo').addEventListener('click',()=>$('modal').classList.add('hidden'));
+$('pinOk').addEventListener('click',()=>{
+ if($('pin').value===MOD_PIN){S.mod=true;$('modal').classList.add('hidden');applyLang();if(room)renderChat();}
+ else $('pinErr').textContent=t('pinBad');});
+applyLang();renderRooms();
 if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js');
 </script></body></html>
