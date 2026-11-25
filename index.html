@@ -19,8 +19,21 @@ button.danger{background:#b3261e}button:disabled{opacity:.45}
 .rooms{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .room{min-height:56px;background:#efe9dd;color:#1b1b1b;font-weight:600}.room.general{grid-column:1/-1;background:#1f6f5c;color:#fff}
 .room.locked{opacity:.4}
-.list{display:flex;flex-direction:column;gap:8px;margin:8px 0}
-.msg{background:#efe9dd;border-radius:12px;padding:10px 12px}.mine{background:#d7ebe4}
+.list{display:flex;flex-direction:column;gap:10px;margin:8px 0}
+.chead{display:flex;gap:8px;align-items:center;margin-bottom:8px;position:sticky;top:0;z-index:5;background:#fff;padding:6px 0}
+body.dark .chead{background:#1f2426}
+.msg .acts{opacity:.8}.msg .acts button{min-height:28px;padding:0 7px;font-size:12px}.msg .score{font-size:13px}
+.form{position:sticky;bottom:0;z-index:5;background:#fff;padding:8px 0}
+body.dark .form{background:#1f2426}
+.form input{border-radius:999px}#send{border-radius:999px;min-width:56px}#emoBtn{border-radius:999px;min-width:44px;padding:0;font-size:20px}
+#emoPanel{margin:6px 0}
+.ecats{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:6px}
+.ecat{min-height:34px;padding:0 9px;background:#8882;color:inherit;border-radius:8px;font-size:17px}
+.ecat.sel{outline:2px solid #1f6f5c}
+.egrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(42px,1fr));gap:2px;max-height:230px;overflow-y:auto;background:#8881;border-radius:12px;padding:6px}
+.em{min-height:42px;padding:0;background:transparent;color:inherit;font-size:23px;border-radius:8px}
+.em:active{background:#8883}
+.msg{max-width:85%;align-self:flex-start;background:#efe9dd;border-radius:16px;border-start-start-radius:4px;padding:8px 12px;box-shadow:0 1px 2px #0001}.mine{background:#d7ebe4;align-self:flex-end;border-start-start-radius:16px;border-start-end-radius:4px}
 .who{font-size:12px;opacity:.7;margin-bottom:2px}
 .reply{font-size:12px;border-inline-start:3px solid #1f6f5c;padding:2px 8px;margin-bottom:4px;background:#0000000d;border-radius:4px}
 .acts{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;align-items:center}
@@ -33,20 +46,26 @@ button.danger{background:#b3261e}button:disabled{opacity:.45}
 .hidden{display:none!important}
 .modal{position:fixed;inset:0;background:#0008;display:flex;align-items:center;justify-content:center;padding:20px}
 .modal div{background:#fff;border-radius:14px;padding:16px;width:100%;max-width:340px}
-#setModal button{display:block;width:100%;margin:8px 0}
+.drawer{position:fixed;inset:0;background:#0006;z-index:8}
+.dpanel{position:absolute;top:0;bottom:0;right:0;width:min(300px,85vw);background:#fff;padding:16px;box-shadow:-4px 0 16px #0003;overflow-y:auto;animation:slidein .22s ease-out}
+@keyframes slidein{from{transform:translateX(60px);opacity:0}to{transform:none;opacity:1}}
+body.dark .dpanel{background:#1f2426;color:#eee}
+.dhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.dpanel>button{display:block;width:100%;margin:8px 0}
 body.dark{background:#15181a;color:#e8e8e8}body.dark section{background:#1f2426}body.dark .msg{background:#2b3236}body.dark .mine{background:#1f4a3f}
 body.dark select,body.dark input,body.dark textarea{background:#2b3236;color:#e8e8e8;border-color:#444}body.dark button.ghost,body.dark .room{background:#333b3f;color:#eee}body.dark .modal div{background:#1f2426;color:#eee}body.dark .note{color:#aaa}
 .pinned{background:#fff3cd;color:#222;border-radius:10px;padding:8px;margin-bottom:8px;font-size:14px}
 .poll{border:1px solid #8884;border-radius:12px;padding:8px;margin-bottom:8px}.opt{display:block;width:100%;position:relative;overflow:hidden;background:#8882;color:inherit;text-align:start;margin:4px 0;min-height:38px}.opt .bar{position:absolute;top:0;bottom:0;inset-inline-start:0;background:#1f6f5c55}.opt .ol{position:relative}.opt.sel{outline:2px solid #1f6f5c}
 .chip{min-height:28px;padding:0 8px;font-size:14px;background:#8882;color:inherit;border-radius:14px}.chip.sel,.ghost.sel{outline:2px solid #1f6f5c}
 .toast{position:fixed;top:8px;inset-inline:10px;background:#222;color:#fff;border-radius:10px;padding:10px;z-index:9;text-align:center}
-.xo{display:grid;grid-template-columns:repeat(3,70px);gap:6px;justify-content:center}.cell{height:70px;font-size:30px;background:#8883;color:inherit;padding:0}
+.xo{display:grid;grid-template-columns:repeat(3,84px);gap:8px;justify-content:center;direction:ltr}.cell{height:84px;font-size:42px;line-height:1;background:#8882;color:inherit;padding:0;border-radius:14px;transition:transform .1s,background .25s}.cell:active{transform:scale(.93)}.cell .m{display:inline-block;animation:popin .18s ease-out}.cell .x{color:#12715e;font-weight:800}.cell .o{color:#e8590c;font-weight:800}.cell.win{background:#ffd43b44;outline:2px solid #fab005;animation:pulse 1.1s infinite}
+@keyframes pulse{0%,100%{filter:brightness(1)}50%{filter:brightness(1.3)}}@keyframes popin{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}.gresult{text-align:center;margin:10px 0 4px;animation:popin .25s ease-out}.gresult .big{font-size:42px;margin-bottom:6px}.roundban{background:#fff3cd;color:#5c4a00;border-radius:10px;padding:8px 10px;margin:8px 0;text-align:center;font-weight:600;animation:popin .2s ease-out}body.dark .roundban{background:#4a3f12;color:#ffe9a8}.scorebar{direction:ltr;display:flex;gap:8px;justify-content:center;align-items:center;margin:2px 0 8px;flex-wrap:wrap}.spill{background:#1f6f5c;color:#fff;border-radius:999px;padding:4px 12px;font-weight:700;font-size:14px}.spill.opp{background:#6c5840}.smeta{font-size:13px;color:#666}body.dark .smeta{color:#aaa}.ttimer{display:inline-block;background:#b3261e;color:#fff;border-radius:999px;padding:1px 10px;font-weight:700;font-size:13px;margin-inline-start:6px}
 .tile{display:inline-block;border:2px solid #555;border-radius:6px;padding:6px 8px;margin:2px;background:#fff;color:#000;min-height:0;font-weight:700}.board{overflow-x:auto;white-space:nowrap;padding:6px 0}
 .ban{background:#fdecea;color:#8a1c12;border-radius:10px;padding:10px;margin-bottom:8px}
 textarea{border:1px solid #ccc;border-radius:10px;padding:8px}
-.dt{display:inline-block;margin:2px;touch-action:none;user-select:none;-webkit-user-select:none;cursor:pointer;transition:transform .12s}.dt svg{display:block}.dt.ok{filter:drop-shadow(0 0 4px #1f6f5c)}.dt.sel{transform:translateY(-8px)}.dt.no{opacity:.55;cursor:default}.dt.back{cursor:default}
-.dbd{direction:ltr;display:flex;flex-wrap:wrap;gap:2px;align-items:center;justify-content:center;background:#1f6f5c33;border-radius:12px;padding:8px;min-height:90px;margin:8px 0}.dhand{direction:ltr;display:flex;flex-wrap:wrap;gap:4px;justify-content:center;padding:8px 0}.dopp{direction:ltr;display:flex;flex-wrap:wrap;justify-content:center}
-.zone{border:2px dashed #1f6f5c;border-radius:8px;min-width:36px;min-height:36px;padding:2px 6px;display:flex;align-items:center;justify-content:center;color:#1f6f5c;font-weight:700;font-size:13px}.zone.ok{background:#1f6f5c55;border-style:solid}.zone.hot{background:#1f6f5caa;color:#fff}.dghost{position:fixed;pointer-events:none;z-index:50;opacity:.92}.pile{direction:ltr;display:flex;align-items:center;gap:8px;justify-content:center}
+.dt{display:inline-block;margin:2px;touch-action:none;user-select:none;-webkit-user-select:none;cursor:pointer;transition:transform .12s}.dt svg{display:block;filter:drop-shadow(0 2px 2px #0004)}.dt.ok{filter:drop-shadow(0 0 7px #31d0a8)}.dt.sel{transform:translateY(-10px)}.dt.no{opacity:.5;cursor:default}.dt.back{cursor:default}
+.dbd{direction:ltr;display:flex;flex-wrap:wrap;gap:3px;align-items:center;justify-content:center;background:linear-gradient(160deg,#20755f,#134e40);border-radius:14px;padding:10px;min-height:110px;margin:8px 0;box-shadow:inset 0 2px 10px #0005}.dhand{direction:ltr;display:flex;flex-wrap:wrap;gap:4px;justify-content:center;padding:8px 0}.dopp{direction:ltr;display:flex;flex-wrap:wrap;justify-content:center}
+.zone{border:2px dashed #9ee8d4;border-radius:10px;min-width:40px;min-height:46px;padding:2px 6px;display:flex;align-items:center;justify-content:center;color:#d7fff2;font-weight:700;font-size:14px}.zone.ok{background:#ffffff2e;border-style:solid}.zone.hot{background:#ffffff55;color:#fff}.dghost{position:fixed;pointer-events:none;z-index:50;opacity:.95}.pile{direction:ltr;display:flex;align-items:center;gap:8px;justify-content:center}
 </style></head><body>
 <header><img id="logo" src="data:image/jpeg;base64,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" alt="" style="width:44px;height:44px;border-radius:50%;margin-inline-end:10px;background:#fff;flex:none"><div style="flex:1"><h1>Campus Chat</h1><div id="uni" style="font-size:13px;opacity:.9"></div></div><button id="gear" class="small" type="button" aria-label="settings">⚙️</button></header>
 <div class="toast hidden" id="toast"></div>
@@ -60,16 +79,17 @@ textarea{border:1px solid #ccc;border-radius:10px;padding:8px}
 <section id="gamesSec"><h2 id="tGames"></h2><div class="acts"><button id="newXO" class="small" type="button"></button><button id="newDom" class="small" type="button"></button><button id="botXO" class="small ghost" type="button"></button><button id="botDom" class="small ghost" type="button"></button></div><div class="acts" id="gOpen"></div><div class="acts" id="gMine"></div></section>
 <section id="gameSec" class="hidden"><div class="acts"><button id="gBack" class="ghost small" type="button">←</button><button id="gLeave" class="danger small" type="button">✕</button></div><div id="gameBody"></div></section>
 <section id="chatSec" class="hidden">
- <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px"><button id="back" class="ghost small" type="button"></button><h2 id="roomTitle" style="margin:0;flex:1"></h2><button id="muteBtn" class="ghost small" type="button"></button><button id="pollBtn" class="ghost small" type="button"></button></div>
+ <div class="chead"><button id="back" class="ghost small" type="button"></button><h2 id="roomTitle" style="margin:0;flex:1"></h2><button id="muteBtn" class="ghost small" type="button"></button><button id="pollBtn" class="ghost small" type="button"></button></div>
  <div id="pinBox"></div><div id="pollBox"></div>
  <div class="list" id="list"></div>
  <div class="banner hidden" id="replyBanner"><span id="replyTxt"></span><button id="cancelReply" class="ghost small" type="button">✕</button></div>
- <div class="form"><input id="text" type="text" maxlength="500" autocomplete="off"><button id="send" type="button"></button></div>
+ <div id="emoPanel" class="hidden"></div>
+ <div class="form"><button id="emoBtn" class="ghost" type="button">😊</button><input id="text" type="text" maxlength="500" autocomplete="off"><button id="send" type="button"></button></div>
  <div class="warn" id="warn"></div>
 </section>
 <p class="note" id="tDemo"></p>
 </div></main>
-<div class="modal hidden" id="setModal"><div><h2 id="tSet"></h2><button id="dk" class="ghost" type="button"></button><button id="lang" class="ghost" type="button"></button><button id="notifBtn" class="ghost" type="button"></button><button id="muteAllBtn" class="ghost" type="button"></button><button id="logout" class="danger hidden" type="button"></button><button id="setClose" type="button">✕</button></div></div>
+<div class="drawer hidden" id="setModal"><div class="dpanel"><div class="dhead"><h2 id="tSet"></h2><button id="setClose" class="ghost small" type="button">✕</button></div><button id="dk" class="ghost" type="button"></button><select id="lang" style="width:100%;min-height:44px;margin:8px 0"><option value="ar">العربية</option><option value="en">English</option><option value="fr">Français</option><option value="de">Deutsch</option><option value="it">Italiano</option></select><button id="notifBtn" class="ghost" type="button"></button><button id="muteAllBtn" class="ghost" type="button"></button><button id="logout" class="danger hidden" type="button"></button></div></div>
 <div class="modal hidden" id="modal"><div id="modalBody"></div></div>
 <script>
 // Bad-language filter (same as the first version). Loaded before app.js.
@@ -138,7 +158,7 @@ import {getFirestore,doc,getDoc,setDoc,updateDoc,deleteDoc,deleteField,collectio
 const app=initializeApp({apiKey:"AIzaSyBQ4W_NwUbARaXpQcbkNFpr6rPL4rQL6Mg",authDomain:"campus-chat-729ea.firebaseapp.com",projectId:"campus-chat-729ea",storageBucket:"campus-chat-729ea.firebasestorage.app",messagingSenderId:"800618580958",appId:"1:800618580958:web:99769a0c3c21b79a7c6b4f"});
 const auth=initializeAuth(app,{persistence:[indexedDBLocalPersistence,browserLocalPersistence]}),db=getFirestore(app);
 try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist();}catch(e){}
-const UNIVERSITY={en:'Capital University',ar:'جامعة العاصمة'};
+const UNIVERSITY={en:'Capital University',ar:'جامعة العاصمة',fr:'Université Capital',de:'Capital Universität',it:'Università Capital'};
 const CAMPUS_RADIUS_M=1100;
 const CAMPUS_FIXED={lat:29.86677,lon:31.31522};
 const DOM='@campus.chat';
@@ -154,7 +174,7 @@ const T={ar:{
  pinned:'📌 مثبّتة',pin:'تثبيت',unpin:'إلغاء التثبيت',poll:'📊 تصويت',pollQ:'السؤال',pollO:'الخيارات (كل خيار في سطر، 2 إلى 6)',create:'إنشاء',cancel:'إلغاء',
  votes:' صوت',mute:'🔕 كتم',unmute:'🔔 تشغيل',muteAll:'كتم الكل',unmuteAll:'تشغيل الإشعارات',notif:'🔔 السماح بالإشعارات',
  dark:'🌙',light:'☀️',games:'الألعاب',newXO:'XO جديدة',newDom:'دومينو جديدة',settings:'الإعدادات',botXO:'XO ضد الكمبيوتر',botDom:'دومينو ضد الكمبيوتر',bot:'الكمبيوتر',exitAgain:'اضغط رجوع مرة تانية للخروج',open:'ألعاب مفتوحة',mine:'ألعابي',join:'انضم',resume:'افتح',leave:'اترك اللعبة',
- yourTurn:'دورك',theirTurn:'دور الخصم',youWin:'فزت! 🎉',youLose:'خسرت',draw:'تعادل',waiting:'في انتظار لاعب...',
+ yourTurn:'دورك',theirTurn:'دور الخصم',youWin:'فزت! 🎉',youLose:'خسرت',draw:'تعادل',waiting:'في انتظار لاعب...',you:'أنت',opp:'الخصم',roundL:'الجولة',pts:'نقطة',roundOver:'انتهت الجولة',roundDraw:'تعادل بدون نقاط',playAgain:'العب مرة أخرى',waitAgain:'في انتظار الخصم...',oppLeft:'الخصم خرج من اللعبة',youTimeout:'انتهى وقتك! خرجت من اللعبة ⏱',oppTimeout:'الخصم تأخر عن دوره ⏱',
  drawTile:'اسحب',pickEnd:'اضغط على طرف اللوحة المضيء (أو اسحب الحجر إليه)',tapDrag:'اضغط على حجر مضيء أو اسحبه إلى اللوحة',pass:'تخطّي',yard:'المخزن: ',oppT:'أحجار الخصم: ',left:'يسار؟ (موافق=يسار، إلغاء=يمين)',
  modLbl:'المشرف',setC:'اجعل موقعي مركز الجامعة',setDone:'تم تحديد مركز الجامعة',setNo:'لا يوجد موقع حالياً',testL:'وضع الاختبار: ',tOff:'بدون',tIn:'داخل الحرم',tFar:'خارج الحرم',
  ban:'حظر',banAsk:'مدة الحظر؟ 1=10 دقائق 2=ساعة 3=24 ساعة 4=دائم',banDone:'تم الحظر',
@@ -170,18 +190,21 @@ en:{
  pinned:'📌 Pinned',pin:'Pin',unpin:'Unpin',poll:'📊 Poll',pollQ:'Question',pollO:'Options (one per line, 2 to 6)',create:'Create',cancel:'Cancel',
  votes:' votes',mute:'🔕 Mute',unmute:'🔔 Unmute',muteAll:'Mute all',unmuteAll:'Unmute all',notif:'🔔 Allow notifications',
  dark:'🌙',light:'☀️',games:'Games',newXO:'New XO',newDom:'New Domino',settings:'Settings',botXO:'XO vs computer',botDom:'Domino vs computer',bot:'Computer',exitAgain:'Press back again to exit',open:'Open games',mine:'My games',join:'Join',resume:'Open',leave:'Leave game',
- yourTurn:'Your turn',theirTurn:"Opponent's turn",youWin:'You won! 🎉',youLose:'You lost',draw:'Draw',waiting:'Waiting for a player...',
+ yourTurn:'Your turn',theirTurn:"Opponent's turn",youWin:'You won! 🎉',youLose:'You lost',draw:'Draw',waiting:'Waiting for a player...',you:'You',opp:'Opponent',roundL:'Round',pts:'pts',roundOver:'Round over',roundDraw:'draw, no points',playAgain:'Play again',waitAgain:'Waiting for opponent...',oppLeft:'Opponent left the game',youTimeout:'Time is up! You were removed from the game ⏱',oppTimeout:'Opponent took too long ⏱',
  drawTile:'Draw',pickEnd:'Tap a highlighted end of the board (or drag the tile there)',tapDrag:'Tap a glowing tile or drag it onto the board',pass:'Pass',yard:'Pile: ',oppT:'Opponent tiles: ',left:'Left end? (OK=left, Cancel=right)',
  modLbl:'Moderator',setC:'Set my location as campus center',setDone:'Campus center set',setNo:'No location yet',testL:'Test mode: ',tOff:'Off',tIn:'Inside',tFar:'Outside',
  ban:'Ban',banAsk:'Ban length? 1=10 min 2=1 hour 3=24 hours 4=permanent',banDone:'Banned',
  code:'Code',codeSet:'Enter the code (8+ characters). First time = you set it.',ok:'OK',codeBad:'Wrong code',codeOk:'Done',removed:'Hidden by reports',
- chatsOf:'New messages',tDemo:'Anonymous chat for university students. Notifications work only while the app is open.'}};
+ chatsOf:'New messages',tDemo:'Anonymous chat for university students. Notifications work only while the app is open.'},
+fr:{ 'login':'Connexion', 'signup':'Inscription', 'user':'Nom d’utilisateur (anglais)', 'pass':'Passer', 'badUser':'Nom d’utilisateur : lettres anglaises, chiffres et _ uniquement (3 à 20)', 'badName':'Nom non autorisé', 'taken':'Nom déjà pris', 'wrong':'Nom d’utilisateur ou mot de passe incorrect', 'weak':'Mot de passe trop faible (6+ caractères)', 'neterr':'Problème de connexion', 'logout':'Déconnexion', 'gpsOn':'Activer la localisation', 'locT':'Localisation', 'gpsWait':'Localisation en cours...', 'gpsDeny':'Localisation refusée. Activez-la dans les paramètres du navigateur.', 'gpsNo':'Localisation non prise en charge', 'outside':'Vous êtes hors campus : vous ne voyez les messages que jusqu’au dernier moment où vous étiez sur le campus. Les nouveaux messages apparaissent à votre retour.', 'noCampus':'L’emplacement du campus n’est pas encore défini, donc aucun nouveau message ne s’affichera.', 'rooms':'Salons', 'gen':'Général', 'hall':'Salle ', 'back':'Retour', 'send':'Envoyer', 'ph':'Écrire un message...', 'reply':'Répondre', 'report':'Signaler', 'reported':'Signalé', 'del':'Supprimer', 'anon':'Anonyme ', 'blocked':'Le message contient des mots inappropriés', 'banned':'Vous ne pouvez pas écrire jusqu’au ', 'forever':'pour toujours', 'pinned':'📌 Épinglé', 'pin':'Épingler', 'unpin':'Désépingler', 'poll':'📊 Sondage', 'pollQ':'Question', 'pollO':'Options (une par ligne, 2 à 6)', 'create':'Créer', 'cancel':'Annuler', 'votes':' votes', 'mute':'🔕 Masquer', 'unmute':'🔔 Activer', 'muteAll':'Tout masquer', 'unmuteAll':'Activer les notifications', 'notif':'🔔 Autoriser les notifications', 'dark':'🌙', 'light':'☀️', 'games':'Jeux', 'newXO':'Nouveau XO', 'newDom':'Nouveau Domino', 'settings':'Paramètres', 'botXO':'XO contre l’ordi', 'botDom':'Domino contre l’ordi', 'bot':'Ordinateur', 'exitAgain':'Appuyez à nouveau sur retour pour quitter', 'open':'Jeux ouverts', 'mine':'Mes jeux', 'join':'Rejoindre', 'resume':'Ouvrir', 'leave':'Quitter le jeu', 'yourTurn':'À vous', 'theirTurn':'Tour de l’adversaire', 'youWin':'Gagné ! 🎉', 'youLose':'Perdu', 'draw':'Égalité', 'waiting':'En attente d’un joueur...', 'you':'Vous', 'opp':'Adversaire', 'roundL':'Manche', 'pts':'pts', 'roundOver':'Manche terminée', 'roundDraw':'égalité, aucun point', 'playAgain':'Rejouer', 'waitAgain':'En attente de l’adversaire...', 'oppLeft':'L’adversaire a quitté la partie',youTimeout:'Temps écoulé ! Vous avez été retiré de la partie ⏱',oppTimeout:'Adversaire trop lent ⏱', 'drawTile':'Piocher', 'pickEnd':'Touchez un bout éclairé du plateau (ou glissez la tuile dessus)', 'tapDrag':'Touchez une tuile brillante ou glissez-la sur le plateau', 'yard':'Pioche : ', 'oppT':'Tuiles de l’adversaire : ', 'left':'À gauche ? (OK=gauche, Annuler=droite)', 'modLbl':'Modérateur', 'setC':'Définir ma position comme centre du campus', 'setDone':'Centre du campus défini', 'setNo':'Pas de position actuellement', 'testL':'Mode test : ', 'tOff':'Non', 'tIn':'Sur le campus', 'tFar':'Hors campus', 'ban':'Bannir', 'banAsk':'Durée du bannissement ? 1=10 min 2=1 heure 3=24 heures 4=permanent', 'banDone':'Banni', 'code':'Code', 'codeSet':'Entrez le code (8+ caractères). La première fois = vous le définissez.', 'ok':'OK', 'codeBad':'Mauvais code', 'codeOk':'Terminé', 'removed':'Masqué par les signalements', 'chatsOf':'Nouveaux messages', 'tDemo':'Chat anonyme pour les étudiants de l’université. Les notifications ne fonctionnent que lorsque l’appli est ouverte.'},
+de:{ 'login':'Anmelden', 'signup':'Registrieren', 'user':'Benutzername (Englisch)', 'pass':'Passen', 'badUser':'Benutzername: nur englische Buchstaben, Ziffern und _ (3 bis 20)', 'badName':'Name nicht erlaubt', 'taken':'Name bereits vergeben', 'wrong':'Falscher Benutzername oder Passwort', 'weak':'Passwort zu schwach (mind. 6 Zeichen)', 'neterr':'Verbindungsproblem', 'logout':'Abmelden', 'gpsOn':'Standort aktivieren', 'locT':'Standort', 'gpsWait':'Standort wird gesucht...', 'gpsDeny':'Standort abgelehnt. In den Browsereinstellungen aktivieren.', 'gpsNo':'Standort wird nicht unterstützt', 'outside':'Du bist außerhalb des Campus: Du siehst nur Nachrichten bis zu deinem letzten Aufenthalt auf dem Campus. Neuere Nachrichten erscheinen, wenn du zurück bist.', 'noCampus':'Der Campus-Standort ist noch nicht festgelegt, daher werden keine neuen Nachrichten angezeigt.', 'rooms':'Räume', 'gen':'Allgemein', 'hall':'Saal ', 'back':'Zurück', 'send':'Senden', 'ph':'Nachricht schreiben...', 'reply':'Antworten', 'report':'Melden', 'reported':'Gemeldet', 'del':'Löschen', 'anon':'Anonym ', 'blocked':'Nachricht enthält unangemessene Wörter', 'banned':'Du bist vom Schreiben gesperrt bis ', 'forever':'für immer', 'pinned':'📌 Angeheftet', 'pin':'Anheften', 'unpin':'Lösen', 'poll':'📊 Umfrage', 'pollQ':'Frage', 'pollO':'Optionen (eine pro Zeile, 2 bis 6)', 'create':'Erstellen', 'cancel':'Abbrechen', 'votes':' Stimmen', 'mute':'🔕 Stumm', 'unmute':'🔔 Ton an', 'muteAll':'Alle stumm', 'unmuteAll':'Benachrichtigungen an', 'notif':'🔔 Benachrichtigungen erlauben', 'dark':'🌙', 'light':'☀️', 'games':'Spiele', 'newXO':'Neues XO', 'newDom':'Neues Domino', 'settings':'Einstellungen', 'botXO':'XO gegen Computer', 'botDom':'Domino gegen Computer', 'bot':'Computer', 'exitAgain':'Zum Beenden erneut zurück drücken', 'open':'Offene Spiele', 'mine':'Meine Spiele', 'join':'Beitreten', 'resume':'Öffnen', 'leave':'Spiel verlassen', 'yourTurn':'Du bist dran', 'theirTurn':'Gegner ist dran', 'youWin':'Gewonnen! 🎉', 'youLose':'Verloren', 'draw':'Unentschieden', 'waiting':'Warte auf einen Spieler...', 'you':'Du', 'opp':'Gegner', 'roundL':'Runde', 'pts':'Punkte', 'roundOver':'Runde vorbei', 'roundDraw':'unentschieden, keine Punkte', 'playAgain':'Nochmal spielen', 'waitAgain':'Warte auf Gegner...', 'oppLeft':'Der Gegner hat das Spiel verlassen',youTimeout:'Zeit um! Du wurdest aus dem Spiel entfernt ⏱',oppTimeout:'Der Gegner war zu langsam ⏱', 'drawTile':'Ziehen', 'pickEnd':'Tippe auf ein markiertes Ende des Tisches (oder ziehe den Stein dorthin)', 'tapDrag':'Tippe auf einen leuchtenden Stein oder ziehe ihn auf den Tisch', 'yard':'Stapel: ', 'oppT':'Gegnersteine: ', 'left':'Links? (OK=links, Abbrechen=rechts)', 'modLbl':'Moderator', 'setC':'Meinen Standort als Campus-Mitte festlegen', 'setDone':'Campus-Mitte festgelegt', 'setNo':'Kein Standort vorhanden', 'testL':'Testmodus: ', 'tOff':'Aus', 'tIn':'Auf dem Campus', 'tFar':'Außerhalb', 'ban':'Sperren', 'banAsk':'Sperrdauer? 1=10 Min 2=1 Std 3=24 Std 4=dauerhaft', 'banDone':'Gesperrt', 'code':'Code', 'codeSet':'Code eingeben (mind. 8 Zeichen). Beim ersten Mal legst du ihn fest.', 'ok':'OK', 'codeBad':'Falscher Code', 'codeOk':'Fertig', 'removed':'Durch Meldungen ausgeblendet', 'chatsOf':'Neue Nachrichten', 'tDemo':'Anonymer Chat für Universitätsstudenten. Benachrichtigungen funktionieren nur bei geöffneter App.'},
+it:{ 'login':'Accedi', 'signup':'Registrati', 'user':'Nome utente (inglese)', 'pass':'Passa', 'badUser':'Nome utente: solo lettere inglesi, numeri e _ (da 3 a 20)', 'badName':'Nome non consentito', 'taken':'Nome già in uso', 'wrong':'Nome utente o password errati', 'weak':'Password troppo debole (6+ caratteri)', 'neterr':'Problema di connessione', 'logout':'Esci', 'gpsOn':'Attiva posizione', 'locT':'Posizione', 'gpsWait':'Ricerca della posizione...', 'gpsDeny':'Posizione negata. Attivala nelle impostazioni del browser.', 'gpsNo':'Posizione non supportata', 'outside':'Sei fuori dal campus: vedi solo i messaggi fino all’ultimo momento in cui eri nel campus. I messaggi più recenti appaiono quando torni.', 'noCampus':'La posizione del campus non è ancora impostata, quindi non verranno mostrati nuovi messaggi.', 'rooms':'Stanze', 'gen':'Generale', 'hall':'Aula ', 'back':'Indietro', 'send':'Invia', 'ph':'Scrivi un messaggio...', 'reply':'Rispondi', 'report':'Segnala', 'reported':'Segnalato', 'del':'Elimina', 'anon':'Anonimo ', 'blocked':'Il messaggio contiene parole inappropriate', 'banned':'Non puoi scrivere fino al ', 'forever':'per sempre', 'pinned':'📌 In evidenza', 'pin':'Fissa', 'unpin':'Rimuovi', 'poll':'📊 Sondaggio', 'pollQ':'Domanda', 'pollO':'Opzioni (una per riga, da 2 a 6)', 'create':'Crea', 'cancel':'Annulla', 'votes':' voti', 'mute':'🔕 Silenzia', 'unmute':'🔔 Attiva', 'muteAll':'Silenzia tutto', 'unmuteAll':'Attiva notifiche', 'notif':'🔔 Consenti notifiche', 'dark':'🌙', 'light':'☀️', 'games':'Giochi', 'newXO':'Nuovo XO', 'newDom':'Nuovo Domino', 'settings':'Impostazioni', 'botXO':'XO contro il computer', 'botDom':'Domino contro il computer', 'bot':'Computer', 'exitAgain':'Premi di nuovo indietro per uscire', 'open':'Partite aperte', 'mine':'Le mie partite', 'join':'Unisciti', 'resume':'Apri', 'leave':'Lascia la partita', 'yourTurn':'Tocca a te', 'theirTurn':'Turno dell’avversario', 'youWin':'Hai vinto! 🎉', 'youLose':'Hai perso', 'draw':'Pareggio', 'waiting':'In attesa di un giocatore...', 'you':'Tu', 'opp':'Avversario', 'roundL':'Round', 'pts':'punti', 'roundOver':'Round finito', 'roundDraw':'pareggio, nessun punto', 'playAgain':'Gioca ancora', 'waitAgain':'In attesa dell’avversario...', 'oppLeft':'L’avversario ha lasciato la partita',youTimeout:'Tempo scaduto! Sei stato rimosso dalla partita ⏱',oppTimeout:'Avversario troppo lento ⏱', 'drawTile':'Pesca', 'pickEnd':'Tocca un’estremità evidenziata del tavolo (o trascina la tessera lì)', 'tapDrag':'Tocca una tessera luminosa o trascinala sul tavolo', 'yard':'Riserva: ', 'oppT':'Tessere avversarie: ', 'left':'Sinistra? (OK=sinistra, Annulla=destra)', 'modLbl':'Moderatore', 'setC':'Imposta la mia posizione come centro del campus', 'setDone':'Centro del campus impostato', 'setNo':'Nessuna posizione al momento', 'testL':'Modalità test: ', 'tOff':'No', 'tIn':'Nel campus', 'tFar':'Fuori', 'ban':'Banna', 'banAsk':'Durata del ban? 1=10 min 2=1 ora 3=24 ore 4=permanente', 'banDone':'Bannato', 'code':'Codice', 'codeSet':'Inserisci il codice (8+ caratteri). La prima volta lo imposti tu.', 'ok':'OK', 'codeBad':'Codice errato', 'codeOk':'Fatto', 'removed':'Nascosto dalle segnalazioni', 'chatsOf':'Nuovi messaggi', 'tDemo':'Chat anonima per studenti universitari. Le notifiche funzionano solo con l’app aperta.'}};
 const $=id=>document.getElementById(id);
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const LS=(k,d)=>{try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}};
 const SV=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
 const S={lang:LS('lang','ar'),dark:LS('dark',false),muteAll:LS('muteAll',false),muted:LS('muted',{}),user:null,uname:'',isMod:false,bannedUntil:0,gps:null,gpsErr:'',campus:null,test:'off',dpick:null,room:null,msgs:[],polls:[],pin:null,pick:null,games:[],openGames:[],game:null,authMode:'login'};
-const t=k=>T[S.lang][k];
+const t=k=>(T[S.lang]&&T[S.lang][k]!==undefined)?T[S.lang][k]:(T.en[k]!==undefined?T.en[k]:k);
 const roomName=r=>r==='general'?t('gen'):t('hall')+r.slice(4);
 let taps=0,tapT=0;
 // ---------- helpers
@@ -201,7 +224,7 @@ function showModal(html){$('modalBody').innerHTML=html;$('modal').classList.remo
 function hideModal(){$('modal').classList.add('hidden');$('modalBody').innerHTML='';}
 // ---------- language / theme
 function applyLang(){document.documentElement.lang=S.lang;document.documentElement.dir=S.lang==='ar'?'rtl':'ltr';document.body.classList.toggle('dark',S.dark);
- $('lang').textContent=S.lang==='ar'?'English':'العربية';$('dk').textContent=S.dark?t('light'):t('dark');$('uni').textContent=UNIVERSITY[S.lang];
+ $('lang').value=S.lang;$('dk').textContent=S.dark?t('light'):t('dark');$('uni').textContent=UNIVERSITY[S.lang]||UNIVERSITY.en;
  $('aUser').placeholder=t('user');$('aPass').placeholder=t('pass');$('aLogin').textContent=t('login');$('aSign').textContent=t('signup');
  $('logout').textContent=t('logout');$('tRooms').textContent=t('rooms');$('back').textContent=t('back');$('send').textContent=t('send');$('text').placeholder=t('ph');
  $('tDemo').textContent=t('tDemo');$('gpsBtn').textContent=t('gpsOn');$('tLoc').textContent=t('locT');$('tGames').textContent=t('games');
@@ -215,7 +238,7 @@ function renderGate(){
  let msg='';
  if(!S.isMod||S.test!=='off'){ if(!inside()){ msg=S.gpsErr||(!S.gps?t('gpsWait'):(!S.campus?t('noCampus'):t('outside'))); } }
  $('gpsStatus').textContent=msg;$('locSec').classList.toggle('hidden',inside()&&!S.isMod);
- const ok=!!S.user,ins=inside();$('roomsSec').classList.toggle('hidden',!ok||!!S.room||!!S.game);$('chatSec').classList.toggle('hidden',!ok||!S.room);$('gamesSec').classList.toggle('hidden',!ins||!!S.room||!!S.game);$('gameSec').classList.toggle('hidden',!ins||!S.game);
+ const ok=!!S.user,ins=inside();$('roomsSec').classList.toggle('hidden',!ok||!!S.room||!!S.game);$('chatSec').classList.toggle('hidden',!ok||!S.room);$('gamesSec').classList.toggle('hidden',!ok||!!S.room||!!S.game);$('gameSec').classList.toggle('hidden',!ok||!S.game);
  $('banBar').classList.toggle('hidden',!banned());if(banned())$('banBar').textContent=t('banned')+(S.bannedUntil>4e12?t('forever'):new Date(S.bannedUntil).toLocaleString());
 }
 function renderMod(){const m=$('modBar');m.classList.toggle('hidden',!S.isMod);if(!S.isMod)return;
@@ -233,7 +256,7 @@ function sync(){touchIn();const want=!!S.user;if(want&&!attached)attach();else i
  if(want)syncRoom();}
 function attach(){attached=true;
  ROOMS.forEach(r=>{let first=true;L['n_'+r]=onSnapshot(query(collection(db,'rooms',r,'messages'),orderBy('ts','desc'),limit(1)),s=>{if(first){first=false;return;}s.docChanges().forEach(c=>{if(c.type==='added'&&!c.doc.metadata.hasPendingWrites){const m=c.doc.data();if(m.uid!==S.user.uid)notify(r,m);}});},()=>{});});
- L.games=onSnapshot(query(collection(db,'games'),where('players','array-contains',S.user.uid)),s=>{S.games=s.docs.map(d=>({id:d.id,...d.data()}));if(S.game){const g=curG();if(!g)S.game=null;}render();},()=>{});
+ L.games=onSnapshot(query(collection(db,'games'),where('players','array-contains',S.user.uid)),s=>{S.games=s.docs.map(d=>({id:d.id,...d.data()}));if(S.game){const g=curG();if(!g)S.game=null;}gamesWatch();render();},()=>{});
  L.open=onSnapshot(query(collection(db,'games'),where('status','==','open')),s=>{S.openGames=s.docs.map(d=>({id:d.id,...d.data()})).filter(g=>!g.players.includes(S.user.uid)&&Date.now()-(g.ts||0)<36e5);renderGames();},()=>{});}
 let curRoom=null;
 function syncRoom(){if(curRoom===S.room)return;off('m');off('p');off('r');curRoom=S.room;S.msgs=[];S.polls=[];S.pin=null;if(!S.room)return;const r=S.room;
@@ -243,7 +266,7 @@ function syncRoom(){if(curRoom===S.room)return;off('m');off('p');off('r');curRoo
 // ---------- rooms & chat
 function renderRooms(){const el=$('rooms');el.innerHTML=ROOMS.map(r=>'<button class="room'+(r==='general'?' general':'')+'" data-r="'+r+'" type="button">'+(S.muted[r]?'🔕 ':'')+esc(roomName(r))+'</button>').join('');}
 function openRoom(r){S.room=r;S.pick=null;sync();render();}
-function closeRoom(){S.room=null;sync();render();}
+function closeRoom(){S.room=null;closeEmo();sync();render();}
 function renderChat(){if(!S.room||!S.user)return;
  $('roomTitle').textContent=roomName(S.room);$('muteBtn').textContent=S.muted[S.room]?t('unmute'):t('mute');
  const pn=(S.pin&&inside())?'<div class="pinned">'+t('pinned')+': '+esc(S.pin.text)+(S.isMod?' <button class="small ghost" data-a="unpin" type="button">'+t('unpin')+'</button>':'')+'</div>':'';
@@ -255,11 +278,11 @@ function renderChat(){if(!S.room||!S.user)return;
   const vs=Object.values(m.votes||{}),score=vs.reduce((a,b)=>a+b,0),mv=(m.votes||{})[me];
   const rc={};Object.values(m.reactions||{}).forEach(e=>rc[e]=(rc[e]||0)+1);const mr=(m.reactions||{})[me];
   const chips=Object.keys(rc).map(e=>'<button class="chip'+(mr===e?' sel':'')+'" data-a="re" data-id="'+m.id+'" data-e="'+e+'" type="button">'+e+' '+rc[e]+'</button>').join('');
-  const picker=S.pick===m.id?'<div class="acts">'+EMO.map(e=>'<button class="chip" data-a="re" data-id="'+m.id+'" data-e="'+e+'" type="button">'+e+'</button>').join('')+'</div>':'';
+ 
   const mine=m.uid===me;
   return '<div class="msg'+(mine?' mine':'')+(hid?' removed':'')+'"><div class="who">'+esc(anonOf(m.uid))+(S.isMod?' <span class="un" data-u="'+m.uid+'"></span>':'')+(hid?' ('+t('removed')+')':'')+'</div>'
    +(m.replyTo?'<div class="reply">'+esc(m.replyTo)+'</div>':'')+'<div>'+esc(m.text)+'</div>'
-   +'<div class="acts">'+chips+'</div>'+picker
+   +'<div class="acts">'+chips+'</div>'
    +'<div class="acts"><button class="small ghost'+(mv===1?' sel':'')+'" data-a="up" data-id="'+m.id+'" type="button">▲</button><span class="score">'+score+'</span><button class="small ghost'+(mv===-1?' sel':'')+'" data-a="dn" data-id="'+m.id+'" type="button">▼</button>'
    +'<button class="small ghost" data-a="pk" data-id="'+m.id+'" type="button">😊</button><button class="small ghost" data-a="rp" data-id="'+m.id+'" type="button">'+t('reply')+'</button>'
    +(!mine?'<button class="small ghost" data-a="rpt" data-id="'+m.id+'" type="button">'+((m.reports||{})[me]?t('reported'):t('report'))+'</button>':'')
@@ -274,7 +297,7 @@ let replyTo=null;
 async function mutate(id,field,val){const ref=doc(db,'rooms',S.room,'messages',id);try{await updateDoc(ref,{[field+'.'+S.user.uid]:val===null?deleteField():val});}catch(e){toast(e.code||e.message);}}
 $('list').addEventListener('click',async e=>{const b=e.target.closest('button');if(!b)return;const a=b.dataset.a,id=b.dataset.id;const m=S.msgs.find(x=>x.id===id);
  if(a==='up'||a==='dn'){const v=a==='up'?1:-1;await mutate(id,'votes',(m.votes||{})[S.user.uid]===v?null:v);}
- else if(a==='pk'){S.pick=S.pick===id?null:id;renderChat();}
+ else if(a==='pk'){if(emoMode&&emoMode.msg===id)closeEmo();else{emoMode={msg:id};showEmo();}}
  else if(a==='re'){const cur=(m.reactions||{})[S.user.uid];await mutate(id,'reactions',cur===b.dataset.e?null:b.dataset.e);S.pick=null;}
  else if(a==='rp'){replyTo=m.text.slice(0,60);$('replyTxt').textContent=t('reply')+': '+replyTo;$('replyBanner').classList.remove('hidden');$('text').focus();}
  else if(a==='rpt'){if(!(m.reports||{})[S.user.uid])await mutate(id,'reports',1);}
@@ -288,41 +311,71 @@ $('rooms').addEventListener('click',e=>{const b=e.target.closest('button');if(b)
 $('back').onclick=()=>{if(S.inScreen)history.back();else closeRoom();};
 $('cancelReply').onclick=()=>{replyTo=null;$('replyBanner').classList.add('hidden');};
 $('muteBtn').onclick=()=>{S.muted[S.room]=!S.muted[S.room];SV('muted',S.muted);renderChat();renderRooms();};
+// ---------- emoji picker
+const EMOJIS={'😀':'😀 😁 😂 🤣 😃 😄 😅 😆 😉 😊 😋 😎 😍 😘 🥰 😗 😙 😚 🙂 🤗 🤩 🤔 🤨 😐 😑 😶 🙄 😏 😣 😥 😮 🤐 😯 😪 😫 🥱 😴 😌 😛 😜 😝 🤤 😒 😓 😔 😕 🙃 🤑 😲 🙁 😖 😞 😟 😤 😢 😭 😦 😧 😨 😩 🤯 😬 😰 😱 🥵 🥶 😳 🤪 😵 😡 😠 🤬 😷 🤒 🤕 🤢 🤮 🥴 😇 🥳 🤠 🤡 🤥 🤫 🤭 🧐 🤓 😈 👿 💀 💩 👻 👽 🤖'.split(' '),
+'👋':'👋 🤚 🖐️ ✋ 🖖 👌 🤌 🤏 ✌️ 🤞 🤟 🤘 🤙 👈 👉 👆 🖕 👇 ☝️ 👍 👎 ✊ 👊 🤛 🤜 👏 🙌 👐 🤲 🤝 🙏 💪 🫶 ❤️ 🧡 💛 💚 💙 💜 🖤 🤍 🤎 💔 💕 💞 💓 💗 💖 💘 💝 💯 ✨ 🔥 🎉 🎊 ⚡ ⭐ 🌟 💫 💥'.split(' '),
+'🐶':'🐶 🐱 🐭 🐹 🐰 🦊 🐻 🐼 🐨 🐯 🦁 🐮 🐷 🐸 🐵 🙈 🙉 🙊 🐔 🐧 🐦 🦆 🦅 🦉 🐴 🦄 🐝 🦋 🐌 🐞 🐢 🐍 🐙 🦑 🦐 🦀 🐠 🐟 🐬 🐳 🦈 🐘 🦒 🐪 🐎 🐖 🐐 🐑 🐕 🐈 🐇 🦔 🐾 🌵 🌴 🌳 🌹 🌺 🌸 🌼 🌻 🍀 🌍 🌙 ☀️ 🌈 ☁️ 🌧️ ❄️ ⛄'.split(' '),
+'🍔':'🍏 🍎 🍐 🍊 🍋 🍉 🍇 🍓 🫐 🍈 🍒 🍑 🥭 🍍 🥥 🥝 🍅 🥑 🌶️ 🌽 🥕 🥔 🧀 🥚 🍳 🥞 🧇 🥓 🍔 🍟 🍕 🌭 🥪 🌮 🌯 🥗 🍝 🍜 🍲 🍛 🍣 🍱 🥟 🍤 🍙 🍚 🍘 🍢 🍡 🍦 🍧 🍨 🎂 🍰 🧁 🍮 🍭 🍬 🍫 🍿 🍩 🍪 ☕ 🍵 🧃 🥤 🧋 🍺 🍻 🥂 🍷 🥃 🍸 🍹'.split(' '),
+'⚽':'⚽ 🏀 🏈 ⚾ 🥎 🎾 🏐 🏉 🥏 🎱 🪀 🏓 🏸 🏒 🥍 🏏 🥅 ⛳ 🏹 🎣 🤿 🥊 🥋 🎽 🛹 🛼 🛷 ⛸️ 🥌 🎿 ⛷️ 🏂 🏋️ 🤼 🤸 ⛹️ 🤺 🤾 🏌️ 🏇 🧘 🏄 🏊 🤽 🚣 🧗 🚵 🚴 🏆 🥇 🥈 🥉 🏅 🎖️ 🎗️ 🎫 🎟️ 🎪 🤹 🎭 🎨 🎬 🎤 🎧 🎼 🎹 🥁 🎷 🎺 🎸 🪕 🎻 🎲 ♟️ 🎯 🎳 🎮 🎰 🧩'.split(' '),
+'🚗':'🚗 🚕 🚙 🚌 🚎 🏎️ 🚓 🚑 🚒 🚐 🛻 🚚 🚛 🚜 🛵 🏍️ 🚲 🛴 🚨 ✈️ 🛫 🛬 🚀 🛸 🚁 🛶 ⛵ 🚤 🛥️ 🚢 ⚓ 🚧 ⛽ 🚏 🗺️ 🗿 🗽 🗼 🏰 🏯 🏟️ 🎡 🎢 🎠 ⛲ 🏖️ 🏝️ 🏜️ 🌋 ⛰️ 🏔️ 🗻 🏕️ ⛺ 🏠 🏡 🏢 🏣 🏥 🏦 🏨 🏫 🏪 ⛪ 🕌 🕍 🛕 🕋 ⛩️ 🌅 🌄 🌠 🎇 🎆 🌇 🌆 🏙️ 🌃 🌌 🌉'.split(' '),
+'💡':'⌚ 📱 💻 ⌨️ 🖥️ 🖨️ 🖱️ 🕹️ 💽 💾 💿 📀 📼 📷 📸 📹 🎥 📞 ☎️ 📟 📠 📺 📻 🎙️ 🧭 ⏱️ ⏲️ ⏰ 🕰️ ⌛ ⏳ 📡 🔋 🔌 💡 🔦 🕯️ 💸 💵 💰 💳 💎 ⚖️ 🧰 🔧 🔨 ⚒️ 🛠️ ⛏️ 🔩 ⚙️ 🧱 ⛓️ 🧲 💣 🪓 🔪 🗡️ ⚔️ 🛡️ 🏺 🔮 📿 🧿 💈 ⚗️ 🔭 🔬 💊 💉 🩸 🧬 🦠 🧪 🌡️ 🧹 🧺 🧻 🚽 🚿 🛁 🧼 🗝️ 🔑 🚪 🪑 🛋️ 🛏️ 🧸 🖼️ 🛍️ 🛒 🎁 🎈 🎀 🎊 🎉 📮 📦 🏷️ 📅 📆 📋 📁 📂 🗞️ 📰 📓 📔 📒 📕 📗 📘 📙 📚 📖 🔖 🧷 🔗 📎 📐 📏 🧮 📌 📍 ✂️ 🖊️ ✒️ 🖌️ 🖍️ 📝 ✏️ 🔍 🔎 🔏 🔐 🔒 🔓 ✅ ❌ ➕ ➖ ✖️ 💲 ✔️ ☑️ 🔘 🔴 🟠 🟡 🟢 🔵 🟣 ⚫ ⚪ 🟤 🔺 🔻 🔶 🔷 🔳 🔲 🟥 🟧 🟨 🟩 🟦 🟪 🟫 🔈 🔇 🔉 🔊 🔔 🔕 📣 📢 💬 💭 ♠️ ♣️ ♥️ ♦️ 🃏 🎴 🀄 🕐 🕑 🕒 🕓 🕔 🕕 🕖 🕗 🕘 🕙 🕚 🕛'.split(' ')};
+let emoMode=null;
+function renderEmo(cat){const cats=Object.keys(EMOJIS);S.emoCat=cat||S.emoCat||cats[0];
+ $('emoPanel').innerHTML='<div class="ecats">'+cats.map(c=>'<button type="button" class="ecat'+(c===S.emoCat?' sel':'')+'" data-c="'+c+'">'+c+'</button>').join('')+'</div><div class="egrid">'+EMOJIS[S.emoCat].map(e=>'<button type="button" class="em" data-e="'+e+'">'+e+'</button>').join('')+'</div>';}
+function showEmo(){renderEmo();$('emoPanel').classList.remove('hidden');}
+function closeEmo(){emoMode=null;$('emoPanel').classList.add('hidden');}
+$('emoBtn').onclick=()=>{if(emoMode&&emoMode.input){closeEmo();}else{emoMode={input:true};showEmo();}};
+$('emoPanel').addEventListener('click',async e=>{const b=e.target.closest('button');if(!b)return;
+ if(b.dataset.c){renderEmo(b.dataset.c);return;}
+ const em=b.dataset.e;if(!em)return;
+ if(emoMode&&emoMode.msg){const m=S.msgs.find(x=>x.id===emoMode.msg);closeEmo();if(m){const cur=(m.reactions||{})[S.user.uid];try{await updateDoc(doc(db,'rooms',S.room,'messages',m.id),{['reactions.'+S.user.uid]:cur===em?deleteField():em});}catch(x){toast(x.code);}}}
+ else{const inp=$('text');inp.focus();try{inp.setRangeText(em,inp.selectionStart==null?inp.value.length:inp.selectionStart,inp.selectionEnd==null?inp.value.length:inp.selectionEnd,'end');}catch(x){inp.value+=em;}}});
 $('notifBtn').onclick=async()=>{try{await Notification.requestPermission();}catch(e){}};
 $('muteAllBtn').onclick=()=>{S.muteAll=!S.muteAll;SV('muteAll',S.muteAll);$('muteAllBtn').textContent=S.muteAll?t('unmuteAll'):t('muteAll');};
 async function sendMsg(){const inp=$('text'),v=inp.value.trim();if(!v||!S.room)return;if(!inside()){toast(t('outside'));return;}if(banned()){renderGate();return;}
  if(isBlocked(v)){const w=$('warn');w.textContent=t('blocked');w.style.display='block';setTimeout(()=>w.style.display='none',3000);return;}
- inp.value='';const data={uid:S.user.uid,text:v.slice(0,500),ts:serverTimestamp(),replyTo:replyTo||'',votes:{},reports:{},reactions:{}};replyTo=null;$('replyBanner').classList.add('hidden');
+ inp.value='';closeEmo();const data={uid:S.user.uid,text:v.slice(0,500),ts:serverTimestamp(),replyTo:replyTo||'',votes:{},reports:{},reactions:{}};replyTo=null;$('replyBanner').classList.add('hidden');
  try{await addDoc(collection(db,'rooms',S.room,'messages'),data);}catch(e){toast(e.code==='permission-denied'?t('banned'):e.code);}}
 $('send').onclick=sendMsg;$('text').addEventListener('keydown',e=>{if(e.key==='Enter')sendMsg();});
 $('pollBtn').onclick=()=>{if(!inside()){toast(t('outside'));return;}showModal('<h2>'+t('poll')+'</h2><input id="pq" type="text" maxlength="150" placeholder="'+t('pollQ')+'"><p class="note">'+t('pollO')+'</p><textarea id="po" rows="5" style="width:100%;font:inherit"></textarea><div style="display:flex;gap:8px;margin-top:8px"><button id="pOk" type="button">'+t('create')+'</button><button id="pNo" class="ghost" type="button">'+t('cancel')+'</button></div>');
  $('pNo').onclick=hideModal;$('pOk').onclick=async()=>{const q=$('pq').value.trim(),o=$('po').value.split('\n').map(x=>x.trim()).filter(Boolean).slice(0,6);if(!q||o.length<2||isBlocked(q+' '+o.join(' ')))return;hideModal();
   try{await addDoc(collection(db,'rooms',S.room,'polls'),{uid:S.user.uid,q,opts:o,votes:{},ts:serverTimestamp()});}catch(e){toast(e.code);}};};
 // ---------- games
-const key=g=>g.id;
 function curG(){if(S.game==='bot')return S.bot||null;return S.games.find(x=>x.id===S.game);}
-async function gupd(g,u){if(g.bot){Object.assign(g,u);renderGame();botKick(g);return;}await gupd(g,u);}
+async function gupd(g,u){if(g.bot){Object.assign(g,u);renderGame();botKick(g);autoKick(g);return;}await updateDoc(doc(db,'games',g.id),u);}
+function deal(){const all=[];for(let a=0;a<=6;a++)for(let b=a;b<=6;b++)all.push(a+'-'+b);for(let i=all.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[all[i],all[j]]=[all[j],all[i]];}return {h0:all.slice(0,7),h1:all.slice(7,14),yard:all.slice(14),board:[],passes:0};}
+function scoreRound(g,winner,extra){const pts=winner===-1?0:pips(g['h'+(1-winner)]);
+ const score0=(g.score0||0)+(winner===0?pts:0),score1=(g.score1||0)+(winner===1?pts:0);
+ const lastRound={winner,pts,round:g.round||1,ts:Date.now()};const nowTs=Date.now();
+ if(score0>=101||score1>=101)return Object.assign({status:'done',winner:score0>=101?0:1,score0,score1,lastRound,again:[],turnTs:nowTs},extra||{});
+ return Object.assign(deal(),{turn:winner===-1?0:winner,round:(g.round||1)+1,score0,score1,lastRound,doneTs:0,turnTs:nowTs});}
+function rematchUpdate(g){const base={status:'playing',turn:0,winner:-2,round:1,score0:0,score1:0,again:[],lastRound:null,doneTs:0,turnTs:Date.now()};if(g.type==='xo')base.board=Array(9).fill('');else Object.assign(base,deal());return base;}
 function renderGames(){if(!S.user)return;const gl=g=>(g.type==='xo'?'XO':'🁣 Domino')+(g.bot?' 🤖':'');
  $('gOpen').innerHTML=S.openGames.map(g=>'<button class="small" data-j="'+g.id+'" type="button">'+t('join')+' '+gl(g)+'</button>').join(' ');
- $('gMine').innerHTML=(S.bot&&S.bot.status==='playing'?[S.bot]:[]).concat(S.games.filter(g=>g.status!=='gone')).map(g=>'<button class="small ghost" data-o="'+g.id+'" type="button">'+t('resume')+' '+gl(g)+(g.status==='open'?' ⏳':g.status==='done'?' ✔':'')+'</button>').join(' ');
+ $('gMine').innerHTML=(S.bot&&S.bot.status==='playing'?[S.bot]:[]).concat(S.games.filter(g=>!(g.status==='left'&&g.players[g.leftBy]===S.user.uid))).map(g=>'<button class="small ghost" data-o="'+g.id+'" type="button">'+t('resume')+' '+gl(g)+(g.status==='open'?' ⏳':g.status==='done'?' ✔':'')+'</button>').join(' ');
  renderGame();}
-async function newGame(type){if(banned())return;const base={type,players:[S.user.uid],status:'open',ts:Date.now(),turn:0,winner:-2};
- if(type==='xo')base.board=Array(9).fill('');
- else{const all=[];for(let a=0;a<=6;a++)for(let b=a;b<=6;b++)all.push(a+'-'+b);for(let i=all.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[all[i],all[j]]=[all[j],all[i]];}
-  base.h0=all.slice(0,7);base.h1=all.slice(7,14);base.yard=all.slice(14);base.board=[];base.passes=0;}
+async function newGame(type){if(banned())return;const base={type,players:[S.user.uid],status:'open',ts:Date.now(),turn:0,winner:-2,score0:0,score1:0,round:1,again:[],doneTs:0,turnTs:Date.now()};
+ if(type==='xo')base.board=Array(9).fill('');else Object.assign(base,deal());
  try{const r=await addDoc(collection(db,'games'),base);S.game=r.id;render();}catch(e){toast(e.code);}}
 $('newXO').onclick=()=>newGame('xo');$('newDom').onclick=()=>newGame('dom');
 $('gamesSec').addEventListener('click',async e=>{const b=e.target.closest('button');if(!b)return;
- if(b.dataset.o){S.game=b.dataset.o;render();}
- if(b.dataset.j){if(banned())return;try{await updateDoc(doc(db,'games',b.dataset.j),{players:arrayUnion(S.user.uid),status:'playing'});S.game=b.dataset.j;render();}catch(x){toast(x.code);}}});
+ if(b.dataset.o){S.game=b.dataset.o;S.dpick=null;render();}
+ if(b.dataset.j){if(banned())return;try{await updateDoc(doc(db,'games',b.dataset.j),{players:arrayUnion(S.user.uid),status:'playing',turnTs:Date.now()});S.game=b.dataset.j;render();}catch(x){toast(x.code);}}});
 $('gBack').onclick=()=>{if(S.inScreen)history.back();else{S.game=null;render();}};
-$('gLeave').onclick=async()=>{const id=S.game;if(id==='bot'){S.bot=null;S.game=null;render();return;}S.game=null;render();try{await deleteDoc(doc(db,'games',id));}catch(e){}};
+$('gLeave').onclick=async()=>{const g=curG(),id=S.game;if(id==='bot'){S.bot=null;S.game=null;render();return;}
+ S.game=null;render();if(!g)return;const me=g.players.indexOf(S.user.uid);
+ try{if(g.status==='playing'||g.status==='done')await updateDoc(doc(db,'games',id),{status:'left',leftBy:me,leftTs:Date.now()});else await deleteDoc(doc(db,'games',id));}catch(e){}};
 function pips(h){return h.reduce((s,x)=>s+x.split('-').reduce((a,b)=>a+ +b,0),0);}
-function renderGame(){if(!S.game)return;const g=curG();const el=$('gameBody');if(!g){return;}
+function renderGame(){if(!S.game)return;const g=curG();const el=$('gameBody');if(!g)return;
  const me=g.players.indexOf(S.user.uid);let st='';
- if(g.status==='open')st=t('waiting');else if(g.status==='done')st=g.winner===-1?t('draw'):g.winner===me?t('youWin'):t('youLose');else st=g.turn===me?t('yourTurn'):t('theirTurn');
- let h='<p class="note"><b>'+st+'</b></p>';
- if(g.type==='xo'){h+='<div class="xo">'+g.board.map((c,i)=>'<button type="button" class="cell" data-c="'+i+'">'+(c==='X'?'✖':c==='O'?'⭕':'')+'</button>').join('')+'</div>';}
+ if(g.status==='open')st=t('waiting');else if(g.status==='left')st=t('oppLeft');else if(g.status==='done')st=g.winner===-1?t('draw'):g.winner===me?t('youWin'):t('youLose');else st=g.turn===me?t('yourTurn'):t('theirTurn');
+ let h='';
+ if(g.type!=='xo'){const sMe=me===0?g.score0||0:g.score1||0,sOp=me===0?g.score1||0:g.score0||0;h+='<div class="scorebar"><span class="spill">'+t('you')+': '+sMe+'</span><span class="smeta">'+t('roundL')+' '+(g.round||1)+' · 101</span><span class="spill opp">'+t('opp')+': '+sOp+'</span></div>';}
+ h+='<p class="note"><b>'+st+'</b>'+(g.status==='playing'?' <span id="turnTimer" class="ttimer"></span>':'')+'</p>';
+ if(g.status==='done'&&g.timeout!==undefined&&g.timeout!==me)h+='<p class="note">'+t('oppTimeout')+'</p>';
+ if(g.lastRound&&g.status==='playing'&&Date.now()-g.lastRound.ts<5000)h+='<div class="roundban">'+t('roundOver')+' '+(g.lastRound.round||'')+': '+(g.lastRound.winner===-1?t('roundDraw'):(g.lastRound.winner===me?t('you'):t('opp'))+' +'+g.lastRound.pts+' '+t('pts'))+'</div>';
+ if(g.type==='xo'){let wl=null;if(g.status==='done'&&g.winner>=0){const mk=g.winner===0?'X':'O';wl=XOW.find(w=>w.every(k=>g.board[k]===mk));}
+  h+='<div class="xo">'+g.board.map((c,i)=>'<button type="button" class="cell'+(wl&&wl.includes(i)?' win':'')+'" data-c="'+i+'">'+(c==='X'?'<span class="m x">✕</span>':c==='O'?'<span class="m o">◯</span>':'')+'</button>').join('')+'</div>';}
  else{const hand=me===0?g.h0:g.h1,opp=me===0?g.h1:g.h0,my=g.status==='playing'&&g.turn===me,e=ends(g);
   if(S.dpick!==undefined&&S.dpick!==null&&(!my||!hand[S.dpick]))S.dpick=null;
   const pk=S.dpick!==null&&S.dpick!==undefined?hand[S.dpick]:null;
@@ -338,14 +391,16 @@ function renderGame(){if(!S.game)return;const g=curG();const el=$('gameBody');if
   h+='</div>';
   if(my&&pk)h+='<p class="note">'+t('pickEnd')+'</p>';else if(my)h+='<p class="note">'+t('tapDrag')+'</p>';
   h+='<div class="dhand">'+hand.map((x,i)=>{const [a,b]=x.split('-').map(Number);const ok=my&&fits(g,x);return domTile(a,b,false,(ok?'ok':'no')+(S.dpick===i?' sel':''),false,i);}).join('')+'</div>';}
+ if(g.status==='done'){const ag=(g.again||[]).includes(S.user.uid);h+='<div class="gresult"><div class="big">'+(g.winner===-1?'🤝':g.winner===me?'🏆':'😞')+'</div><button type="button" data-a="again"'+(ag?' disabled':'')+'>'+(ag?t('waitAgain'):t('playAgain'))+'</button></div>';}
  el.innerHTML=h;
  const d=$('dDraw');if(d)d.onclick=()=>domDraw(g,me);const p=$('dPass');if(p)p.onclick=()=>domPass(g,me);}
-$('gameBody').addEventListener('click',async e=>{const b=e.target.closest('button');if(!b)return;const g=curG();if(!g||g.status!=='playing')return;const me=g.players.indexOf(S.user.uid);if(g.turn!==me||banned())return;
+$('gameBody').addEventListener('click',async e=>{const b=e.target.closest('button');if(!b)return;const g=curG();if(!g)return;const me=g.players.indexOf(S.user.uid);
+ if(b.dataset.a==='again'){if(g.bot){newBotGame(g.type);return;}if((g.again||[]).includes(S.user.uid))return;try{await updateDoc(doc(db,'games',g.id),{again:arrayUnion(S.user.uid)});}catch(x){toast(x.code);}return;}
+ if(g.status!=='playing'||g.turn!==me||banned())return;
  if(b.dataset.c!==undefined&&g.type==='xo'){const i=+b.dataset.c;if(g.board[i])return;
-  const u=xoMove(g,me,i);try{await gupd(g,u);}catch(x){toast(x.code);}}
-});
+  const u=xoMove(g,me,i);try{await gupd(g,u);}catch(x){toast(x.code);}}});
 const XOW=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
-function xoMove(g,me,i){const bd=[...g.board];bd[i]=me===0?'X':'O';const win=XOW.some(w=>w.every(k=>bd[k]===bd[i]));const u={board:bd,turn:1-me};if(win){u.status='done';u.winner=me;}else if(bd.every(Boolean)){u.status='done';u.winner=-1;}return u;}
+function xoMove(g,me,i){const bd=[...g.board];bd[i]=me===0?'X':'O';const win=XOW.some(w=>w.every(k=>bd[k]===bd[i]));const u={board:bd,turn:1-me,turnTs:Date.now()};if(win){u.status='done';u.winner=me;u.doneTs=Date.now();}else if(bd.every(Boolean)){u.status='done';u.winner=-1;u.doneTs=Date.now();}return u;}
 function xoBotPick(bd,mark,opp){const em=[];bd.forEach((c,i)=>{if(!c)em.push(i);});if(!em.length)return -1;
  const tryM=m=>em.find(i=>XOW.some(w=>w.includes(i)&&w.every(k=>k===i?true:bd[k]===m)));
  let r=tryM(mark);if(r===undefined)r=tryM(opp);if(r!==undefined)return r;
@@ -355,12 +410,25 @@ function domBotPick(g,me){const hand=g['h'+me];let best=-1,bs=-1;hand.forEach((x
  if(best>=0){const sd=domSides(g,hand[best]);return {i:best,side:sd.includes('R')?'R':sd[0]};}
  return g.yard.length?'draw':'pass';}
 function botKick(g){if(!g.bot||g.status!=='playing'||g.turn!==1)return;clearTimeout(botKick.t);botKick.t=setTimeout(()=>{if(S.bot!==g||g.status!=='playing'||g.turn!==1)return;botStep(g);},800);}
+function autoKick(g){if(g.type!=='xo'||g.status!=='done'||g.winner!==-1)return;const k=(g.bot?'bot':g.id)+':'+(g.doneTs||0);if(autoKick.k===k)return;autoKick.k=k;
+ setTimeout(()=>{const c=g.bot?S.bot:S.games.find(x=>x.id===g.id);if(!c||c.status!=='done'||c.winner!==-1||c.doneTs!==g.doneTs)return;gupd(c,{board:Array(9).fill(''),status:'playing',turn:0,winner:-2,round:(c.round||1)+1,doneTs:0,turnTs:Date.now()}).catch(()=>{});},1400);}
+function timeoutKick(g){if(timeoutKick.g)return;timeoutKick.g=true;setTimeout(()=>timeoutKick.g=false,4000);
+ const slow=g.turn,u={status:'done',winner:1-slow,timeout:slow,doneTs:Date.now(),again:[]};
+ if(g.bot){if(slow===0){S.bot=null;S.game=null;render();toast(t('youTimeout'));}else{Object.assign(g,u);renderGame();}return;}
+ updateDoc(doc(db,'games',g.id),u).catch(()=>{});}
+setInterval(()=>{const g=S.game?curG():null;if(!g||g.status!=='playing')return;const lim=g.type==='xo'?10000:40000;
+ const left=lim-(Date.now()-(g.turnTs||g.ts||Date.now()));const el=$('turnTimer');if(el)el.textContent='⏱ '+Math.max(0,Math.ceil(left/1000));
+ if(left<=0){const me=g.players.indexOf(S.user.uid);if(g.bot){if(g.turn===0)timeoutKick(g);}else if(g.turn!==me)timeoutKick(g);}},1000);
+function gamesWatch(){if(!S.user)return;if(!S._leftSeen)S._leftSeen=new Set();const me=S.user.uid;
+ S.games.forEach(g=>{
+  if(g.status==='left'&&g.leftBy!==undefined&&g.players[g.leftBy]!==me){if(S._leftSeen.has(g.id))return;S._leftSeen.add(g.id);const wasViewing=S.game===g.id;if(wasViewing)S.game=null;if(wasViewing||Date.now()-(g.leftTs||0)<6e5)toast(t('oppLeft'));deleteDoc(doc(db,'games',g.id)).catch(()=>{});render();return;}
+  if(g.status==='done'&&g.timeout!==undefined&&g.players[g.timeout]===me){if(S._leftSeen.has('to'+g.id))return;S._leftSeen.add('to'+g.id);if(S.game===g.id){S.game=null;render();}toast(t('youTimeout'));return;}
+  if(g.status==='done'&&(g.again||[]).length>=2&&g.players[0]===me){gupd(g,rematchUpdate(g)).catch(()=>{});return;}
+  if(g.type==='xo'&&g.status==='done'&&g.winner===-1&&g.players[0]===me)autoKick(g);});}
 function botStep(g){if(g.type==='xo'){const i=xoBotPick(g.board,'O','X');if(i>=0)gupd(g,xoMove(g,1,i));return;}
  const d=domBotPick(g,1);if(d==='draw'){const y=[...g.yard],h=[...g.h1];h.push(y.pop());gupd(g,{h1:h,yard:y});}else if(d==='pass')domPass(g,1);else{const u=domMove(g,1,d.i,d.side);if(u)gupd(g,u);}}
-function newBotGame(type){const base={bot:true,id:'bot',type,players:[S.user.uid,'bot'],status:'playing',ts:Date.now(),turn:0,winner:-2};
- if(type==='xo')base.board=Array(9).fill('');
- else{const all=[];for(let a=0;a<=6;a++)for(let b=a;b<=6;b++)all.push(a+'-'+b);for(let i=all.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[all[i],all[j]]=[all[j],all[i]];}
-  base.h0=all.slice(0,7);base.h1=all.slice(7,14);base.yard=all.slice(14);base.board=[];base.passes=0;}
+function newBotGame(type){const base={bot:true,id:'bot',type,players:[S.user.uid,'bot'],status:'playing',ts:Date.now(),turn:0,winner:-2,score0:0,score1:0,round:1,again:[],doneTs:0,lastRound:null,turnTs:Date.now()};
+ if(type==='xo')base.board=Array(9).fill('');else Object.assign(base,deal());
  S.bot=base;S.game='bot';S.dpick=null;render();}
 $('botXO').onclick=()=>newBotGame('xo');$('botDom').onclick=()=>newBotGame('dom');
 function ends(g){if(!g.board.length)return null;return [+g.board[0].split('-')[0],+g.board[g.board.length-1].split('-')[1]];}
@@ -368,13 +436,15 @@ function fits(g,x){const e=ends(g);if(!e)return true;const [a,b]=x.split('-').ma
 function domSides(g,x){const e=ends(g);if(!e)return['R'];const [a,b]=x.split('-').map(Number);const r=[];if(a===e[0]||b===e[0])r.push('L');if(a===e[1]||b===e[1])r.push('R');return r;}
 function domMove(g,me,i,side){const hk='h'+me,hand=[...g[hk]],x=hand[i];if(x===undefined||!domSides(g,x).includes(side))return null;const [a,b]=x.split('-').map(Number);let bd=[...g.board];const e=ends(g);
  if(!e)bd=[x];else if(side==='L')bd.unshift(b===e[0]?a+'-'+b:b+'-'+a);else bd.push(a===e[1]?a+'-'+b:b+'-'+a);
- hand.splice(i,1);const u={[hk]:hand,board:bd,turn:1-me,passes:0};if(!hand.length){u.status='done';u.winner=me;}return u;}
+ hand.splice(i,1);if(!hand.length)return scoreRound(g,me,{[hk]:hand,board:bd});
+ return {[hk]:hand,board:bd,turn:1-me,passes:0,turnTs:Date.now()};}
 async function domPlay(g,me,i,side){S.dpick=null;const u=domMove(g,me,i,side);if(!u){renderGame();return;}try{await gupd(g,u);}catch(x){toast(x.code);}}
-function domTile(a,b,vert,cls,back,idx){const W=vert?32:64,H=vert?64:32;const P={1:[[1,1]],2:[[0,0],[2,2]],3:[[0,0],[1,1],[2,2]],4:[[0,0],[2,0],[0,2],[2,2]],5:[[0,0],[2,0],[1,1],[0,2],[2,2]],6:[[0,0],[2,0],[0,1],[2,1],[0,2],[2,2]]};
- let c='<rect x="1" y="1" width="'+(W-2)+'" height="'+(H-2)+'" rx="6" fill="'+(back?'#1f6f5c':'#fff')+'" stroke="#333" stroke-width="2"/>';
- if(!back){c+=vert?'<line x1="5" y1="32" x2="27" y2="32" stroke="#333" stroke-width="2"/>':'<line x1="32" y1="5" x2="32" y2="27" stroke="#333" stroke-width="2"/>';
-  [a,b].forEach((v,k)=>(P[v]||[]).forEach(p=>{const cx=(vert?0:k*32)+8+p[0]*8,cy=(vert?k*32:0)+8+p[1]*8;c+='<circle cx="'+cx+'" cy="'+cy+'" r="3.2" fill="#111"/>';}));}
- else c+=vert?'':'<line x1="32" y1="5" x2="32" y2="27" stroke="#fff6" stroke-width="2"/>';
+function domTile(a,b,vert,cls,back,idx){const HS=40,W=vert?HS:HS*2,H=vert?HS*2:HS;const P={1:[[1,1]],2:[[0,0],[2,2]],3:[[0,0],[1,1],[2,2]],4:[[0,0],[2,0],[0,2],[2,2]],5:[[0,0],[2,0],[1,1],[0,2],[2,2]],6:[[0,0],[2,0],[0,1],[2,1],[0,2],[2,2]]};
+ let c='<rect x="1.5" y="1.5" width="'+(W-3)+'" height="'+(H-3)+'" rx="8" fill="'+(back?'#1d6b58':'#fffdf6')+'" stroke="'+(back?'#0e3a30':'#4a3f2f')+'" stroke-width="2"/>';
+ if(!back){c+=vert?'<line x1="6" y1="40" x2="34" y2="40" stroke="#4a3f2f" stroke-width="2"/>':'<line x1="40" y1="6" x2="40" y2="34" stroke="#4a3f2f" stroke-width="2"/>';
+  [a,b].forEach((v,k)=>{(P[v]||[]).forEach(p=>{const cx=(vert?0:k*HS)+8+p[0]*12,cy=(vert?k*HS:0)+8+p[1]*12;c+='<circle cx="'+cx+'" cy="'+cy+'" r="4.4" fill="#24272b"/>';});
+   c+='<text x="'+((vert?0:k*HS)+33)+'" y="'+((vert?k*HS:0)+11)+'" font-size="9.5" font-weight="700" fill="#9c8a60" text-anchor="middle" font-family="sans-serif">'+v+'</text>';});}
+ else c+='<circle cx="'+(W/2)+'" cy="'+(H/2)+'" r="7" fill="none" stroke="#ffffff77" stroke-width="2.5"/>';
  return '<div class="dt '+cls+'"'+(idx!==undefined?' data-d="'+idx+'"':'')+'><svg width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'">'+c+'</svg></div>';}
 let dDrag=null;
 document.addEventListener('pointerdown',e=>{const el=e.target.closest&&e.target.closest('#gameBody .dhand [data-d]');if(!el||!S.game)return;const g=curG();if(!g||g.status!=='playing')return;const me=g.players.indexOf(S.user.uid);if(g.turn!==me||banned())return;const i=+el.dataset.d,x=g['h'+me][i];if(x===undefined||!fits(g,x))return;dDrag={i,x0:e.clientX,y0:e.clientY,moved:false,ghost:null,el};});
@@ -386,7 +456,7 @@ function dEnd(e,cancel){if(!dDrag)return;const d=dDrag;dDrag=null;if(d.ghost)d.g
 document.addEventListener('pointerup',e=>dEnd(e,false));document.addEventListener('pointercancel',e=>dEnd(e,true));
 document.addEventListener('click',e=>{const z=e.target.closest&&e.target.closest('#dBoard .zone');if(!z||!z.classList.contains('ok'))return;const g=curG();if(!g||g.status!=='playing')return;const me=g.players.indexOf(S.user.uid);if(g.turn!==me||banned())return;if(S.dpick===null||S.dpick===undefined)return;domPlay(g,me,S.dpick,z.dataset.side);});
 async function domDraw(g,me){const y=[...g.yard],hand=[...g['h'+me]];hand.push(y.pop());try{await gupd(g,{['h'+me]:hand,yard:y});}catch(x){toast(x.code);}}
-async function domPass(g,me){const u={turn:1-me,passes:(g.passes||0)+1};if(u.passes>=2){const a=pips(g.h0),b=pips(g.h1);u.status='done';u.winner=a===b?-1:(a<b?0:1);}try{await gupd(g,u);}catch(x){toast(x.code);}}
+async function domPass(g,me){if((g.passes||0)+1>=2){const a=pips(g.h0),b=pips(g.h1);const w=a===b?-1:(a<b?0:1);try{await gupd(g,scoreRound(g,w));}catch(x){toast(x.code);}return;}try{await gupd(g,{turn:1-me,passes:(g.passes||0)+1,turnTs:Date.now()});}catch(x){toast(x.code);}}
 // ---------- auth
 function authErr(e){const c=e.code||'';if(c.includes('email-already'))return t('taken');if(c.includes('weak'))return t('weak');if(c.includes('credential')||c.includes('user-not-found')||c.includes('wrong-password'))return t('wrong');if(c.includes('network'))return t('neterr');return c||e.message;}
 async function doAuth(mode){const u=$('aUser').value.trim(),p=$('aPass').value,er=$('aErr');er.textContent='';
@@ -428,13 +498,13 @@ $('setClose').onclick=()=>$('setModal').classList.add('hidden');
 $('setModal').addEventListener('click',e=>{if(e.target.id==='setModal')$('setModal').classList.add('hidden');});
 $('logout').addEventListener('click',()=>$('setModal').classList.add('hidden'));
 // ---------- misc
-$('lang').onclick=()=>{S.lang=S.lang==='ar'?'en':'ar';SV('lang',S.lang);applyLang();};
+$('lang').onchange=e=>{S.lang=e.target.value;SV('lang',S.lang);applyLang();};
 $('dk').onclick=()=>{S.dark=!S.dark;SV('dark',S.dark);applyLang();};
 $('modal').addEventListener('click',e=>{if(e.target.id==='modal')hideModal();});
 $('muteAllBtn').textContent=S.muteAll?t('unmuteAll'):t('muteAll');
 $('gpsBtn').onclick=startGps;
 applyLang();startGps();
-if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js',{updateViaCache:'none'}).then(reg=>{reg.update();document.addEventListener('visibilitychange',()=>{if(!document.hidden)reg.update();});}).catch(()=>{});if(navigator.serviceWorker.controller){let swrf=false;navigator.serviceWorker.addEventListener('controllerchange',()=>{if(swrf)return;swrf=true;location.reload();});}}
 window.__S=S;
 
 </script></body></html>
