@@ -43,6 +43,9 @@ body.dark select,body.dark input,body.dark textarea{background:#2b3236;color:#e8
 .tile{display:inline-block;border:2px solid #555;border-radius:6px;padding:6px 8px;margin:2px;background:#fff;color:#000;min-height:0;font-weight:700}.board{overflow-x:auto;white-space:nowrap;padding:6px 0}
 .ban{background:#fdecea;color:#8a1c12;border-radius:10px;padding:10px;margin-bottom:8px}
 textarea{border:1px solid #ccc;border-radius:10px;padding:8px}
+.dt{display:inline-block;margin:2px;touch-action:none;user-select:none;-webkit-user-select:none;cursor:pointer;transition:transform .12s}.dt svg{display:block}.dt.ok{filter:drop-shadow(0 0 4px #1f6f5c)}.dt.sel{transform:translateY(-8px)}.dt.no{opacity:.55;cursor:default}.dt.back{cursor:default}
+.dbd{direction:ltr;display:flex;flex-wrap:wrap;gap:2px;align-items:center;justify-content:center;background:#1f6f5c33;border-radius:12px;padding:8px;min-height:90px;margin:8px 0}.dhand{direction:ltr;display:flex;flex-wrap:wrap;gap:4px;justify-content:center;padding:8px 0}.dopp{direction:ltr;display:flex;flex-wrap:wrap;justify-content:center}
+.zone{border:2px dashed #1f6f5c;border-radius:8px;min-width:36px;min-height:36px;padding:2px 6px;display:flex;align-items:center;justify-content:center;color:#1f6f5c;font-weight:700;font-size:13px}.zone.ok{background:#1f6f5c55;border-style:solid}.zone.hot{background:#1f6f5caa;color:#fff}.dghost{position:fixed;pointer-events:none;z-index:50;opacity:.92}.pile{direction:ltr;display:flex;align-items:center;gap:8px;justify-content:center}
 </style></head><body>
 <header><img id="logo" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCABgAGADASIAAhEBAxEB/8QAHQAAAQUBAQEBAAAAAAAAAAAABwAEBQYICQIDAf/EADkQAAEDAgQCCAMGBwEBAAAAAAECAwQFEQAGEiEHMQgTFCJBUWFxMoGRFjd1orLBFTVSc4KSoRex/8QAGQEAAwEBAQAAAAAAAAAAAAAAAAIDBAEF/8QAKhEAAgEDAQYFBQAAAAAAAAAAAAECAxExISIyUXGh8BITQbHBBGGB0eH/2gAMAwEAAhEDEQA/AMqYWFhzTYMqpz2IVPYckS31htpptOpS1HkAMADbBT4dcDc4Z1balNRE02mLsRLnXQFDzQm2pXva3rjQfBDo+07LDLFXzg0zUK4QFojqspmKfbktfqdh4eeD6SltBJISlIuSdgBgAz5ljos5WgtpVX6jUKo9YaktkR2/oLq/Ni8xOCHDeGENJyzDWo8uudcWpX+ysfFzMFf4gTpETJUkUrLrCy09W1I1uSFDYpjpO1h/Wfl6zuWeHdBy5UUVbVLm1dKVAz58pbrneFlczpFx6Yo4KK2nqTU3J7K0IeVwR4bTQ40ctQ0qTsrqHXEKT/qrbFHzP0WcrTm1KoFRqFLet3UuESG/obK/Ngn5j4bZfr1Sdqye2Qau7YmfAlLacJAAB2Ok7AeGINrMFf4fz48TOskVXLr6w0xW0o0OR1HYJkJG1j/WPn6CgpLZeoObjvLQydxF4G5wyU27KdiJqVMRuZcG6wkea021J97W9cC3HVNJS4gFJCkkbEbgjAC43dH2nZnZkVfJ7TNPrgBWuOmyWZR9uSF+o2Pj54mUMU4WHNSgyqZPkQqgw5HlsLLbrTidKkKHMEYbYAFja3Rc4TN5YorWZ64wDXJzephC07xWTy9lqG58hYeeM+dG/JCc68SYjcxrrKZTx2yUCNlBJGlB91W+QOOgIFhYYAFge8YpcqTDpGVqa8pmXmGV2VbqObcdI1PKH+O3zOCFgcZh7/HHKSVbpbps1xI8lEpF/pilLevwJ1N23EuDUZmgUiBT6TFDcdsojNIQNm0+Z8+X1OGUx9tyYkuuommOsFtkDcr5lXd22uBuLYdVRxt6U/HeKtTTSXmkFPdUb8/Xewt64rdVdSQlEt9yK28XS71ZKbrSbBvbwAtt43vjz69R6s004+hNIkqce0MTW4Jd3LfV7tqG9iFW5i/hba++JKXCj1ujy6fVGUPx3gth5BGyxyv6efocUTJ8yW8iUAtyUiPIS3GLhKtepK9TZJ5jkd/hvi60lrqJSEsPlcdbOtTWmwQq/wAXpffb0xz6as5pSQVIWumVXg7MlRoVXytUnlPS8vSuyodXzcjqGplR/wAdvlghYHGXe5xxzelOyXKbCWoeZGoX+mCPj0au9fiZqW7bgAHpR8J28z0V7M9DYArkFvU+hCd5TKefutI3HmLjyxinHVQi4IOOf3SPyQnJXEmY3Da0UyoDtkUAbJCidSB7Kv8AIjEygfehfQEQcg1GsrSOuqUsoSq2/VtCw/MV40JgbdHCKiJwWyulAtrYU6fUqcUf3wScACwOa79+eV/wqZ+pGCNgc1378sr/AIVM/UjFKWXyfsTqYXNF5qrSXGW1LbLiWnA4Qn4rDxFt7jnt5YgFRmp5cSwlx9L9nUtyWgUKHI6tQ5jzFz3vHFsJA5nHzeYbeADg3SbggkEH0I3GMs6XjLRlYrcKKzHkMtuKcZ6lJJQy2EIQTsAnSPHcne529sTFEYcYiLDiUp1urWkAEHSVG1773thxCix4bamoyAhJUVqF7kk8ycOMFOl4dQlK4OKD9+eafwqH+pWCPgc0H7880/hUP9S8EbGqrlcl7EaeHzYsZ76aFAROyFTqyhI66mywhSrb9W6LH8wRjQmBt0joqJXBbNCVi+hhLo9ClxJ/bEygujhKRL4LZXUg30MKaPoUuKH7YJOM99C+vom5BqNFWoddTZZWlN9+rdFx+YLxoTAB5dcQ00tx1QShAKlKPIAczgYPVKHWOMGUKhTJLcmG/SJi2nmzdKxrTuPpgkVNfV02Wu6hpaWbptf4TyvtgBZJzG7MzdlWc7BqCI0WhTVtPyi0Fy0ghRUA33RytyGL0Y3TfeGRqys0gj8WKFmGst0v7MpgqWytzrxK0bpITYDUlWxtvax5YjZn/prsisuRmILCZTYRCa7c2pMM2F13LN1kkHYm2/pj9y/xaTVV2ey9PhIXS3aqwt11sh5pseFj48t8Pn+JSVxaGKTQahU6jU4Kaj2NhSAplg2GpSlEA7m1hhkpxXhcUK3CTclJlbFK4hU1mfUHnGVTpEVntEtmSgOIDKnjpCOpUlV0rTySDcbc8XjhyzmZuFNVm2SH1rdSqL3kKUlvQLhRShAvqueWKfmTPsyqUDNtHl0Go0OoMUN6chT7yCdPwgjQdje+/ph1A4gTKezSKJT8uVKtzUUaLMcWw8gd1aLXOs3vcf8AcdlGco4QsXGMss9sVKHSOMOb59SkNxobFHhrddcNkoGtYucE9pxDzSHGlBSFgKSoeIPI4z9xLcW7UeJDjjSmVry5DUptXNBKzcH1HLB2on8ng/2G/wBIwlWOil3hFKUtWu8j3A26R0pETgtmhSzbWwloepU4kfvgk4z300K+iDkGnUZCh11Slhak336toXP5ijECwAujfndOSuJMRyY71dMqA7HKJOyQojSs+yrfInHQEG4uMcq8bW6LnFhvM9FayxXHwK5Bb0sLWreUyOXutI2PmLHzwAHSqlCaZLLqCtsMrKkg2JGk3F/DGecnZVoVdpzVSOSazCpHYnX2ZhrhUkpSCdASDqGqxHLGiZzPaYUhjVp6xtSNVr2uCL/9wF8lFui5b7K7nxuZlxmMiGln+ElrQZAsyor+LmSf/tsaKLai7Z/PwZ6yTkr/AB8lPy7TcqVJSe05Rq8BpdHeqcZaq0tYdYQPhAHwgnax+mPeX6blab17knKdZp4aojlXjqNbWrrmEWslOk90E+fK3LFgoGT8rUGMibDrygleWpCZDnZXVdahSghUmxJ0gGw0D3xJULLWSaFQhCgSpC6xVYkmidubYkO9atNkOqDdyEpCrHwHrjS6i1tfr+zOoP1t0IaXGpGW4dPfpmTqrPYzVTmofWKq5JJeGvqBruQe78WwxF5qo+XMu1B9hvKFakOxKW1UJikVxaDHbNwUHffSRba/tghSBQpkWhUf+Oht7JbjcyWtcVYS4iMjQ5YnbbUL2KrXGIvOGU8vZ6q66q9U323atAVCp7aojyVtOtalqcKbgq7pPdULHwvthYzs9q/XvAzhdaW6d5K3mOHQKXlrPMKjU6YxJVQY0p2RImqf1JcVcIsrlbz8caAof8ng/wBhv9IwFJyYqF/aei51NKhSozdKUqRRFOh1UdBJAC/HY2FtyCnci2DnECkxmg4rWsIAUrTpubc7eHtiFZ6L+/YtRyz6k2BJxz+6R+d0514kzHIbvWUunjscUg7KCSdSx7qv8gMaD6UXFhvLFFeyxQ3wa5Ob0vrQreKyefstQ2HkN/LGKcZzQLDmmzpVMnsTafIcjy2Fhxp1tWlSFDkQcNsLABtbgj0gqbmdhij5wdZp9cACESFEIZlH35IWfI7Hw8sX2FwtpbFEk01c2Y/HfejuEr0XCGfgRsOVuZ5nHOzBT4dcc84ZKQ1FalpqdMRsIk66wkeSF31J9r29MNGbjgWUFLJs+m8P6fChsRjJkvNNUhdHPWae82pQJUdvi29sNk8N4TcDLUZqdIvQ1uLbccabcLylqClKWFJIvcXuLEX2wNssdKbK05tKa/TqhS3rDUpsCQ3f3Flf8xe4fHLhzKbCkZoiN38HW3GyPqnHfMlxOeXHgS0TIEGJWa1Uo8uSiRVW323iAggdaUm4uCDp07XuO8b3x7y9kSJRU0UNTJTppb0h5sKCQkl5JSUhIFkpF9kpsBiGmccuHMVsrXmiK5bwabccJ+icUTM/SmytBbWmgU6oVR63dU4BHbv7m6vy4PMlxBU4r0Cx9iYAy5Do7j7y48SeKglawkkrD5esdrWuSPbAt43dIKnZYZkUjJ7rNQrhBQuQmy2Yp9+S1+g2Hj5Yz5xF455wzqh2K7MTTKYvYxIN0BQ8lrvqV7Xt6YFmFcm8jKKWBzUp0qpz5E2oPuSJb6y4664rUpajzJOG2FhY4dP/2Q==" alt="" style="width:44px;height:44px;border-radius:50%;margin-inline-end:10px;background:#fff;flex:none"><div style="flex:1"><h1>Campus Chat</h1><div id="uni" style="font-size:13px;opacity:.9"></div></div><button id="dk" class="small" type="button"></button><button id="lang" class="small" type="button"></button><button id="logout" class="small hidden" type="button"></button></header>
 <div class="toast hidden" id="toast"></div>
@@ -149,7 +152,7 @@ const T={ar:{
  votes:' صوت',mute:'🔕 كتم',unmute:'🔔 تشغيل',muteAll:'كتم الكل',unmuteAll:'تشغيل الإشعارات',notif:'🔔 السماح بالإشعارات',
  dark:'🌙',light:'☀️',games:'الألعاب',newXO:'XO جديدة',newDom:'دومينو جديدة',open:'ألعاب مفتوحة',mine:'ألعابي',join:'انضم',resume:'افتح',leave:'اترك اللعبة',
  yourTurn:'دورك',theirTurn:'دور الخصم',youWin:'فزت! 🎉',youLose:'خسرت',draw:'تعادل',waiting:'في انتظار لاعب...',
- drawTile:'اسحب',pass:'تخطّي',yard:'المخزن: ',oppT:'أحجار الخصم: ',left:'يسار؟ (موافق=يسار، إلغاء=يمين)',
+ drawTile:'اسحب',pickEnd:'اضغط على طرف اللوحة المضيء (أو اسحب الحجر إليه)',tapDrag:'اضغط على حجر مضيء أو اسحبه إلى اللوحة',pass:'تخطّي',yard:'المخزن: ',oppT:'أحجار الخصم: ',left:'يسار؟ (موافق=يسار، إلغاء=يمين)',
  modLbl:'المشرف',setC:'اجعل موقعي مركز الجامعة',setDone:'تم تحديد مركز الجامعة',setNo:'لا يوجد موقع حالياً',testL:'وضع الاختبار: ',tOff:'بدون',tIn:'داخل الحرم',tFar:'خارج الحرم',
  ban:'حظر',banAsk:'مدة الحظر؟ 1=10 دقائق 2=ساعة 3=24 ساعة 4=دائم',banDone:'تم الحظر',
  code:'الكود',codeSet:'أدخل الكود (8 أحرف على الأقل). أول مرة = تحدده أنت.',ok:'موافق',codeBad:'الكود غلط',codeOk:'تم',removed:'محذوفة بالبلاغات',
@@ -165,7 +168,7 @@ en:{
  votes:' votes',mute:'🔕 Mute',unmute:'🔔 Unmute',muteAll:'Mute all',unmuteAll:'Unmute all',notif:'🔔 Allow notifications',
  dark:'🌙',light:'☀️',games:'Games',newXO:'New XO',newDom:'New Domino',open:'Open games',mine:'My games',join:'Join',resume:'Open',leave:'Leave game',
  yourTurn:'Your turn',theirTurn:"Opponent's turn",youWin:'You won! 🎉',youLose:'You lost',draw:'Draw',waiting:'Waiting for a player...',
- drawTile:'Draw',pass:'Pass',yard:'Pile: ',oppT:'Opponent tiles: ',left:'Left end? (OK=left, Cancel=right)',
+ drawTile:'Draw',pickEnd:'Tap a highlighted end of the board (or drag the tile there)',tapDrag:'Tap a glowing tile or drag it onto the board',pass:'Pass',yard:'Pile: ',oppT:'Opponent tiles: ',left:'Left end? (OK=left, Cancel=right)',
  modLbl:'Moderator',setC:'Set my location as campus center',setDone:'Campus center set',setNo:'No location yet',testL:'Test mode: ',tOff:'Off',tIn:'Inside',tFar:'Outside',
  ban:'Ban',banAsk:'Ban length? 1=10 min 2=1 hour 3=24 hours 4=permanent',banDone:'Banned',
  code:'Code',codeSet:'Enter the code (8+ characters). First time = you set it.',ok:'OK',codeBad:'Wrong code',codeOk:'Done',removed:'Hidden by reports',
@@ -174,7 +177,7 @@ const $=id=>document.getElementById(id);
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const LS=(k,d)=>{try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}};
 const SV=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
-const S={lang:LS('lang','ar'),dark:LS('dark',false),muteAll:LS('muteAll',false),muted:LS('muted',{}),user:null,uname:'',isMod:false,bannedUntil:0,gps:null,gpsErr:'',campus:null,test:'off',room:null,msgs:[],polls:[],pin:null,pick:null,games:[],openGames:[],game:null,authMode:'login'};
+const S={lang:LS('lang','ar'),dark:LS('dark',false),muteAll:LS('muteAll',false),muted:LS('muted',{}),user:null,uname:'',isMod:false,bannedUntil:0,gps:null,gpsErr:'',campus:null,test:'off',dpick:null,room:null,msgs:[],polls:[],pin:null,pick:null,games:[],openGames:[],game:null,authMode:'login'};
 const t=k=>T[S.lang][k];
 const roomName=r=>r==='general'?t('gen'):t('hall')+r.slice(4);
 let taps=0,tapT=0;
@@ -315,23 +318,50 @@ function renderGame(){if(!S.game)return;const g=S.games.find(x=>x.id===S.game);c
  if(g.status==='open')st=t('waiting');else if(g.status==='done')st=g.winner===-1?t('draw'):g.winner===me?t('youWin'):t('youLose');else st=g.turn===me?t('yourTurn'):t('theirTurn');
  let h='<p class="note"><b>'+st+'</b></p>';
  if(g.type==='xo'){h+='<div class="xo">'+g.board.map((c,i)=>'<button type="button" class="cell" data-c="'+i+'">'+(c==='X'?'✖':c==='O'?'⭕':'')+'</button>').join('')+'</div>';}
- else{const bd=g.board.map(x=>'<span class="tile">'+x.replace('-','|')+'</span>').join('');const hand=me===0?g.h0:g.h1,opp=me===0?g.h1:g.h0;
-  h+='<div class="note">'+t('oppT')+opp.length+' · '+t('yard')+g.yard.length+'</div><div class="board">'+(bd||'—')+'</div><div class="acts">'+hand.map((x,i)=>'<button type="button" class="tile mine" data-d="'+i+'">'+x.replace('-','|')+'</button>').join('')+'</div>';
-  if(g.status==='playing'&&g.turn===me){const can=hand.some(x=>fits(g,x));if(!can)h+=g.yard.length?'<button type="button" id="dDraw">'+t('drawTile')+'</button>':'<button type="button" id="dPass">'+t('pass')+'</button>';}}
+ else{const hand=me===0?g.h0:g.h1,opp=me===0?g.h1:g.h0,my=g.status==='playing'&&g.turn===me,e=ends(g);
+  if(S.dpick!==undefined&&S.dpick!==null&&(!my||!hand[S.dpick]))S.dpick=null;
+  const pk=S.dpick!==null&&S.dpick!==undefined?hand[S.dpick]:null;
+  const legal=x=>domSides(g,x);
+  h+='<div class="dopp">'+opp.map(()=>domTile(0,0,false,'back',true)).join('')+'</div>';
+  let bd='';
+  if(!e){bd=my?'<div class="zone ok" data-side="R">'+t('tapDrag')+'</div>':'<span class="note">—</span>';}
+  else{const lz=my?'<div class="zone'+(pk&&legal(pk).includes('L')?' ok':'')+'" data-side="L">◀</div>':'';const rz=my?'<div class="zone'+(pk&&legal(pk).includes('R')?' ok':'')+'" data-side="R">▶</div>':'';
+   bd=lz+g.board.map(x=>{const [a,b]=x.split('-').map(Number);return domTile(a,b,a===b,'',false);}).join('')+rz;}
+  h+='<div class="dbd" id="dBoard">'+bd+'</div>';
+  h+='<div class="pile"><span class="note">'+t('yard')+g.yard.length+'</span>'+(g.yard.length?domTile(0,0,false,'back',true):'');
+  if(my){const can=hand.some(x=>fits(g,x));if(!can)h+=g.yard.length?'<button type="button" id="dDraw">'+t('drawTile')+'</button>':'<button type="button" id="dPass">'+t('pass')+'</button>';}
+  h+='</div>';
+  if(my&&pk)h+='<p class="note">'+t('pickEnd')+'</p>';else if(my)h+='<p class="note">'+t('tapDrag')+'</p>';
+  h+='<div class="dhand">'+hand.map((x,i)=>{const [a,b]=x.split('-').map(Number);const ok=my&&fits(g,x);return domTile(a,b,false,(ok?'ok':'no')+(S.dpick===i?' sel':''),false,i);}).join('')+'</div>';}
  el.innerHTML=h;
  const d=$('dDraw');if(d)d.onclick=()=>domDraw(g,me);const p=$('dPass');if(p)p.onclick=()=>domPass(g,me);}
 $('gameBody').addEventListener('click',async e=>{const b=e.target.closest('button');if(!b)return;const g=S.games.find(x=>x.id===S.game);if(!g||g.status!=='playing')return;const me=g.players.indexOf(S.user.uid);if(g.turn!==me||banned())return;
  if(b.dataset.c!==undefined&&g.type==='xo'){const i=+b.dataset.c;if(g.board[i])return;const bd=[...g.board];bd[i]=me===0?'X':'O';
   const W=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];const win=W.some(w=>w.every(k=>bd[k]===bd[i]));const full=bd.every(Boolean);
   const u={board:bd,turn:1-me};if(win){u.status='done';u.winner=me;}else if(full){u.status='done';u.winner=-1;}try{await updateDoc(doc(db,'games',g.id),u);}catch(x){toast(x.code);}}
- if(b.dataset.d!==undefined&&g.type==='dom')domPlay(g,me,+b.dataset.d);});
+});
 function ends(g){if(!g.board.length)return null;return [+g.board[0].split('-')[0],+g.board[g.board.length-1].split('-')[1]];}
 function fits(g,x){const e=ends(g);if(!e)return true;const [a,b]=x.split('-').map(Number);return a===e[0]||b===e[0]||a===e[1]||b===e[1];}
-async function domPlay(g,me,i){const hk='h'+me,hand=[...g[hk]],x=hand[i];if(!fits(g,x))return;const [a,b]=x.split('-').map(Number);let bd=[...g.board];const e=ends(g);
- if(!e)bd=[x];else{const canL=a===e[0]||b===e[0],canR=a===e[1]||b===e[1];let side=canL&&canR?(confirm(t('left'))?'L':'R'):(canL?'L':'R');
-  if(side==='L')bd.unshift(b===e[0]?a+'-'+b:b+'-'+a);else bd.push(a===e[1]?a+'-'+b:b+'-'+a);}
- hand.splice(i,1);const u={[hk]:hand,board:bd,turn:1-me,passes:0};if(!hand.length){u.status='done';u.winner=me;}
- try{await updateDoc(doc(db,'games',g.id),u);}catch(x){toast(x.code);}}
+function domSides(g,x){const e=ends(g);if(!e)return['R'];const [a,b]=x.split('-').map(Number);const r=[];if(a===e[0]||b===e[0])r.push('L');if(a===e[1]||b===e[1])r.push('R');return r;}
+function domMove(g,me,i,side){const hk='h'+me,hand=[...g[hk]],x=hand[i];if(x===undefined||!domSides(g,x).includes(side))return null;const [a,b]=x.split('-').map(Number);let bd=[...g.board];const e=ends(g);
+ if(!e)bd=[x];else if(side==='L')bd.unshift(b===e[0]?a+'-'+b:b+'-'+a);else bd.push(a===e[1]?a+'-'+b:b+'-'+a);
+ hand.splice(i,1);const u={[hk]:hand,board:bd,turn:1-me,passes:0};if(!hand.length){u.status='done';u.winner=me;}return u;}
+async function domPlay(g,me,i,side){S.dpick=null;const u=domMove(g,me,i,side);if(!u){renderGame();return;}try{await updateDoc(doc(db,'games',g.id),u);}catch(x){toast(x.code);}}
+function domTile(a,b,vert,cls,back,idx){const W=vert?32:64,H=vert?64:32;const P={1:[[1,1]],2:[[0,0],[2,2]],3:[[0,0],[1,1],[2,2]],4:[[0,0],[2,0],[0,2],[2,2]],5:[[0,0],[2,0],[1,1],[0,2],[2,2]],6:[[0,0],[2,0],[0,1],[2,1],[0,2],[2,2]]};
+ let c='<rect x="1" y="1" width="'+(W-2)+'" height="'+(H-2)+'" rx="6" fill="'+(back?'#1f6f5c':'#fff')+'" stroke="#333" stroke-width="2"/>';
+ if(!back){c+=vert?'<line x1="5" y1="32" x2="27" y2="32" stroke="#333" stroke-width="2"/>':'<line x1="32" y1="5" x2="32" y2="27" stroke="#333" stroke-width="2"/>';
+  [a,b].forEach((v,k)=>(P[v]||[]).forEach(p=>{const cx=(vert?0:k*32)+8+p[0]*8,cy=(vert?k*32:0)+8+p[1]*8;c+='<circle cx="'+cx+'" cy="'+cy+'" r="3.2" fill="#111"/>';}));}
+ else c+=vert?'':'<line x1="32" y1="5" x2="32" y2="27" stroke="#fff6" stroke-width="2"/>';
+ return '<div class="dt '+cls+'"'+(idx!==undefined?' data-d="'+idx+'"':'')+'><svg width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'">'+c+'</svg></div>';}
+let dDrag=null;
+document.addEventListener('pointerdown',e=>{const el=e.target.closest&&e.target.closest('#gameBody .dhand [data-d]');if(!el||!S.game)return;const g=S.games.find(x=>x.id===S.game);if(!g||g.status!=='playing')return;const me=g.players.indexOf(S.user.uid);if(g.turn!==me||banned())return;const i=+el.dataset.d,x=g['h'+me][i];if(x===undefined||!fits(g,x))return;dDrag={i,x0:e.clientX,y0:e.clientY,moved:false,ghost:null,el};});
+document.addEventListener('pointermove',e=>{if(!dDrag)return;const d=dDrag;if(!d.moved&&Math.hypot(e.clientX-d.x0,e.clientY-d.y0)>8){d.moved=true;d.ghost=d.el.cloneNode(true);d.ghost.classList.add('dghost');d.ghost.classList.remove('sel');document.body.appendChild(d.ghost);}
+ if(d.ghost){d.ghost.style.left=(e.clientX-32)+'px';d.ghost.style.top=(e.clientY-16)+'px';document.querySelectorAll('#dBoard .zone').forEach(z=>z.classList.remove('hot'));const z=document.elementFromPoint(e.clientX,e.clientY);const zz=z&&z.closest&&z.closest('#dBoard .zone');if(zz)zz.classList.add('hot');e.preventDefault();}});
+function dEnd(e,cancel){if(!dDrag)return;const d=dDrag;dDrag=null;if(d.ghost)d.ghost.remove();const g=S.games.find(x=>x.id===S.game);if(!g||cancel){renderGame();return;}const me=g.players.indexOf(S.user.uid);const x=g['h'+me][d.i];if(x===undefined)return;const sides=domSides(g,x);
+ if(d.moved){const z=document.elementFromPoint(e.clientX,e.clientY);const zz=z&&z.closest&&z.closest('#dBoard .zone');const bdEl=z&&z.closest&&z.closest('#dBoard');let side=zz?zz.dataset.side:(bdEl&&!ends(g)?'R':null);if(side&&sides.includes(side))domPlay(g,me,d.i,side);else renderGame();}
+ else{if(sides.length===1)domPlay(g,me,d.i,sides[0]);else{S.dpick=S.dpick===d.i?null:d.i;renderGame();}}}
+document.addEventListener('pointerup',e=>dEnd(e,false));document.addEventListener('pointercancel',e=>dEnd(e,true));
+document.addEventListener('click',e=>{const z=e.target.closest&&e.target.closest('#dBoard .zone');if(!z||!z.classList.contains('ok'))return;const g=S.games.find(x=>x.id===S.game);if(!g||g.status!=='playing')return;const me=g.players.indexOf(S.user.uid);if(g.turn!==me||banned())return;if(S.dpick===null||S.dpick===undefined)return;domPlay(g,me,S.dpick,z.dataset.side);});
 async function domDraw(g,me){const y=[...g.yard],hand=[...g['h'+me]];hand.push(y.pop());try{await updateDoc(doc(db,'games',g.id),{['h'+me]:hand,yard:y});}catch(x){toast(x.code);}}
 async function domPass(g,me){const u={turn:1-me,passes:(g.passes||0)+1};if(u.passes>=2){const a=pips(g.h0),b=pips(g.h1);u.status='done';u.winner=a===b?-1:(a<b?0:1);}try{await updateDoc(doc(db,'games',g.id),u);}catch(x){toast(x.code);}}
 // ---------- auth
