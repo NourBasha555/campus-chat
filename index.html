@@ -134,6 +134,7 @@ const app=initializeApp({apiKey:"AIzaSyBQ4W_NwUbARaXpQcbkNFpr6rPL4rQL6Mg",authDo
 const auth=getAuth(app),db=getFirestore(app);
 const UNIVERSITY={en:'Capital University',ar:'جامعة العاصمة'};
 const CAMPUS_RADIUS_M=1000;
+const CAMPUS_FIXED={lat:29.86672,lon:31.31559};
 const DOM='@campus.chat';
 const ROOMS=['general',...Array.from({length:18},(_,i)=>'hall'+(i+1))];
 const EMO=['👍','❤️','😂','😮','😢','🙏'];
@@ -141,7 +142,7 @@ const T={ar:{
  login:'دخول',signup:'حساب جديد',user:'اسم المستخدم (إنجليزي)',pass:'كلمة السر (6 أحرف على الأقل)',
  badUser:'اسم المستخدم: حروف إنجليزية وأرقام و _ فقط (3 إلى 20)',badName:'اسم غير مناسب',taken:'الاسم مستخدم',wrong:'اسم المستخدم أو كلمة السر غلط',weak:'كلمة السر ضعيفة (6 أحرف على الأقل)',neterr:'مشكلة في الاتصال',
  logout:'خروج',gpsOn:'تفعيل الموقع',locT:'الموقع',gpsWait:'جاري تحديد موقعك...',gpsDeny:'الموقع مرفوض. فعّله من إعدادات المتصفح.',gpsNo:'المتصفح لا يدعم الموقع',
- outside:'التطبيق يعمل داخل الجامعة فقط. اقترب من الحرم الجامعي.',noCampus:'التطبيق يعمل داخل الجامعة فقط. لم يتم تحديد موقع الجامعة بعد.',
+ outside:'أنت خارج الجامعة: تشاهد الرسائل حتى آخر لحظة كنت فيها داخل الحرم فقط. الرسائل الأحدث تظهر عندما ترجع للجامعة.',noCampus:'لم يتم تحديد موقع الجامعة بعد، فلن تظهر لك رسائل جديدة.',
  rooms:'الغرف',gen:'عام',hall:'قاعة ',back:'رجوع',send:'إرسال',ph:'اكتب رسالة...',reply:'رد',report:'إبلاغ',reported:'تم الإبلاغ',del:'حذف',
  anon:'مجهول ',blocked:'الرسالة فيها كلمات غير مناسبة',banned:'تم إيقافك من الكتابة حتى ',forever:'للأبد',
  pinned:'📌 مثبّتة',pin:'تثبيت',unpin:'إلغاء التثبيت',poll:'📊 تصويت',pollQ:'السؤال',pollO:'الخيارات (كل خيار في سطر، 2 إلى 6)',create:'إنشاء',cancel:'إلغاء',
@@ -157,7 +158,7 @@ en:{
  login:'Log in',signup:'Sign up',user:'Username (English)',pass:'Password (6+ characters)',
  badUser:'Username: English letters, digits and _ only (3 to 20)',badName:'Name not allowed',taken:'Username taken',wrong:'Wrong username or password',weak:'Password too weak (6+ characters)',neterr:'Connection problem',
  logout:'Log out',gpsOn:'Enable location',locT:'Location',gpsWait:'Finding your location...',gpsDeny:'Location denied. Enable it in browser settings.',gpsNo:'Location not supported',
- outside:'This app works inside the university only. Get closer to campus.',noCampus:'This app works inside the university only. Campus location not set yet.',
+ outside:'You are off campus: you only see messages up to the last moment you were on campus. Newer messages appear when you are back.',noCampus:'Campus location is not set yet, so no new messages will show.',
  rooms:'Rooms',gen:'General',hall:'Hall ',back:'Back',send:'Send',ph:'Write a message...',reply:'Reply',report:'Report',reported:'Reported',del:'Delete',
  anon:'Anon ',blocked:'Message has inappropriate words',banned:'You are blocked from writing until ',forever:'forever',
  pinned:'📌 Pinned',pin:'Pin',unpin:'Unpin',poll:'📊 Poll',pollQ:'Question',pollO:'Options (one per line, 2 to 6)',create:'Create',cancel:'Cancel',
@@ -180,11 +181,16 @@ let taps=0,tapT=0;
 // ---------- helpers
 function dist(a,b,c,d){const R=6371000,p=Math.PI/180,x=(c-a)*p,y=(d-b)*p;const h=Math.sin(x/2)**2+Math.cos(a*p)*Math.cos(c*p)*Math.sin(y/2)**2;return 2*R*Math.asin(Math.sqrt(h));}
 function inside(){if(!S.user)return false;if(S.isMod){return S.test!=='far';}if(S.test==='x')return false;return !!(S.campus&&S.gps&&dist(S.gps.lat,S.gps.lon,S.campus.lat,S.campus.lon)<=CAMPUS_RADIUS_M);}
+function lastIn(){return S.user?LS('lastIn_'+S.user.uid,0):0;}
+function cutoff(){return inside()?Infinity:lastIn();}
+function tsMs(m){return m.ts&&m.ts.toMillis?m.ts.toMillis():Date.now();}
+function touchIn(){if(S.user&&inside())SV('lastIn_'+S.user.uid,Date.now());}
+setInterval(touchIn,15000);
 function banned(){return S.bannedUntil>Date.now();}
 async function sha(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('').toUpperCase();}
 function anonOf(uid){let h=0;for(const c of uid)h=(h*31+c.charCodeAt(0))>>>0;return t('anon')+(100+h%900);}
 function toast(msg){const b=$('toast');b.textContent=msg;b.classList.remove('hidden');clearTimeout(toast.t);toast.t=setTimeout(()=>b.classList.add('hidden'),4000);}
-function notify(room,m){if(S.muteAll||S.muted[room])return;if(room===S.room&&!document.hidden&&!S.game)return;const txt=roomName(room)+': '+m.text.slice(0,60);toast('🔔 '+txt);try{if('Notification' in window&&Notification.permission==='granted'&&document.hidden)new Notification('Campus Chat',{body:txt});}catch(e){}}
+function notify(room,m){if(!inside())return;if(S.muteAll||S.muted[room])return;if(room===S.room&&!document.hidden&&!S.game)return;const txt=roomName(room)+': '+m.text.slice(0,60);toast('🔔 '+txt);try{if('Notification' in window&&Notification.permission==='granted'&&document.hidden)new Notification('Campus Chat',{body:txt});}catch(e){}}
 function showModal(html){$('modalBody').innerHTML=html;$('modal').classList.remove('hidden');}
 function hideModal(){$('modal').classList.add('hidden');$('modalBody').innerHTML='';}
 // ---------- language / theme
@@ -203,7 +209,7 @@ function renderGate(){
  let msg='';
  if(!S.isMod||S.test!=='off'){ if(!inside()){ msg=S.gpsErr||(!S.gps?t('gpsWait'):(!S.campus?t('noCampus'):t('outside'))); } }
  $('gpsStatus').textContent=msg;$('locSec').classList.toggle('hidden',inside()&&!S.isMod);
- const ok=inside();$('roomsSec').classList.toggle('hidden',!ok||!!S.room||!!S.game);$('chatSec').classList.toggle('hidden',!ok||!S.room);$('gamesSec').classList.toggle('hidden',!ok||!!S.room||!!S.game);$('gameSec').classList.toggle('hidden',!ok||!S.game);
+ const ok=!!S.user,ins=inside();$('roomsSec').classList.toggle('hidden',!ok||!!S.room||!!S.game);$('chatSec').classList.toggle('hidden',!ok||!S.room);$('gamesSec').classList.toggle('hidden',!ins||!!S.room||!!S.game);$('gameSec').classList.toggle('hidden',!ins||!S.game);
  $('banBar').classList.toggle('hidden',!banned());if(banned())$('banBar').textContent=t('banned')+(S.bannedUntil>4e12?t('forever'):new Date(S.bannedUntil).toLocaleString());
 }
 function renderMod(){const m=$('modBar');m.classList.toggle('hidden',!S.isMod);if(!S.isMod)return;
@@ -217,7 +223,7 @@ function startGps(){if(!navigator.geolocation){S.gpsErr=t('gpsNo');renderGate();
 const L={};let attached=false;
 function off(k){if(L[k]){L[k]();delete L[k];}}
 function offAll(){Object.keys(L).forEach(off);attached=false;}
-function sync(){const want=inside();if(want&&!attached)attach();else if(!want&&attached){offAll();S.room=null;S.game=null;S.msgs=[];}
+function sync(){touchIn();const want=!!S.user;if(want&&!attached)attach();else if(!want&&attached){offAll();S.room=null;S.game=null;S.msgs=[];}
  if(want)syncRoom();}
 function attach(){attached=true;
  ROOMS.forEach(r=>{let first=true;L['n_'+r]=onSnapshot(query(collection(db,'rooms',r,'messages'),orderBy('ts','desc'),limit(1)),s=>{if(first){first=false;return;}s.docChanges().forEach(c=>{if(c.type==='added'&&!c.doc.metadata.hasPendingWrites){const m=c.doc.data();if(m.uid!==S.user.uid)notify(r,m);}});},()=>{});});
@@ -232,14 +238,14 @@ function syncRoom(){if(curRoom===S.room)return;off('m');off('p');off('r');curRoo
 function renderRooms(){const el=$('rooms');el.innerHTML=ROOMS.map(r=>'<button class="room'+(r==='general'?' general':'')+'" data-r="'+r+'" type="button">'+(S.muted[r]?'🔕 ':'')+esc(roomName(r))+'</button>').join('');}
 function openRoom(r){S.room=r;S.pick=null;sync();render();}
 function closeRoom(){S.room=null;sync();render();}
-function renderChat(){if(!S.room||!inside())return;
+function renderChat(){if(!S.room||!S.user)return;
  $('roomTitle').textContent=roomName(S.room);$('muteBtn').textContent=S.muted[S.room]?t('unmute'):t('mute');
- const pn=S.pin?'<div class="pinned">'+t('pinned')+': '+esc(S.pin.text)+(S.isMod?' <button class="small ghost" data-a="unpin" type="button">'+t('unpin')+'</button>':'')+'</div>':'';
- const polls=S.polls.map(p=>{const tot=Object.keys(p.votes||{}).length;const mine=(p.votes||{})[S.user.uid];
+ const pn=(S.pin&&inside())?'<div class="pinned">'+t('pinned')+': '+esc(S.pin.text)+(S.isMod?' <button class="small ghost" data-a="unpin" type="button">'+t('unpin')+'</button>':'')+'</div>':'';
+ const polls=S.polls.filter(p=>tsMs(p)<=cutoff()).map(p=>{const tot=Object.keys(p.votes||{}).length;const mine=(p.votes||{})[S.user.uid];
   return '<div class="poll"><b>📊 '+esc(p.q)+'</b>'+p.opts.map((o,i)=>{const c=Object.values(p.votes||{}).filter(v=>v===i).length;const pc=tot?Math.round(100*c/tot):0;
    return '<button class="opt'+(mine===i?' sel':'')+'" data-a="pv" data-p="'+p.id+'" data-i="'+i+'" type="button"><span class="bar" style="width:'+pc+'%"></span><span class="ol">'+esc(o)+' · '+c+'</span></button>';}).join('')+'<div class="note">'+tot+t('votes')+((p.uid===S.user.uid||S.isMod)?' <button class="small ghost" data-a="pd" data-p="'+p.id+'" type="button">'+t('del')+'</button>':'')+'</div></div>';}).join('');
  const me=S.user.uid;
- const list=S.msgs.map(m=>{const reps=Object.keys(m.reports||{}).length,hid=reps>=5;if(hid&&!S.isMod)return '';
+ const co=cutoff();const list=S.msgs.filter(m=>tsMs(m)<=co).map(m=>{const reps=Object.keys(m.reports||{}).length,hid=reps>=5;if(hid&&!S.isMod)return '';
   const vs=Object.values(m.votes||{}),score=vs.reduce((a,b)=>a+b,0),mv=(m.votes||{})[me];
   const rc={};Object.values(m.reactions||{}).forEach(e=>rc[e]=(rc[e]||0)+1);const mr=(m.reactions||{})[me];
   const chips=Object.keys(rc).map(e=>'<button class="chip'+(mr===e?' sel':'')+'" data-a="re" data-id="'+m.id+'" data-e="'+e+'" type="button">'+e+' '+rc[e]+'</button>').join('');
@@ -278,12 +284,12 @@ $('cancelReply').onclick=()=>{replyTo=null;$('replyBanner').classList.add('hidde
 $('muteBtn').onclick=()=>{S.muted[S.room]=!S.muted[S.room];SV('muted',S.muted);renderChat();renderRooms();};
 $('notifBtn').onclick=async()=>{try{await Notification.requestPermission();}catch(e){}};
 $('muteAllBtn').onclick=()=>{S.muteAll=!S.muteAll;SV('muteAll',S.muteAll);$('muteAllBtn').textContent=S.muteAll?t('unmuteAll'):t('muteAll');};
-async function sendMsg(){const inp=$('text'),v=inp.value.trim();if(!v||!S.room)return;if(banned()){renderGate();return;}
+async function sendMsg(){const inp=$('text'),v=inp.value.trim();if(!v||!S.room)return;if(!inside()){toast(t('outside'));return;}if(banned()){renderGate();return;}
  if(isBlocked(v)){const w=$('warn');w.textContent=t('blocked');w.style.display='block';setTimeout(()=>w.style.display='none',3000);return;}
  inp.value='';const data={uid:S.user.uid,text:v.slice(0,500),ts:serverTimestamp(),replyTo:replyTo||'',votes:{},reports:{},reactions:{}};replyTo=null;$('replyBanner').classList.add('hidden');
  try{await addDoc(collection(db,'rooms',S.room,'messages'),data);}catch(e){toast(e.code==='permission-denied'?t('banned'):e.code);}}
 $('send').onclick=sendMsg;$('text').addEventListener('keydown',e=>{if(e.key==='Enter')sendMsg();});
-$('pollBtn').onclick=()=>{showModal('<h2>'+t('poll')+'</h2><input id="pq" type="text" maxlength="150" placeholder="'+t('pollQ')+'"><p class="note">'+t('pollO')+'</p><textarea id="po" rows="5" style="width:100%;font:inherit"></textarea><div style="display:flex;gap:8px;margin-top:8px"><button id="pOk" type="button">'+t('create')+'</button><button id="pNo" class="ghost" type="button">'+t('cancel')+'</button></div>');
+$('pollBtn').onclick=()=>{if(!inside()){toast(t('outside'));return;}showModal('<h2>'+t('poll')+'</h2><input id="pq" type="text" maxlength="150" placeholder="'+t('pollQ')+'"><p class="note">'+t('pollO')+'</p><textarea id="po" rows="5" style="width:100%;font:inherit"></textarea><div style="display:flex;gap:8px;margin-top:8px"><button id="pOk" type="button">'+t('create')+'</button><button id="pNo" class="ghost" type="button">'+t('cancel')+'</button></div>');
  $('pNo').onclick=hideModal;$('pOk').onclick=async()=>{const q=$('pq').value.trim(),o=$('po').value.split('\n').map(x=>x.trim()).filter(Boolean).slice(0,6);if(!q||o.length<2||isBlocked(q+' '+o.join(' ')))return;hideModal();
   try{await addDoc(collection(db,'rooms',S.room,'polls'),{uid:S.user.uid,q,opts:o,votes:{},ts:serverTimestamp()});}catch(e){toast(e.code);}};};
 // ---------- games
@@ -341,7 +347,7 @@ $('aPass').addEventListener('keydown',e=>{if(e.key==='Enter')doAuth('login');});
 onAuthStateChanged(auth,async u=>{offAll();off('me');curRoom=null;S.user=u;S.room=null;S.game=null;S.isMod=false;S.bannedUntil=0;S.uname='';
  if(u){try{const m=await getDoc(doc(db,'mods',u.uid));S.isMod=m.exists();}catch(e){}
   L.me=onSnapshot(doc(db,'users',u.uid),s=>{if(s.exists()){S.uname=s.data().username;S.bannedUntil=s.data().bannedUntil||0;}renderGate();},()=>{});
-  L.cfg=onSnapshot(doc(db,'config','campus'),s=>{S.campus=s.exists()?s.data():null;sync();render();},()=>{});}
+  L.cfg=onSnapshot(doc(db,'config','campus'),s=>{S.campus=CAMPUS_FIXED;sync();render();},()=>{});}
  sync();render();});
 // config also readable logged-out? not needed.
 // ---------- hidden moderator claim (tap logo 7 times)
