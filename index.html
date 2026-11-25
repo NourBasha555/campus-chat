@@ -33,23 +33,39 @@ button.danger{background:#b3261e}button:disabled{opacity:.45}
 .hidden{display:none!important}
 .modal{position:fixed;inset:0;background:#0008;display:flex;align-items:center;justify-content:center;padding:20px}
 .modal div{background:#fff;border-radius:14px;padding:16px;width:100%;max-width:340px}
+body.dark{background:#15181a;color:#e8e8e8}body.dark section{background:#1f2426}body.dark .msg{background:#2b3236}body.dark .mine{background:#1f4a3f}
+body.dark select,body.dark input,body.dark textarea{background:#2b3236;color:#e8e8e8;border-color:#444}body.dark button.ghost,body.dark .room{background:#333b3f;color:#eee}body.dark .modal div{background:#1f2426;color:#eee}body.dark .note{color:#aaa}
+.pinned{background:#fff3cd;color:#222;border-radius:10px;padding:8px;margin-bottom:8px;font-size:14px}
+.poll{border:1px solid #8884;border-radius:12px;padding:8px;margin-bottom:8px}.opt{display:block;width:100%;position:relative;overflow:hidden;background:#8882;color:inherit;text-align:start;margin:4px 0;min-height:38px}.opt .bar{position:absolute;top:0;bottom:0;inset-inline-start:0;background:#1f6f5c55}.opt .ol{position:relative}.opt.sel{outline:2px solid #1f6f5c}
+.chip{min-height:28px;padding:0 8px;font-size:14px;background:#8882;color:inherit;border-radius:14px}.chip.sel,.ghost.sel{outline:2px solid #1f6f5c}
+.toast{position:fixed;top:8px;inset-inline:10px;background:#222;color:#fff;border-radius:10px;padding:10px;z-index:9;text-align:center}
+.xo{display:grid;grid-template-columns:repeat(3,70px);gap:6px;justify-content:center}.cell{height:70px;font-size:30px;background:#8883;color:inherit;padding:0}
+.tile{display:inline-block;border:2px solid #555;border-radius:6px;padding:6px 8px;margin:2px;background:#fff;color:#000;min-height:0;font-weight:700}.board{overflow-x:auto;white-space:nowrap;padding:6px 0}
+.ban{background:#fdecea;color:#8a1c12;border-radius:10px;padding:10px;margin-bottom:8px}
+textarea{border:1px solid #ccc;border-radius:10px;padding:8px}
 </style></head><body>
-<header><div style="flex:1"><h1>Campus Chat</h1><div id="uni" style="font-size:13px;opacity:.9"></div></div><button id="mod" class="small" type="button"></button><button id="lang" class="small" type="button"></button></header>
+<header><img id="logo" src="data:image/jpeg;base64,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" alt="" style="width:44px;height:44px;border-radius:50%;margin-inline-end:10px;background:#fff;flex:none"><div style="flex:1"><h1>Campus Chat</h1><div id="uni" style="font-size:13px;opacity:.9"></div></div><button id="dk" class="small" type="button"></button><button id="lang" class="small" type="button"></button><button id="logout" class="small hidden" type="button"></button></header>
+<div class="toast hidden" id="toast"></div>
 <main>
-<section id="locSec"><h2 id="tLoc"></h2><p class="note" id="tLocNote"></p><select id="loc"></select></section>
-<section id="roomsSec"><h2 id="tRooms"></h2><div class="rooms" id="rooms"></div></section>
+<section id="authSec"><input id="aUser" type="text" autocapitalize="none" autocomplete="username" dir="ltr"><div style="height:8px"></div><input id="aPass" type="password" autocomplete="current-password" dir="ltr"><p class="note" id="aErr" style="color:#b3261e"></p><div style="display:flex;gap:8px"><button id="aLogin" type="button"></button><button id="aSign" class="ghost" type="button"></button></div></section>
+<div id="appSec" class="hidden">
+<div class="ban hidden" id="banBar"></div>
+<div class="modbar hidden" id="modBar"></div>
+<section id="locSec"><h2 id="tLoc"></h2><p class="note" id="gpsStatus"></p><button id="gpsBtn" class="ghost small" type="button"></button></section>
+<section id="roomsSec"><h2 id="tRooms"></h2><div class="rooms" id="rooms"></div><div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap"><button id="notifBtn" class="ghost small" type="button"></button><button id="muteAllBtn" class="ghost small" type="button"></button></div></section>
+<section id="gamesSec"><h2 id="tGames"></h2><div class="acts"><button id="newXO" class="small" type="button"></button><button id="newDom" class="small" type="button"></button></div><div class="acts" id="gOpen"></div><div class="acts" id="gMine"></div></section>
+<section id="gameSec" class="hidden"><div class="acts"><button id="gBack" class="ghost small" type="button">←</button><button id="gLeave" class="danger small" type="button">✕</button></div><div id="gameBody"></div></section>
 <section id="chatSec" class="hidden">
- <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px"><button id="back" class="ghost small" type="button"></button><h2 id="roomTitle" style="margin:0;flex:1"></h2></div>
- <div class="modbar hidden" id="modbar"></div>
+ <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px"><button id="back" class="ghost small" type="button"></button><h2 id="roomTitle" style="margin:0;flex:1"></h2><button id="muteBtn" class="ghost small" type="button"></button><button id="pollBtn" class="ghost small" type="button"></button></div>
+ <div id="pinBox"></div><div id="pollBox"></div>
  <div class="list" id="list"></div>
  <div class="banner hidden" id="replyBanner"><span id="replyTxt"></span><button id="cancelReply" class="ghost small" type="button">✕</button></div>
  <div class="form"><input id="text" type="text" maxlength="500" autocomplete="off"><button id="send" type="button"></button></div>
  <div class="warn" id="warn"></div>
- <div id="remSec" class="hidden"><h2 id="tRemoved" style="margin-top:14px"></h2><div class="list" id="remList"></div></div>
 </section>
 <p class="note" id="tDemo"></p>
-</main>
-<div class="modal hidden" id="modal"><div><h2 id="tPin"></h2><input id="pin" type="password" inputmode="numeric"><p class="note" id="pinErr" style="color:#b3261e"></p><div style="display:flex;gap:8px;margin-top:8px"><button id="pinOk" type="button"></button><button id="pinNo" class="ghost" type="button"></button></div></div></div>
+</div></main>
+<div class="modal hidden" id="modal"><div id="modalBody"></div></div>
 <script>
 // Bad-language filter (same as the first version). Loaded before app.js.
 function norm(t){
@@ -61,7 +77,7 @@ function norm(t){
 }
 const AR_STRONG=['شرموط','عرص','متناك','منيوك','منيك','ينيك','انيك','نيكني','نيكمك','كسمك','كسام','كسختك','كساختك','كسخت','كسك','خولات','ابنالكلب','ولادالكلب','ابنالوسخ','ابنالمتناك','ابنالشرموط','ابنالقحب','قحبه','قحاب','عاهره','لبوه','ديوث','طيزك','طيزي','بزازك','بزازها','يلعنابوك','يلعندين','يلعنامك','دينامك','دينابوك','ابوكي','اتنيل','فشخ','فاشخ','سكس','زبي','زبك','ابنزنا','ولدزنا','وسخه','يابهيم','يابن','وسخ','زفت','زفتا','يالكلب','ياكلب','ياحمار','يافاشل','ياغبي','ياحيوان','يازبال','يامعرص','يامتناك','يابغل','يازفت','زباله','متخلف','متخلفه','حقير','حقيره','واطي','واطيه','قذر','قذره','غبي','غبيه','حمار','حمارك','كلب','كلبه','كلاب','بهيم','حيوان','حيوانه','تافه','سافل','سافله','خنزير','حثاله','عبيط','مجنون','كسم','كوسم','خرا','خره'];
 // Short or ambiguous words: only match as whole word (with common prefixes)
-const AR_WORD=['كس','زب','خول','نيك','طيز','بز','بزاز','مص','خرا','خره','عير','ايري','ايرك','ديك','لوطي','شاذ','شاذه','عره','هبل','هبله'];
+const AR_WORD=['احا','كس','زب','خول','نيك','طيز','بز','بزاز','مص','خرا','خره','عير','ايري','ايرك','ديك','لوطي','شاذ','شاذه','عره','هبل','هبله'];
 const AR_PREF=['','و','ف','ب','ل','يا','ال','وال','بال','لل','ي','ه','ح','هي','حي','ت','ن','ا'];
 const LAT=['sharmoot','sharmot','sharmota','sharmoota','sharmouta','sharmoute','charmouta','3ars','a3rs','3rs','mtnak','mitnak','metnak','mitnaak','mtnaak','metnaak','manyak','manyok','manyouk','neek','nik','neeknak','aneek','aneekak','kosomak','ksomak','kosomk','kosom','kossomak','kos omak','ksmk','kosumak','kosummak','ks omak','kosomen','kosokhtak','kosokhtk','khawal','khawl','5awal','5wal','kahba','ka7ba','ka7ba','kahpa','sharmouta','3ahra','zebi','zeby','zobry','zobri','zoby','zebbi','zb','tizi','tezi','teezi','teezak','tezak','ebnelkalb','ebnelkelb','ibnelkalb','ebnelsharmota','ebnelmtnaka','ebnmtnaka','ebnelwes5a','ebnelwasekha','welad el kalb','weladelkalb','yalkalb','yakalb','yakelb','yahmar','ya7mar','7mar','3rs','a7a','a7eh','ayre','ayri','airy','ayrak','airak','ayry','ayree','ayreek','ayreeh','fuck','fck','fuk','fucc','fvck','shit','sh1t','bitch','b1tch','asshole','a55hole','pussy','bastard','whore','motherfucker','mtherfucker','nigga','nigger','idiot','stupid','dumb','moron','retard'];
 const LAT_WORD=['3rs','neek','neik','cunt','slut','d1ck','a7a','7mar','zb','nik','kos','kos omak','tiz','tez','ars','3ars','aiyr','dick','fck','fuk'];
@@ -110,145 +126,240 @@ function isBlocked(raw){
 
 
 </script>
-<script>
-// CHANGE THE UNIVERSITY NAME HERE (one place only):
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,onAuthStateChanged,signOut} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {getFirestore,doc,getDoc,setDoc,updateDoc,deleteDoc,deleteField,collection,query,orderBy,limit,where,onSnapshot,addDoc,serverTimestamp,arrayUnion} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+const app=initializeApp({apiKey:"AIzaSyBQ4W_NwUbARaXpQcbkNFpr6rPL4rQL6Mg",authDomain:"campus-chat-729ea.firebaseapp.com",projectId:"campus-chat-729ea",storageBucket:"campus-chat-729ea.firebasestorage.app",messagingSenderId:"800618580958",appId:"1:800618580958:web:99769a0c3c21b79a7c6b4f"});
+const auth=getAuth(app),db=getFirestore(app);
 const UNIVERSITY={en:'Capital University',ar:'جامعة العاصمة'};
-const MOD_PIN='1234'; // demo only. Real version uses a real login.
-const REPORT_LIMIT=5, HALLS=18;
+const CAMPUS_RADIUS_M=1000;
+const DOM='@campus.chat';
+const ROOMS=['general',...Array.from({length:18},(_,i)=>'hall'+(i+1))];
+const EMO=['👍','❤️','😂','😮','😢','🙏'];
 const T={ar:{
- loc:'مكانك (تجربة)',locNote:'في النسخة الحقيقية المكان بييجي من لوكيشن الموبايل. هنا اختار مكانك عشان تجرب.',
- rooms:'الغرف',general:'الغرفة العامة',hall:'مدرج ',lock:'🔒 لازم تكون قريب من المدرج',farMsg:'إنت بعيد عن الجامعة.',
- atHall:'عند مدرج ',campus:'في الجامعة (مش عند مدرج)',far:'بعيد عن الجامعة',
- back:'رجوع',ph:'اكتب رسالة...',send:'إرسال',blocked:'الرسالة دي اتمنعت: فيها ألفاظ مش مسموحة. اكتبها بشكل محترم.',
- reply:'رد',report:'إبلاغ',reported:'تم الإبلاغ',replyTo:'ردًا على: ',student:'طالب مجهول ',you:'إنت',
- empty:'مفيش رسائل لسه. ابدأ إنت.',mod:'مودريتور',modOut:'خروج المودريتور',modbar:'وضع المودريتور: تقدر تعدل وتمسح وتشوف المتمسح.',
- edit:'تعديل',del:'مسح',restore:'استرجاع',removed:'الرسائل المتمسحة (إنت بس اللي بتشوفها)',noRemoved:'مفيش رسائل متمسحة.',
- editPrompt:'عدّل الرسالة:',pin:'رقم المودريتور',pinNo:'إلغاء',pinOk:'دخول',pinBad:'الرقم غلط',
- demo:'ده نموذج على موبايلك بس: الرسائل مش بتتبعت لناس تانية لسه. رسالة "جرب الإبلاغ" في الغرفة العامة عليها 4 بلاغات، بلغ عنها وهي هتتمسح (5 بلاغات).',
- removedBy:'اتمسحت (5 بلاغات)',by:'مسحها المودريتور'},
- en:{
- loc:'Your location (demo)',locNote:'In the real version this comes from the phone GPS. Here, pick a place to try it.',
- rooms:'Rooms',general:'Campus-wide room',hall:'Hall ',lock:'🔒 You must be near this hall',farMsg:'You are far from campus.',
- atHall:'At Hall ',campus:'On campus (not at a hall)',far:'Far from campus',
- back:'Back',ph:'Write a message...',send:'Send',blocked:'This message was blocked: it has words that are not allowed. Please write it politely.',
- reply:'Reply',report:'Report',reported:'Reported',replyTo:'Replying to: ',student:'Student ',you:'You',
- empty:'No messages yet. Be the first.',mod:'Moderator',modOut:'Exit moderator',modbar:'Moderator mode: you can edit, delete and see deleted messages.',
- edit:'Edit',del:'Delete',restore:'Restore',removed:'Deleted messages (only you can see these)',noRemoved:'No deleted messages.',
- editPrompt:'Edit message:',pin:'Moderator PIN',pinNo:'Cancel',pinOk:'Enter',pinBad:'Wrong PIN',
- demo:'This is a demo on your phone only: messages are not sent to other people yet. The "try reporting" message in the General room already has 4 reports. Report it and it disappears (5 reports).',
- removedBy:'removed (5 reports)',by:'deleted by moderator'}};
+ login:'دخول',signup:'حساب جديد',user:'اسم المستخدم (إنجليزي)',pass:'كلمة السر (6 أحرف على الأقل)',
+ badUser:'اسم المستخدم: حروف إنجليزية وأرقام و _ فقط (3 إلى 20)',badName:'اسم غير مناسب',taken:'الاسم مستخدم',wrong:'اسم المستخدم أو كلمة السر غلط',weak:'كلمة السر ضعيفة (6 أحرف على الأقل)',neterr:'مشكلة في الاتصال',
+ logout:'خروج',gpsOn:'تفعيل الموقع',locT:'الموقع',gpsWait:'جاري تحديد موقعك...',gpsDeny:'الموقع مرفوض. فعّله من إعدادات المتصفح.',gpsNo:'المتصفح لا يدعم الموقع',
+ outside:'التطبيق يعمل داخل الجامعة فقط. اقترب من الحرم الجامعي.',noCampus:'التطبيق يعمل داخل الجامعة فقط. لم يتم تحديد موقع الجامعة بعد.',
+ rooms:'الغرف',gen:'عام',hall:'قاعة ',back:'رجوع',send:'إرسال',ph:'اكتب رسالة...',reply:'رد',report:'إبلاغ',reported:'تم الإبلاغ',del:'حذف',
+ anon:'مجهول ',blocked:'الرسالة فيها كلمات غير مناسبة',banned:'تم إيقافك من الكتابة حتى ',forever:'للأبد',
+ pinned:'📌 مثبّتة',pin:'تثبيت',unpin:'إلغاء التثبيت',poll:'📊 تصويت',pollQ:'السؤال',pollO:'الخيارات (كل خيار في سطر، 2 إلى 6)',create:'إنشاء',cancel:'إلغاء',
+ votes:' صوت',mute:'🔕 كتم',unmute:'🔔 تشغيل',muteAll:'كتم الكل',unmuteAll:'تشغيل الإشعارات',notif:'🔔 السماح بالإشعارات',
+ dark:'🌙',light:'☀️',games:'الألعاب',newXO:'XO جديدة',newDom:'دومينو جديدة',open:'ألعاب مفتوحة',mine:'ألعابي',join:'انضم',resume:'افتح',leave:'اترك اللعبة',
+ yourTurn:'دورك',theirTurn:'دور الخصم',youWin:'فزت! 🎉',youLose:'خسرت',draw:'تعادل',waiting:'في انتظار لاعب...',
+ drawTile:'اسحب',pass:'تخطّي',yard:'المخزن: ',oppT:'أحجار الخصم: ',left:'يسار؟ (موافق=يسار، إلغاء=يمين)',
+ modLbl:'المشرف',setC:'اجعل موقعي مركز الجامعة',setDone:'تم تحديد مركز الجامعة',setNo:'لا يوجد موقع حالياً',testL:'وضع الاختبار: ',tOff:'بدون',tIn:'داخل الحرم',tFar:'خارج الحرم',
+ ban:'حظر',banAsk:'مدة الحظر؟ 1=10 دقائق 2=ساعة 3=24 ساعة 4=دائم',banDone:'تم الحظر',
+ code:'الكود',codeSet:'أدخل الكود (8 أحرف على الأقل). أول مرة = تحدده أنت.',ok:'موافق',codeBad:'الكود غلط',codeOk:'تم',removed:'محذوفة بالبلاغات',
+ chatsOf:'الرسائل الجديدة',tDemo:'تطبيق دردشة مجهول لطلاب الجامعة. الإشعارات تعمل والتطبيق مفتوح فقط.'},
+en:{
+ login:'Log in',signup:'Sign up',user:'Username (English)',pass:'Password (6+ characters)',
+ badUser:'Username: English letters, digits and _ only (3 to 20)',badName:'Name not allowed',taken:'Username taken',wrong:'Wrong username or password',weak:'Password too weak (6+ characters)',neterr:'Connection problem',
+ logout:'Log out',gpsOn:'Enable location',locT:'Location',gpsWait:'Finding your location...',gpsDeny:'Location denied. Enable it in browser settings.',gpsNo:'Location not supported',
+ outside:'This app works inside the university only. Get closer to campus.',noCampus:'This app works inside the university only. Campus location not set yet.',
+ rooms:'Rooms',gen:'General',hall:'Hall ',back:'Back',send:'Send',ph:'Write a message...',reply:'Reply',report:'Report',reported:'Reported',del:'Delete',
+ anon:'Anon ',blocked:'Message has inappropriate words',banned:'You are blocked from writing until ',forever:'forever',
+ pinned:'📌 Pinned',pin:'Pin',unpin:'Unpin',poll:'📊 Poll',pollQ:'Question',pollO:'Options (one per line, 2 to 6)',create:'Create',cancel:'Cancel',
+ votes:' votes',mute:'🔕 Mute',unmute:'🔔 Unmute',muteAll:'Mute all',unmuteAll:'Unmute all',notif:'🔔 Allow notifications',
+ dark:'🌙',light:'☀️',games:'Games',newXO:'New XO',newDom:'New Domino',open:'Open games',mine:'My games',join:'Join',resume:'Open',leave:'Leave game',
+ yourTurn:'Your turn',theirTurn:"Opponent's turn",youWin:'You won! 🎉',youLose:'You lost',draw:'Draw',waiting:'Waiting for a player...',
+ drawTile:'Draw',pass:'Pass',yard:'Pile: ',oppT:'Opponent tiles: ',left:'Left end? (OK=left, Cancel=right)',
+ modLbl:'Moderator',setC:'Set my location as campus center',setDone:'Campus center set',setNo:'No location yet',testL:'Test mode: ',tOff:'Off',tIn:'Inside',tFar:'Outside',
+ ban:'Ban',banAsk:'Ban length? 1=10 min 2=1 hour 3=24 hours 4=permanent',banDone:'Banned',
+ code:'Code',codeSet:'Enter the code (8+ characters). First time = you set it.',ok:'OK',codeBad:'Wrong code',codeOk:'Done',removed:'Hidden by reports',
+ chatsOf:'New messages',tDemo:'Anonymous chat for university students. Notifications work only while the app is open.'}};
 const $=id=>document.getElementById(id);
-const KEY='campus_chat_state_v2';
-function seed(){
- const now=Date.now(),m={},r={};
- m.general=[
-  {id:'s1',text:'Anyone know if tomorrow\'s exam is postponed?',anon:12,up:3,down:0,reports:0,replyTo:null,t:now-3600e3},
-  {id:'s2',text:'حد عنده ملخص المحاضرة الأخيرة؟',anon:7,up:5,down:1,reports:0,replyTo:null,t:now-2400e3},
-  {id:'s3',text:'جرب الإبلاغ: بلغ عن الرسالة دي',anon:31,up:0,down:2,reports:4,replyTo:null,t:now-1200e3}];
- m.hall7=[{id:'s4',text:'المحاضرة هتبدأ متأخر 10 دقايق',anon:44,up:2,down:0,reports:0,replyTo:null,t:now-900e3}];
- return {msgs:m,removed:r,votes:{},reported:{},lang:'ar',loc:'campus',mod:false,anon:100+Math.floor(Math.random()*900)};
-}
-let S;try{S=JSON.parse(localStorage.getItem(KEY))||seed();}catch(e){S=seed();}
-S.mod=false;
-function save(){localStorage.setItem(KEY,JSON.stringify(S));}
-let room=null,replying=null;
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const LS=(k,d)=>{try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}};
+const SV=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+const S={lang:LS('lang','ar'),dark:LS('dark',false),muteAll:LS('muteAll',false),muted:LS('muted',{}),user:null,uname:'',isMod:false,bannedUntil:0,gps:null,gpsErr:'',campus:null,test:'off',room:null,msgs:[],polls:[],pin:null,pick:null,games:[],openGames:[],game:null,authMode:'login'};
 const t=k=>T[S.lang][k];
-const roomName=r=>r==='general'?t('general'):t('hall')+r.slice(4);
-function allowed(r){
- if(S.loc==='far')return false;
- if(r==='general')return true;
- return S.loc==='hall'+r.slice(4);
+const roomName=r=>r==='general'?t('gen'):t('hall')+r.slice(4);
+let taps=0,tapT=0;
+// ---------- helpers
+function dist(a,b,c,d){const R=6371000,p=Math.PI/180,x=(c-a)*p,y=(d-b)*p;const h=Math.sin(x/2)**2+Math.cos(a*p)*Math.cos(c*p)*Math.sin(y/2)**2;return 2*R*Math.asin(Math.sqrt(h));}
+function inside(){if(!S.user)return false;if(S.isMod){return S.test!=='far';}if(S.test==='x')return false;return !!(S.campus&&S.gps&&dist(S.gps.lat,S.gps.lon,S.campus.lat,S.campus.lon)<=CAMPUS_RADIUS_M);}
+function banned(){return S.bannedUntil>Date.now();}
+async function sha(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('').toUpperCase();}
+function anonOf(uid){let h=0;for(const c of uid)h=(h*31+c.charCodeAt(0))>>>0;return t('anon')+(100+h%900);}
+function toast(msg){const b=$('toast');b.textContent=msg;b.classList.remove('hidden');clearTimeout(toast.t);toast.t=setTimeout(()=>b.classList.add('hidden'),4000);}
+function notify(room,m){if(S.muteAll||S.muted[room])return;if(room===S.room&&!document.hidden&&!S.game)return;const txt=roomName(room)+': '+m.text.slice(0,60);toast('🔔 '+txt);try{if('Notification' in window&&Notification.permission==='granted'&&document.hidden)new Notification('Campus Chat',{body:txt});}catch(e){}}
+function showModal(html){$('modalBody').innerHTML=html;$('modal').classList.remove('hidden');}
+function hideModal(){$('modal').classList.add('hidden');$('modalBody').innerHTML='';}
+// ---------- language / theme
+function applyLang(){document.documentElement.lang=S.lang;document.documentElement.dir=S.lang==='ar'?'rtl':'ltr';document.body.classList.toggle('dark',S.dark);
+ $('lang').textContent=S.lang==='ar'?'English':'العربية';$('dk').textContent=S.dark?t('light'):t('dark');$('uni').textContent=UNIVERSITY[S.lang];
+ $('aUser').placeholder=t('user');$('aPass').placeholder=t('pass');$('aLogin').textContent=t('login');$('aSign').textContent=t('signup');
+ $('logout').textContent=t('logout');$('tRooms').textContent=t('rooms');$('back').textContent=t('back');$('send').textContent=t('send');$('text').placeholder=t('ph');
+ $('tDemo').textContent=t('tDemo');$('gpsBtn').textContent=t('gpsOn');$('tLoc').textContent=t('locT');$('tGames').textContent=t('games');
+ $('newXO').textContent=t('newXO');$('newDom').textContent=t('newDom');$('pollBtn').textContent=t('poll');$('notifBtn').textContent=t('notif');
+ render();}
+function render(){renderGate();renderRooms();renderChat();renderGames();renderMod();}
+// ---------- gate
+function renderGate(){
+ const logged=!!S.user;$('authSec').classList.toggle('hidden',logged);$('appSec').classList.toggle('hidden',!logged);$('logout').classList.toggle('hidden',!logged);
+ if(!logged)return;
+ let msg='';
+ if(!S.isMod||S.test!=='off'){ if(!inside()){ msg=S.gpsErr||(!S.gps?t('gpsWait'):(!S.campus?t('noCampus'):t('outside'))); } }
+ $('gpsStatus').textContent=msg;$('locSec').classList.toggle('hidden',inside()&&!S.isMod);
+ const ok=inside();$('roomsSec').classList.toggle('hidden',!ok||!!S.room||!!S.game);$('chatSec').classList.toggle('hidden',!ok||!S.room);$('gamesSec').classList.toggle('hidden',!ok||!!S.room||!!S.game);$('gameSec').classList.toggle('hidden',!ok||!S.game);
+ $('banBar').classList.toggle('hidden',!banned());if(banned())$('banBar').textContent=t('banned')+(S.bannedUntil>4e12?t('forever'):new Date(S.bannedUntil).toLocaleString());
 }
-function applyLang(){
- document.documentElement.lang=S.lang;document.documentElement.dir=S.lang==='ar'?'rtl':'ltr';
- $('lang').textContent=S.lang==='ar'?'English':'العربية';
- $('tLoc').textContent=t('loc');$('tLocNote').textContent=t('locNote');$('tRooms').textContent=t('rooms');
- $('back').textContent=t('back');$('text').placeholder=t('ph');$('send').textContent=t('send');$('warn').textContent=t('blocked');
- $('tDemo').textContent=t('demo');$('tRemoved').textContent=t('removed');$('modbar').textContent=t('modbar');
- $('tPin').textContent=t('pin');$('pinOk').textContent=t('pinOk');$('pinNo').textContent=t('pinNo');
- $('uni').textContent=UNIVERSITY[S.lang];
- $('mod').textContent=S.mod?t('modOut'):t('mod');
- const sel=$('loc');sel.textContent='';
- const opts=[['far',t('far')],['campus',t('campus')]];
- for(let i=1;i<=HALLS;i++)opts.push(['hall'+i,t('atHall')+i]);
- opts.forEach(([v,l])=>{const o=document.createElement('option');o.value=v;o.textContent=l;sel.appendChild(o);});
- sel.value=S.loc;
-}
-function renderRooms(){
- const box=$('rooms');box.textContent='';
- const mk=r=>{const b=document.createElement('button');b.type='button';
-  b.className='room'+(r==='general'?' general':'')+(allowed(r)?'':' locked');
-  b.textContent=(allowed(r)?'':'🔒 ')+roomName(r);
-  b.addEventListener('click',()=>{ if(!allowed(r)){alert(S.loc==='far'?t('farMsg'):t('lock'));return;} openRoom(r);});
-  box.appendChild(b);};
- mk('general');for(let i=1;i<=HALLS;i++)mk('hall'+i);
-}
-function openRoom(r){room=r;replying=null;$('roomsSec').classList.add('hidden');$('locSec').classList.add('hidden');$('chatSec').classList.remove('hidden');renderChat();}
-function closeRoom(){room=null;$('chatSec').classList.add('hidden');$('roomsSec').classList.remove('hidden');$('locSec').classList.remove('hidden');renderRooms();}
-function sweepReports(){
- // messages with enough reports move to the removed list (only the moderator can see them)
- for(const r in S.msgs){S.msgs[r]=S.msgs[r].filter(m=>{
-  if(m.reports>=REPORT_LIMIT){(S.removed[r]=S.removed[r]||[]).push(Object.assign({},m,{why:'reports'}));return false;}return true;});}
-}
-function btn(label,fn,cls){const b=document.createElement('button');b.type='button';b.className='small '+(cls||'ghost');b.textContent=label;b.addEventListener('click',fn);return b;}
-function renderChat(){
- sweepReports();save();
- $('roomTitle').textContent=roomName(room);
- $('modbar').classList.toggle('hidden',!S.mod);$('remSec').classList.toggle('hidden',!S.mod);
- const l=$('list');l.textContent='';
- const arr=(S.msgs[room]||[]).slice().sort((a,b)=>a.t-b.t);
- if(!arr.length){const p=document.createElement('p');p.className='note';p.textContent=t('empty');l.appendChild(p);}
- arr.forEach(m=>{
-  const d=document.createElement('div');d.className='msg'+(m.mine?' mine':'');
-  const w=document.createElement('div');w.className='who';w.textContent=m.mine?t('you'):t('student')+m.anon;d.appendChild(w);
-  if(m.replyTo){const q=document.createElement('div');q.className='reply';q.textContent=t('replyTo')+m.replyTo.text;d.appendChild(q);}
-  const tx=document.createElement('div');tx.textContent=m.text;d.appendChild(tx);
-  const a=document.createElement('div');a.className='acts';
-  const v=S.votes[m.id];
-  const up=btn('👍',()=>vote(m,1),v===1?'':'ghost'),dn=btn('👎',()=>vote(m,-1),v===-1?'':'ghost');
-  if(v){up.disabled=dn.disabled=true;}
-  const sc=document.createElement('span');sc.className='score';sc.textContent=m.up-m.down;
-  a.append(up,sc,dn,btn(t('reply'),()=>{replying=m;showReply();$('text').focus();}));
-  const rp=btn(S.reported[m.id]?t('reported'):t('report'),()=>report(m));if(S.reported[m.id])rp.disabled=true;a.appendChild(rp);
-  if(S.mod){a.append(btn(t('edit'),()=>{const n=prompt(t('editPrompt'),m.text);if(n&&n.trim()){m.text=n.trim().slice(0,500);m.edited=true;save();renderChat();}}),
-   btn(t('del'),()=>{S.msgs[room]=S.msgs[room].filter(x=>x.id!==m.id);(S.removed[room]=S.removed[room]||[]).push(Object.assign({},m,{why:'mod'}));save();renderChat();},'danger'));}
-  d.appendChild(a);l.appendChild(d);
- });
- const rl=$('remList');rl.textContent='';
- if(S.mod){const rem=S.removed[room]||[];
-  if(!rem.length){const p=document.createElement('p');p.className='note';p.textContent=t('noRemoved');rl.appendChild(p);}
-  rem.forEach(m=>{const d=document.createElement('div');d.className='msg removed';
-   const w=document.createElement('div');w.className='who';w.textContent=t('student')+m.anon+' · '+(m.why==='reports'?t('removedBy'):t('by'));
-   const tx=document.createElement('div');tx.textContent=m.text;
-   const a=document.createElement('div');a.className='acts';
-   a.appendChild(btn(t('restore'),()=>{S.removed[room]=S.removed[room].filter(x=>x.id!==m.id);const c=Object.assign({},m);delete c.why;c.reports=0;(S.msgs[room]=S.msgs[room]||[]).push(c);save();renderChat();}));
-   d.append(w,tx,a);rl.appendChild(d);});}
- showReply();
-}
-function showReply(){const b=$('replyBanner');if(replying){b.classList.remove('hidden');$('replyTxt').textContent=t('replyTo')+replying.text.slice(0,60);}else b.classList.add('hidden');}
-function vote(m,v){if(S.votes[m.id])return;S.votes[m.id]=v;if(v===1)m.up++;else m.down++;save();renderChat();}
-function report(m){if(S.reported[m.id])return;S.reported[m.id]=true;m.reports++;save();renderChat();}
-function send(){
- const x=$('text').value.trim();if(!x)return;
- if(isBlocked(x)){$('warn').style.display='block';return;}
- $('warn').style.display='none';
- const m={id:'m'+Date.now()+Math.floor(Math.random()*1000),text:x,anon:S.anon,mine:true,up:0,down:0,reports:0,
-  replyTo:replying?{id:replying.id,text:replying.text.slice(0,60)}:null,t:Date.now()};
- (S.msgs[room]=S.msgs[room]||[]).push(m);replying=null;$('text').value='';save();renderChat();
-}
-$('send').addEventListener('click',send);
-$('text').addEventListener('keydown',e=>{if(e.key==='Enter')send();});
-$('back').addEventListener('click',closeRoom);
-$('cancelReply').addEventListener('click',()=>{replying=null;showReply();});
-$('loc').addEventListener('change',e=>{S.loc=e.target.value;save();if(room&&!allowed(room))closeRoom();else renderRooms();});
-$('lang').addEventListener('click',()=>{S.lang=S.lang==='ar'?'en':'ar';save();applyLang();renderRooms();if(room)renderChat();});
-$('mod').addEventListener('click',()=>{
- if(S.mod){S.mod=false;applyLang();if(room)renderChat();return;}
- $('pin').value='';$('pinErr').textContent='';$('modal').classList.remove('hidden');$('pin').focus();});
-$('pinNo').addEventListener('click',()=>$('modal').classList.add('hidden'));
-$('pinOk').addEventListener('click',()=>{
- if($('pin').value===MOD_PIN){S.mod=true;$('modal').classList.add('hidden');applyLang();if(room)renderChat();}
- else $('pinErr').textContent=t('pinBad');});
-applyLang();renderRooms();
-if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js');
+function renderMod(){const m=$('modBar');m.classList.toggle('hidden',!S.isMod);if(!S.isMod)return;
+ m.innerHTML='<b>'+t('modLbl')+'</b> <button class="small" id="mSet" type="button">'+t('setC')+'</button> <label>'+t('testL')+'<select id="mTest"><option value="off">'+t('tOff')+'</option><option value="in">'+t('tIn')+'</option><option value="far">'+t('tFar')+'</option></select></label>';
+ $('mTest').value=S.test;$('mSet').onclick=async()=>{if(!S.gps){alert(t('setNo'));return;}try{await setDoc(doc(db,'config','campus'),{lat:S.gps.lat,lon:S.gps.lon});alert(t('setDone'));}catch(e){alert(e.message);}};
+ $('mTest').onchange=e=>{S.test=e.target.value;sync();render();};}
+// ---------- GPS
+function startGps(){if(!navigator.geolocation){S.gpsErr=t('gpsNo');renderGate();return;}
+ navigator.geolocation.watchPosition(p=>{S.gps={lat:p.coords.latitude,lon:p.coords.longitude};S.gpsErr='';sync();render();},e=>{S.gpsErr=e.code===1?t('gpsDeny'):t('gpsWait');renderGate();},{enableHighAccuracy:true,maximumAge:15000,timeout:30000});}
+// ---------- listeners
+const L={};let attached=false;
+function off(k){if(L[k]){L[k]();delete L[k];}}
+function offAll(){Object.keys(L).forEach(off);attached=false;}
+function sync(){const want=inside();if(want&&!attached)attach();else if(!want&&attached){offAll();S.room=null;S.game=null;S.msgs=[];}
+ if(want)syncRoom();}
+function attach(){attached=true;
+ ROOMS.forEach(r=>{let first=true;L['n_'+r]=onSnapshot(query(collection(db,'rooms',r,'messages'),orderBy('ts','desc'),limit(1)),s=>{if(first){first=false;return;}s.docChanges().forEach(c=>{if(c.type==='added'&&!c.doc.metadata.hasPendingWrites){const m=c.doc.data();if(m.uid!==S.user.uid)notify(r,m);}});},()=>{});});
+ L.games=onSnapshot(query(collection(db,'games'),where('players','array-contains',S.user.uid)),s=>{S.games=s.docs.map(d=>({id:d.id,...d.data()}));if(S.game){const g=S.games.find(x=>x.id===S.game);if(!g)S.game=null;}render();},()=>{});
+ L.open=onSnapshot(query(collection(db,'games'),where('status','==','open')),s=>{S.openGames=s.docs.map(d=>({id:d.id,...d.data()})).filter(g=>!g.players.includes(S.user.uid)&&Date.now()-(g.ts||0)<36e5);renderGames();},()=>{});}
+let curRoom=null;
+function syncRoom(){if(curRoom===S.room)return;off('m');off('p');off('r');curRoom=S.room;S.msgs=[];S.polls=[];S.pin=null;if(!S.room)return;const r=S.room;
+ L.m=onSnapshot(query(collection(db,'rooms',r,'messages'),orderBy('ts','desc'),limit(100)),s=>{S.msgs=s.docs.map(d=>({id:d.id,...d.data({serverTimestamps:'estimate'})})).reverse();renderChat();},e=>toast(e.code));
+ L.p=onSnapshot(query(collection(db,'rooms',r,'polls'),orderBy('ts','desc'),limit(5)),s=>{S.polls=s.docs.map(d=>({id:d.id,...d.data()}));renderChat();},()=>{});
+ L.r=onSnapshot(doc(db,'rooms',r),s=>{S.pin=s.exists()?(s.data().pinned||null):null;renderChat();},()=>{});}
+// ---------- rooms & chat
+function renderRooms(){const el=$('rooms');el.innerHTML=ROOMS.map(r=>'<button class="room'+(r==='general'?' general':'')+'" data-r="'+r+'" type="button">'+(S.muted[r]?'🔕 ':'')+esc(roomName(r))+'</button>').join('');}
+function openRoom(r){S.room=r;S.pick=null;sync();render();}
+function closeRoom(){S.room=null;sync();render();}
+function renderChat(){if(!S.room||!inside())return;
+ $('roomTitle').textContent=roomName(S.room);$('muteBtn').textContent=S.muted[S.room]?t('unmute'):t('mute');
+ const pn=S.pin?'<div class="pinned">'+t('pinned')+': '+esc(S.pin.text)+(S.isMod?' <button class="small ghost" data-a="unpin" type="button">'+t('unpin')+'</button>':'')+'</div>':'';
+ const polls=S.polls.map(p=>{const tot=Object.keys(p.votes||{}).length;const mine=(p.votes||{})[S.user.uid];
+  return '<div class="poll"><b>📊 '+esc(p.q)+'</b>'+p.opts.map((o,i)=>{const c=Object.values(p.votes||{}).filter(v=>v===i).length;const pc=tot?Math.round(100*c/tot):0;
+   return '<button class="opt'+(mine===i?' sel':'')+'" data-a="pv" data-p="'+p.id+'" data-i="'+i+'" type="button"><span class="bar" style="width:'+pc+'%"></span><span class="ol">'+esc(o)+' · '+c+'</span></button>';}).join('')+'<div class="note">'+tot+t('votes')+((p.uid===S.user.uid||S.isMod)?' <button class="small ghost" data-a="pd" data-p="'+p.id+'" type="button">'+t('del')+'</button>':'')+'</div></div>';}).join('');
+ const me=S.user.uid;
+ const list=S.msgs.map(m=>{const reps=Object.keys(m.reports||{}).length,hid=reps>=5;if(hid&&!S.isMod)return '';
+  const vs=Object.values(m.votes||{}),score=vs.reduce((a,b)=>a+b,0),mv=(m.votes||{})[me];
+  const rc={};Object.values(m.reactions||{}).forEach(e=>rc[e]=(rc[e]||0)+1);const mr=(m.reactions||{})[me];
+  const chips=Object.keys(rc).map(e=>'<button class="chip'+(mr===e?' sel':'')+'" data-a="re" data-id="'+m.id+'" data-e="'+e+'" type="button">'+e+' '+rc[e]+'</button>').join('');
+  const picker=S.pick===m.id?'<div class="acts">'+EMO.map(e=>'<button class="chip" data-a="re" data-id="'+m.id+'" data-e="'+e+'" type="button">'+e+'</button>').join('')+'</div>':'';
+  const mine=m.uid===me;
+  return '<div class="msg'+(mine?' mine':'')+(hid?' removed':'')+'"><div class="who">'+esc(anonOf(m.uid))+(S.isMod?' <span class="un" data-u="'+m.uid+'"></span>':'')+(hid?' ('+t('removed')+')':'')+'</div>'
+   +(m.replyTo?'<div class="reply">'+esc(m.replyTo)+'</div>':'')+'<div>'+esc(m.text)+'</div>'
+   +'<div class="acts">'+chips+'</div>'+picker
+   +'<div class="acts"><button class="small ghost'+(mv===1?' sel':'')+'" data-a="up" data-id="'+m.id+'" type="button">▲</button><span class="score">'+score+'</span><button class="small ghost'+(mv===-1?' sel':'')+'" data-a="dn" data-id="'+m.id+'" type="button">▼</button>'
+   +'<button class="small ghost" data-a="pk" data-id="'+m.id+'" type="button">😊</button><button class="small ghost" data-a="rp" data-id="'+m.id+'" type="button">'+t('reply')+'</button>'
+   +(!mine?'<button class="small ghost" data-a="rpt" data-id="'+m.id+'" type="button">'+((m.reports||{})[me]?t('reported'):t('report'))+'</button>':'')
+   +((mine||S.isMod)?'<button class="small danger" data-a="dl" data-id="'+m.id+'" type="button">'+t('del')+'</button>':'')
+   +(S.isMod?'<button class="small danger" data-a="bn" data-u="'+m.uid+'" type="button">'+t('ban')+'</button><button class="small ghost" data-a="pn" data-id="'+m.id+'" type="button">'+t('pin')+'</button>':'')
+   +'</div></div>';}).join('');
+ const el=$('list'),atBottom=el.dataset.k!==S.room||(window.innerHeight+window.scrollY>=document.body.scrollHeight-150);
+ $('pinBox').innerHTML=pn;$('pollBox').innerHTML=polls;el.innerHTML=list;
+ if(S.isMod)el.querySelectorAll('.un').forEach(async s=>{try{const d=await getDoc(doc(db,'users',s.dataset.u));if(d.exists())s.textContent='['+d.data().username+']';}catch(e){}});
+ if(el.dataset.k!==S.room||atBottom){el.dataset.k=S.room;setTimeout(()=>window.scrollTo(0,document.body.scrollHeight),0);}}
+let replyTo=null;
+async function mutate(id,field,val){const ref=doc(db,'rooms',S.room,'messages',id);try{await updateDoc(ref,{[field+'.'+S.user.uid]:val===null?deleteField():val});}catch(e){toast(e.code||e.message);}}
+$('list').addEventListener('click',async e=>{const b=e.target.closest('button');if(!b)return;const a=b.dataset.a,id=b.dataset.id;const m=S.msgs.find(x=>x.id===id);
+ if(a==='up'||a==='dn'){const v=a==='up'?1:-1;await mutate(id,'votes',(m.votes||{})[S.user.uid]===v?null:v);}
+ else if(a==='pk'){S.pick=S.pick===id?null:id;renderChat();}
+ else if(a==='re'){const cur=(m.reactions||{})[S.user.uid];await mutate(id,'reactions',cur===b.dataset.e?null:b.dataset.e);S.pick=null;}
+ else if(a==='rp'){replyTo=m.text.slice(0,60);$('replyTxt').textContent=t('reply')+': '+replyTo;$('replyBanner').classList.remove('hidden');$('text').focus();}
+ else if(a==='rpt'){if(!(m.reports||{})[S.user.uid])await mutate(id,'reports',1);}
+ else if(a==='dl'){if(confirm(t('del')+'?'))try{await deleteDoc(doc(db,'rooms',S.room,'messages',id));}catch(e){toast(e.code);}}
+ else if(a==='pn'){try{await setDoc(doc(db,'rooms',S.room),{pinned:{text:m.text.slice(0,200)}},{merge:true});}catch(e){toast(e.code);}}
+ else if(a==='bn'){const c=prompt(t('banAsk'),'1');const d={1:6e5,2:36e5,3:864e5}[c];if(!c)return;const until=c==='4'?9e12:(d?Date.now()+d:0);if(!until)return;try{await updateDoc(doc(db,'users',b.dataset.u),{bannedUntil:until});toast(t('banDone'));}catch(e){toast(e.code);}}});
+$('pinBox').addEventListener('click',async e=>{if(e.target.dataset.a==='unpin')try{await setDoc(doc(db,'rooms',S.room),{pinned:null},{merge:true});}catch(x){toast(x.code);}});
+$('pollBox').addEventListener('click',async e=>{const b=e.target.closest('button');if(!b)return;const p=S.polls.find(x=>x.id===b.dataset.p);if(b.dataset.a==='pv'){const i=+b.dataset.i;try{await updateDoc(doc(db,'rooms',S.room,'polls',p.id),{['votes.'+S.user.uid]:(p.votes||{})[S.user.uid]===i?deleteField():i});}catch(x){toast(x.code);}}
+ else if(b.dataset.a==='pd'){try{await deleteDoc(doc(db,'rooms',S.room,'polls',p.id));}catch(x){toast(x.code);}}});
+$('rooms').addEventListener('click',e=>{const b=e.target.closest('button');if(b)openRoom(b.dataset.r);});
+$('back').onclick=closeRoom;
+$('cancelReply').onclick=()=>{replyTo=null;$('replyBanner').classList.add('hidden');};
+$('muteBtn').onclick=()=>{S.muted[S.room]=!S.muted[S.room];SV('muted',S.muted);renderChat();renderRooms();};
+$('notifBtn').onclick=async()=>{try{await Notification.requestPermission();}catch(e){}};
+$('muteAllBtn').onclick=()=>{S.muteAll=!S.muteAll;SV('muteAll',S.muteAll);$('muteAllBtn').textContent=S.muteAll?t('unmuteAll'):t('muteAll');};
+async function sendMsg(){const inp=$('text'),v=inp.value.trim();if(!v||!S.room)return;if(banned()){renderGate();return;}
+ if(isBlocked(v)){const w=$('warn');w.textContent=t('blocked');w.style.display='block';setTimeout(()=>w.style.display='none',3000);return;}
+ inp.value='';const data={uid:S.user.uid,text:v.slice(0,500),ts:serverTimestamp(),replyTo:replyTo||'',votes:{},reports:{},reactions:{}};replyTo=null;$('replyBanner').classList.add('hidden');
+ try{await addDoc(collection(db,'rooms',S.room,'messages'),data);}catch(e){toast(e.code==='permission-denied'?t('banned'):e.code);}}
+$('send').onclick=sendMsg;$('text').addEventListener('keydown',e=>{if(e.key==='Enter')sendMsg();});
+$('pollBtn').onclick=()=>{showModal('<h2>'+t('poll')+'</h2><input id="pq" type="text" maxlength="150" placeholder="'+t('pollQ')+'"><p class="note">'+t('pollO')+'</p><textarea id="po" rows="5" style="width:100%;font:inherit"></textarea><div style="display:flex;gap:8px;margin-top:8px"><button id="pOk" type="button">'+t('create')+'</button><button id="pNo" class="ghost" type="button">'+t('cancel')+'</button></div>');
+ $('pNo').onclick=hideModal;$('pOk').onclick=async()=>{const q=$('pq').value.trim(),o=$('po').value.split('\n').map(x=>x.trim()).filter(Boolean).slice(0,6);if(!q||o.length<2||isBlocked(q+' '+o.join(' ')))return;hideModal();
+  try{await addDoc(collection(db,'rooms',S.room,'polls'),{uid:S.user.uid,q,opts:o,votes:{},ts:serverTimestamp()});}catch(e){toast(e.code);}};};
+// ---------- games
+const key=g=>g.id;
+function renderGames(){if(!S.user)return;const gl=g=>(g.type==='xo'?'XO':'🁣 Domino');
+ $('gOpen').innerHTML=S.openGames.map(g=>'<button class="small" data-j="'+g.id+'" type="button">'+t('join')+' '+gl(g)+'</button>').join(' ');
+ $('gMine').innerHTML=S.games.filter(g=>g.status!=='gone').map(g=>'<button class="small ghost" data-o="'+g.id+'" type="button">'+t('resume')+' '+gl(g)+(g.status==='open'?' ⏳':g.status==='done'?' ✔':'')+'</button>').join(' ');
+ renderGame();}
+async function newGame(type){if(banned())return;const base={type,players:[S.user.uid],status:'open',ts:Date.now(),turn:0,winner:-2};
+ if(type==='xo')base.board=Array(9).fill('');
+ else{const all=[];for(let a=0;a<=6;a++)for(let b=a;b<=6;b++)all.push(a+'-'+b);for(let i=all.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[all[i],all[j]]=[all[j],all[i]];}
+  base.h0=all.slice(0,7);base.h1=all.slice(7,14);base.yard=all.slice(14);base.board=[];base.passes=0;}
+ try{const r=await addDoc(collection(db,'games'),base);S.game=r.id;render();}catch(e){toast(e.code);}}
+$('newXO').onclick=()=>newGame('xo');$('newDom').onclick=()=>newGame('dom');
+$('gamesSec').addEventListener('click',async e=>{const b=e.target.closest('button');if(!b)return;
+ if(b.dataset.o){S.game=b.dataset.o;render();}
+ if(b.dataset.j){if(banned())return;try{await updateDoc(doc(db,'games',b.dataset.j),{players:arrayUnion(S.user.uid),status:'playing'});S.game=b.dataset.j;render();}catch(x){toast(x.code);}}});
+$('gBack').onclick=()=>{S.game=null;render();};
+$('gLeave').onclick=async()=>{const id=S.game;S.game=null;render();try{await deleteDoc(doc(db,'games',id));}catch(e){}};
+function pips(h){return h.reduce((s,x)=>s+x.split('-').reduce((a,b)=>a+ +b,0),0);}
+function renderGame(){if(!S.game)return;const g=S.games.find(x=>x.id===S.game);const el=$('gameBody');if(!g){return;}
+ const me=g.players.indexOf(S.user.uid);let st='';
+ if(g.status==='open')st=t('waiting');else if(g.status==='done')st=g.winner===-1?t('draw'):g.winner===me?t('youWin'):t('youLose');else st=g.turn===me?t('yourTurn'):t('theirTurn');
+ let h='<p class="note"><b>'+st+'</b></p>';
+ if(g.type==='xo'){h+='<div class="xo">'+g.board.map((c,i)=>'<button type="button" class="cell" data-c="'+i+'">'+(c==='X'?'✖':c==='O'?'⭕':'')+'</button>').join('')+'</div>';}
+ else{const bd=g.board.map(x=>'<span class="tile">'+x.replace('-','|')+'</span>').join('');const hand=me===0?g.h0:g.h1,opp=me===0?g.h1:g.h0;
+  h+='<div class="note">'+t('oppT')+opp.length+' · '+t('yard')+g.yard.length+'</div><div class="board">'+(bd||'—')+'</div><div class="acts">'+hand.map((x,i)=>'<button type="button" class="tile mine" data-d="'+i+'">'+x.replace('-','|')+'</button>').join('')+'</div>';
+  if(g.status==='playing'&&g.turn===me){const can=hand.some(x=>fits(g,x));if(!can)h+=g.yard.length?'<button type="button" id="dDraw">'+t('drawTile')+'</button>':'<button type="button" id="dPass">'+t('pass')+'</button>';}}
+ el.innerHTML=h;
+ const d=$('dDraw');if(d)d.onclick=()=>domDraw(g,me);const p=$('dPass');if(p)p.onclick=()=>domPass(g,me);}
+$('gameBody').addEventListener('click',async e=>{const b=e.target.closest('button');if(!b)return;const g=S.games.find(x=>x.id===S.game);if(!g||g.status!=='playing')return;const me=g.players.indexOf(S.user.uid);if(g.turn!==me||banned())return;
+ if(b.dataset.c!==undefined&&g.type==='xo'){const i=+b.dataset.c;if(g.board[i])return;const bd=[...g.board];bd[i]=me===0?'X':'O';
+  const W=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];const win=W.some(w=>w.every(k=>bd[k]===bd[i]));const full=bd.every(Boolean);
+  const u={board:bd,turn:1-me};if(win){u.status='done';u.winner=me;}else if(full){u.status='done';u.winner=-1;}try{await updateDoc(doc(db,'games',g.id),u);}catch(x){toast(x.code);}}
+ if(b.dataset.d!==undefined&&g.type==='dom')domPlay(g,me,+b.dataset.d);});
+function ends(g){if(!g.board.length)return null;return [+g.board[0].split('-')[0],+g.board[g.board.length-1].split('-')[1]];}
+function fits(g,x){const e=ends(g);if(!e)return true;const [a,b]=x.split('-').map(Number);return a===e[0]||b===e[0]||a===e[1]||b===e[1];}
+async function domPlay(g,me,i){const hk='h'+me,hand=[...g[hk]],x=hand[i];if(!fits(g,x))return;const [a,b]=x.split('-').map(Number);let bd=[...g.board];const e=ends(g);
+ if(!e)bd=[x];else{const canL=a===e[0]||b===e[0],canR=a===e[1]||b===e[1];let side=canL&&canR?(confirm(t('left'))?'L':'R'):(canL?'L':'R');
+  if(side==='L')bd.unshift(b===e[0]?a+'-'+b:b+'-'+a);else bd.push(a===e[1]?a+'-'+b:b+'-'+a);}
+ hand.splice(i,1);const u={[hk]:hand,board:bd,turn:1-me,passes:0};if(!hand.length){u.status='done';u.winner=me;}
+ try{await updateDoc(doc(db,'games',g.id),u);}catch(x){toast(x.code);}}
+async function domDraw(g,me){const y=[...g.yard],hand=[...g['h'+me]];hand.push(y.pop());try{await updateDoc(doc(db,'games',g.id),{['h'+me]:hand,yard:y});}catch(x){toast(x.code);}}
+async function domPass(g,me){const u={turn:1-me,passes:(g.passes||0)+1};if(u.passes>=2){const a=pips(g.h0),b=pips(g.h1);u.status='done';u.winner=a===b?-1:(a<b?0:1);}try{await updateDoc(doc(db,'games',g.id),u);}catch(x){toast(x.code);}}
+// ---------- auth
+function authErr(e){const c=e.code||'';if(c.includes('email-already'))return t('taken');if(c.includes('weak'))return t('weak');if(c.includes('credential')||c.includes('user-not-found')||c.includes('wrong-password'))return t('wrong');if(c.includes('network'))return t('neterr');return c||e.message;}
+async function doAuth(mode){const u=$('aUser').value.trim(),p=$('aPass').value,er=$('aErr');er.textContent='';
+ if(!/^[A-Za-z0-9_]{3,20}$/.test(u)){er.textContent=t('badUser');return;}
+ try{if(mode==='signup'){if(isBlocked(u)){er.textContent=t('badName');return;}if(p.length<6){er.textContent=t('weak');return;}
+   const c=await createUserWithEmailAndPassword(auth,u.toLowerCase()+DOM,p);try{await setDoc(doc(db,'users',c.user.uid),{username:u,created:Date.now()});}catch(e){}}
+  else await signInWithEmailAndPassword(auth,u.toLowerCase()+DOM,p);}catch(e){er.textContent=authErr(e);}}
+$('aLogin').onclick=()=>doAuth('login');$('aSign').onclick=()=>doAuth('signup');
+$('logout').onclick=()=>signOut(auth);
+$('aPass').addEventListener('keydown',e=>{if(e.key==='Enter')doAuth('login');});
+onAuthStateChanged(auth,async u=>{offAll();off('me');curRoom=null;S.user=u;S.room=null;S.game=null;S.isMod=false;S.bannedUntil=0;S.uname='';
+ if(u){try{const m=await getDoc(doc(db,'mods',u.uid));S.isMod=m.exists();}catch(e){}
+  L.me=onSnapshot(doc(db,'users',u.uid),s=>{if(s.exists()){S.uname=s.data().username;S.bannedUntil=s.data().bannedUntil||0;}renderGate();},()=>{});
+  L.cfg=onSnapshot(doc(db,'config','campus'),s=>{S.campus=s.exists()?s.data():null;sync();render();},()=>{});}
+ sync();render();});
+// config also readable logged-out? not needed.
+// ---------- hidden moderator claim (tap logo 7 times)
+$('logo').addEventListener('click',()=>{const n=Date.now();taps=n-tapT<1500?taps+1:1;tapT=n;if(taps>=7){taps=0;if(!S.user||S.isMod)return;
+ showModal('<h2>'+t('code')+'</h2><p class="note">'+t('codeSet')+'</p><input id="cd" type="password" autocomplete="off"><p class="note" id="cdErr" style="color:#b3261e"></p><div style="display:flex;gap:8px"><button id="cdOk" type="button">'+t('ok')+'</button><button id="cdNo" class="ghost" type="button">'+t('cancel')+'</button></div>');
+ $('cdNo').onclick=hideModal;$('cdOk').onclick=async()=>{const c=$('cd').value;if(c.length<8){$('cdErr').textContent=t('codeSet');return;}const ok=await claim(c);if(ok){S.isMod=true;hideModal();sync();render();toast(t('codeOk'));}else $('cdErr').textContent=t('codeBad');};}});
+async function claim(code){const uid=S.user.uid,mref=doc(db,'mods',uid);
+ try{await setDoc(mref,{code});return true;}catch(e){}
+ try{await setDoc(doc(db,'secret','mod'),{hash:await sha(code)});}catch(e){}
+ try{await setDoc(mref,{code});return true;}catch(e){return false;}}
+// ---------- misc
+$('lang').onclick=()=>{S.lang=S.lang==='ar'?'en':'ar';SV('lang',S.lang);applyLang();};
+$('dk').onclick=()=>{S.dark=!S.dark;SV('dark',S.dark);applyLang();};
+$('modal').addEventListener('click',e=>{if(e.target.id==='modal')hideModal();});
+$('muteAllBtn').textContent=S.muteAll?t('unmuteAll'):t('muteAll');
+$('gpsBtn').onclick=startGps;
+applyLang();startGps();
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+window.__S=S;
+
 </script></body></html>
