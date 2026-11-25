@@ -68,6 +68,70 @@ textarea{border:1px solid #ccc;border-radius:10px;padding:8px}
 .dt.new{animation:dplace .38s cubic-bezier(.2,.8,.3,1);z-index:3}.dt svg{display:block}.dt.ok{filter:drop-shadow(0 0 7px #31d0a8)}.dt.sel{transform:translateY(-10px)}.dt.no{opacity:.5;cursor:default}.dt.back{cursor:default}
 .dbd{direction:ltr;display:block;background:radial-gradient(ellipse at 50% 40%,#2a8a70,#134e40);border-radius:14px;padding:10px;min-height:52vh;margin:8px 0;box-shadow:inset 0 2px 10px #0005}.dcv{position:relative;margin:0 auto}.dcv .dt{position:absolute;margin:0;cursor:default}.dzbar{display:flex;gap:8px;margin-bottom:10px}.dzbar .zone{flex:1;min-height:46px;font-size:20px}.dbd>.zone{min-height:80px}.dhand{direction:ltr;display:flex;flex-wrap:wrap;gap:4px;justify-content:center;padding:8px 0}.dopp{direction:ltr;display:flex;flex-wrap:wrap;justify-content:center}
 .zone{border:2px dashed #9ee8d4;border-radius:10px;min-width:40px;min-height:46px;padding:2px 6px;display:flex;align-items:center;justify-content:center;color:#d7fff2;font-weight:700;font-size:14px}.zone.ok{background:#ffffff2e;border-style:solid}.zone.hot{background:#ffffff55;color:#fff}.dghost{position:fixed;pointer-events:none;z-index:50;opacity:.95}.pile{direction:ltr;display:flex;align-items:center;gap:8px;justify-content:center}
+/* ---- visual polish ---- */
+html{-webkit-text-size-adjust:100%}
+body{line-height:1.5;-webkit-tap-highlight-color:transparent;padding-bottom:env(safe-area-inset-bottom)}
+header{position:sticky;top:0;z-index:20;min-height:60px;padding:8px 14px;background:linear-gradient(135deg,#1f6f5c,#175846);box-shadow:0 2px 10px #0003}
+header h1{font-size:19px;line-height:1.2}
+header button{min-width:42px;min-height:42px;padding:0;font-size:19px;border-radius:12px}
+main{padding:12px 12px 28px}
+section{border:1px solid #00000010;box-shadow:0 1px 2px #0000000d,0 6px 16px #0000000a}
+h2{font-size:17px;font-weight:700;margin:0 0 10px}
+button{font-weight:600;transition:transform .1s,filter .15s}
+main button:not(.cell):active,.dpanel button:active{transform:scale(.97);filter:brightness(.95)}
+input:focus,select:focus,textarea:focus{outline:2px solid #2aa78d;outline-offset:1px}
+#authSec{padding:16px}#authSec button{flex:1}
+.rooms{gap:10px}.room{min-height:58px;border-radius:14px;font-size:16px}.room.general{min-height:62px;font-size:18px}
+#gamesSec>h2+.acts{display:grid;grid-template-columns:1fr 1fr;gap:10px}#gamesSec>h2+.acts button{width:100%;min-height:46px;font-size:13.5px;padding:0 6px;line-height:1.2;border-radius:12px}
+#gOpen:empty,#gMine:empty{display:none}
+#tDemo{text-align:center;font-size:12px;opacity:.65;margin:14px 10px 0}
+#locSec{display:grid;grid-template-columns:1fr auto;align-items:center;gap:4px 10px;padding:10px 12px;background:#fff8e1;border-color:#f0dc9a}
+#locSec h2{display:none}#locSec .note{margin:0;font-size:13px;color:#6b5a1f}#locSec button{min-height:36px;white-space:nowrap}
+.chead{top:60px;margin:0 0 8px;padding:8px 10px;border-radius:14px;box-shadow:0 1px 6px #0002;background:#fff}
+#chatSec{background:transparent;box-shadow:none;border:0;padding:0;min-height:calc(100vh - 84px);min-height:calc(100dvh - 84px);display:flex;flex-direction:column}
+#chatSec .list{flex:1;margin:4px 0 8px}
+.form{margin-top:auto;padding:8px 0 10px;background:#f6f3ec;border-top:1px solid #0000000d}
+.form input{min-height:46px;padding:0 16px}
+#send{min-height:46px;min-width:64px}#emoBtn{min-height:46px;min-width:46px}
+.msg{max-width:84%;font-size:16px;line-height:1.5;padding:10px 14px;box-shadow:0 1px 3px #00000026}
+.msg .who{font-size:13px;font-weight:600}
+.msg .acts{gap:6px;opacity:1}
+.msg .acts button{min-height:30px;padding:0 9px;font-size:13px;border-radius:999px;background:#0000000d;color:inherit;font-weight:500}
+.msg .acts button.danger{background:#b3261e1f;color:#b3261e}
+.msg .acts button.sel{background:#1f6f5c33;outline:0}
+.mine .acts button{background:#ffffff26;color:#fff}.mine .acts button.danger{background:#ffffff26;color:#ffd7d3}
+.msg .score{font-size:14px;min-width:20px}
+#emoPanel{margin:0 0 6px}
+.ban{border:1px solid #b3261e44;border-inline-start:5px solid #b3261e;border-radius:12px;font-size:15px;line-height:1.7;padding:10px 14px}
+.modbar{padding:10px 12px;line-height:1.7}
+.banner,.pinned{border:1px solid #0000000f}
+.drawer{backdrop-filter:blur(2px)}
+.dpanel{padding:18px;border-start-start-radius:20px;border-end-start-radius:20px}
+.dpanel>button{min-height:48px;border-radius:12px;margin:10px 0}
+.dpanel select{border-radius:12px}
+#gameSec{padding:12px}
+.xo{box-shadow:inset 0 2px 12px #0006,0 4px 14px #0002}
+.toast{box-shadow:0 6px 20px #0005;font-size:15px}
+/* dark */
+body.dark section{border-color:#ffffff12;box-shadow:0 1px 2px #0006}
+body.dark header{background:linear-gradient(135deg,#1a5f4e,#134a3d)}
+body.dark .room.general{background:#1f6f5c;color:#fff}
+body.dark .chead{background:#1f2426}
+body.dark #chatSec{background:transparent}
+body.dark .form{background:#15181a;border-top-color:#ffffff12}
+body.dark .msg .acts button{background:#ffffff14}
+body.dark .msg .acts button.danger{background:#f2b8b524;color:#ffb4ab}
+body.dark .mine .acts button{background:#ffffff26;color:#fff}body.dark .mine .acts button.danger{background:#ffffff26;color:#ffd7d3}
+body.dark .ban,body.dark .warn{background:#3a1f1d;color:#ffb4ab;border-color:#ffb4ab44}
+body.dark .banner,body.dark .pinned{background:#3a331a;color:#f1e3a6;border-color:#f1e3a622}
+body.dark .roundban{background:#3a331a;color:#f1e3a6}
+body.dark .removed{background:#3a2422}
+body.dark #locSec{background:#2f2a16;border-color:#f1e3a633}body.dark #locSec .note{color:#e6d79a}
+body.dark .note{color:#b4bcc0}
+body.dark .modbar{background:#0d0f10;border:1px solid #ffffff14}
+body.dark .cell{background:#ece6d6}
+body.dark .dpanel{box-shadow:-4px 0 20px #000a}
+body.dark .xo{box-shadow:inset 0 2px 12px #0008}
 </style></head><body>
 <header><img id="logo" src="data:image/jpeg;base64,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" alt="" style="width:44px;height:44px;border-radius:50%;margin-inline-end:10px;background:#fff;flex:none"><div style="flex:1"><h1>Campus Chat</h1><div id="uni" style="font-size:13px;opacity:.9"></div></div><button id="gear" class="small" type="button" aria-label="settings">⚙️</button></header>
 <div class="toast hidden" id="toast"></div>
@@ -230,10 +294,10 @@ function hideModal(){$('modal').classList.add('hidden');$('modalBody').innerHTML
 // ---------- language / theme
 function applyLang(){document.documentElement.lang=S.lang;document.documentElement.dir=S.lang==='ar'?'rtl':'ltr';document.body.classList.toggle('dark',S.dark);
  $('lang').value=S.lang;$('dk').textContent=S.dark?t('light'):t('dark');$('uni').textContent=UNIVERSITY[S.lang]||UNIVERSITY.en;
- $('aUser').placeholder=t('user');$('aPass').placeholder=t('pass');$('aLogin').textContent=t('login');$('aSign').textContent=t('signup');
+ $('aUser').placeholder=t('user');$('aPass').placeholder=({ar:'كلمة السر (6 أحرف على الأقل)',en:'Password (6+ characters)',fr:'Mot de passe (6 caractères min.)',de:'Passwort (mind. 6 Zeichen)',it:'Password (min. 6 caratteri)'})[S.lang]||'Password';$('aLogin').textContent=t('login');$('aSign').textContent=t('signup');
  $('logout').textContent=t('logout');$('tRooms').textContent=t('rooms');$('back').textContent=t('back');$('send').textContent=t('send');$('text').placeholder=t('ph');
  $('tDemo').textContent=t('tDemo');$('gpsBtn').textContent=t('gpsOn');$('tLoc').textContent=t('locT');$('tGames').textContent=t('games');
- $('tSet').textContent=t('settings');$('newXO').textContent=t('newXO');$('newDom').textContent=t('newDom');$('botXO').textContent=t('botXO');$('botDom').textContent=t('botDom');$('pollBtn').textContent=t('poll');$('notifBtn').textContent=t('notif');
+ $('tSet').textContent=t('settings');$('newXO').textContent='❌ '+t('newXO');$('newDom').textContent='🎲 '+t('newDom');$('botXO').textContent='🤖 '+t('botXO');$('botDom').textContent='🤖 '+t('botDom');$('pollBtn').textContent=t('poll');$('notifBtn').textContent=t('notif');
  render();}
 function render(){renderGate();renderRooms();renderChat();renderGames();renderMod();histSync();}
 // ---------- gate
