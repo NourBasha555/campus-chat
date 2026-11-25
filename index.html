@@ -33,6 +33,7 @@ button.danger{background:#b3261e}button:disabled{opacity:.45}
 .hidden{display:none!important}
 .modal{position:fixed;inset:0;background:#0008;display:flex;align-items:center;justify-content:center;padding:20px}
 .modal div{background:#fff;border-radius:14px;padding:16px;width:100%;max-width:340px}
+#setModal button{display:block;width:100%;margin:8px 0}
 body.dark{background:#15181a;color:#e8e8e8}body.dark section{background:#1f2426}body.dark .msg{background:#2b3236}body.dark .mine{background:#1f4a3f}
 body.dark select,body.dark input,body.dark textarea{background:#2b3236;color:#e8e8e8;border-color:#444}body.dark button.ghost,body.dark .room{background:#333b3f;color:#eee}body.dark .modal div{background:#1f2426;color:#eee}body.dark .note{color:#aaa}
 .pinned{background:#fff3cd;color:#222;border-radius:10px;padding:8px;margin-bottom:8px;font-size:14px}
@@ -47,7 +48,7 @@ textarea{border:1px solid #ccc;border-radius:10px;padding:8px}
 .dbd{direction:ltr;display:flex;flex-wrap:wrap;gap:2px;align-items:center;justify-content:center;background:#1f6f5c33;border-radius:12px;padding:8px;min-height:90px;margin:8px 0}.dhand{direction:ltr;display:flex;flex-wrap:wrap;gap:4px;justify-content:center;padding:8px 0}.dopp{direction:ltr;display:flex;flex-wrap:wrap;justify-content:center}
 .zone{border:2px dashed #1f6f5c;border-radius:8px;min-width:36px;min-height:36px;padding:2px 6px;display:flex;align-items:center;justify-content:center;color:#1f6f5c;font-weight:700;font-size:13px}.zone.ok{background:#1f6f5c55;border-style:solid}.zone.hot{background:#1f6f5caa;color:#fff}.dghost{position:fixed;pointer-events:none;z-index:50;opacity:.92}.pile{direction:ltr;display:flex;align-items:center;gap:8px;justify-content:center}
 </style></head><body>
-<header><img id="logo" src="data:image/jpeg;base64,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" alt="" style="width:44px;height:44px;border-radius:50%;margin-inline-end:10px;background:#fff;flex:none"><div style="flex:1"><h1>Campus Chat</h1><div id="uni" style="font-size:13px;opacity:.9"></div></div><button id="dk" class="small" type="button"></button><button id="lang" class="small" type="button"></button><button id="logout" class="small hidden" type="button"></button></header>
+<header><img id="logo" src="data:image/jpeg;base64,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" alt="" style="width:44px;height:44px;border-radius:50%;margin-inline-end:10px;background:#fff;flex:none"><div style="flex:1"><h1>Campus Chat</h1><div id="uni" style="font-size:13px;opacity:.9"></div></div><button id="gear" class="small" type="button" aria-label="settings">⚙️</button></header>
 <div class="toast hidden" id="toast"></div>
 <main>
 <section id="authSec"><input id="aUser" type="text" autocapitalize="none" autocomplete="username" dir="ltr"><div style="height:8px"></div><input id="aPass" type="password" autocomplete="current-password" dir="ltr"><p class="note" id="aErr" style="color:#b3261e"></p><div style="display:flex;gap:8px"><button id="aLogin" type="button"></button><button id="aSign" class="ghost" type="button"></button></div></section>
@@ -55,8 +56,8 @@ textarea{border:1px solid #ccc;border-radius:10px;padding:8px}
 <div class="ban hidden" id="banBar"></div>
 <div class="modbar hidden" id="modBar"></div>
 <section id="locSec"><h2 id="tLoc"></h2><p class="note" id="gpsStatus"></p><button id="gpsBtn" class="ghost small" type="button"></button></section>
-<section id="roomsSec"><h2 id="tRooms"></h2><div class="rooms" id="rooms"></div><div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap"><button id="notifBtn" class="ghost small" type="button"></button><button id="muteAllBtn" class="ghost small" type="button"></button></div></section>
-<section id="gamesSec"><h2 id="tGames"></h2><div class="acts"><button id="newXO" class="small" type="button"></button><button id="newDom" class="small" type="button"></button></div><div class="acts" id="gOpen"></div><div class="acts" id="gMine"></div></section>
+<section id="roomsSec"><h2 id="tRooms"></h2><div class="rooms" id="rooms"></div><div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap"></div></section>
+<section id="gamesSec"><h2 id="tGames"></h2><div class="acts"><button id="newXO" class="small" type="button"></button><button id="newDom" class="small" type="button"></button><button id="botXO" class="small ghost" type="button"></button><button id="botDom" class="small ghost" type="button"></button></div><div class="acts" id="gOpen"></div><div class="acts" id="gMine"></div></section>
 <section id="gameSec" class="hidden"><div class="acts"><button id="gBack" class="ghost small" type="button">←</button><button id="gLeave" class="danger small" type="button">✕</button></div><div id="gameBody"></div></section>
 <section id="chatSec" class="hidden">
  <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px"><button id="back" class="ghost small" type="button"></button><h2 id="roomTitle" style="margin:0;flex:1"></h2><button id="muteBtn" class="ghost small" type="button"></button><button id="pollBtn" class="ghost small" type="button"></button></div>
@@ -68,6 +69,7 @@ textarea{border:1px solid #ccc;border-radius:10px;padding:8px}
 </section>
 <p class="note" id="tDemo"></p>
 </div></main>
+<div class="modal hidden" id="setModal"><div><h2 id="tSet"></h2><button id="dk" class="ghost" type="button"></button><button id="lang" class="ghost" type="button"></button><button id="notifBtn" class="ghost" type="button"></button><button id="muteAllBtn" class="ghost" type="button"></button><button id="logout" class="danger hidden" type="button"></button><button id="setClose" type="button">✕</button></div></div>
 <div class="modal hidden" id="modal"><div id="modalBody"></div></div>
 <script>
 // Bad-language filter (same as the first version). Loaded before app.js.
@@ -131,10 +133,11 @@ function isBlocked(raw){
 </script>
 <script type="module">
 import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import {getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,onAuthStateChanged,signOut} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {initializeAuth,indexedDBLocalPersistence,browserLocalPersistence,createUserWithEmailAndPassword,signInWithEmailAndPassword,onAuthStateChanged,signOut} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import {getFirestore,doc,getDoc,setDoc,updateDoc,deleteDoc,deleteField,collection,query,orderBy,limit,where,onSnapshot,addDoc,serverTimestamp,arrayUnion} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 const app=initializeApp({apiKey:"AIzaSyBQ4W_NwUbARaXpQcbkNFpr6rPL4rQL6Mg",authDomain:"campus-chat-729ea.firebaseapp.com",projectId:"campus-chat-729ea",storageBucket:"campus-chat-729ea.firebasestorage.app",messagingSenderId:"800618580958",appId:"1:800618580958:web:99769a0c3c21b79a7c6b4f"});
-const auth=getAuth(app),db=getFirestore(app);
+const auth=initializeAuth(app,{persistence:[indexedDBLocalPersistence,browserLocalPersistence]}),db=getFirestore(app);
+try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist();}catch(e){}
 const UNIVERSITY={en:'Capital University',ar:'جامعة العاصمة'};
 const CAMPUS_RADIUS_M=1100;
 const CAMPUS_FIXED={lat:29.86677,lon:31.31522};
@@ -150,7 +153,7 @@ const T={ar:{
  anon:'مجهول ',blocked:'الرسالة فيها كلمات غير مناسبة',banned:'تم إيقافك من الكتابة حتى ',forever:'للأبد',
  pinned:'📌 مثبّتة',pin:'تثبيت',unpin:'إلغاء التثبيت',poll:'📊 تصويت',pollQ:'السؤال',pollO:'الخيارات (كل خيار في سطر، 2 إلى 6)',create:'إنشاء',cancel:'إلغاء',
  votes:' صوت',mute:'🔕 كتم',unmute:'🔔 تشغيل',muteAll:'كتم الكل',unmuteAll:'تشغيل الإشعارات',notif:'🔔 السماح بالإشعارات',
- dark:'🌙',light:'☀️',games:'الألعاب',newXO:'XO جديدة',newDom:'دومينو جديدة',open:'ألعاب مفتوحة',mine:'ألعابي',join:'انضم',resume:'افتح',leave:'اترك اللعبة',
+ dark:'🌙',light:'☀️',games:'الألعاب',newXO:'XO جديدة',newDom:'دومينو جديدة',settings:'الإعدادات',botXO:'XO ضد الكمبيوتر',botDom:'دومينو ضد الكمبيوتر',bot:'الكمبيوتر',exitAgain:'اضغط رجوع مرة تانية للخروج',open:'ألعاب مفتوحة',mine:'ألعابي',join:'انضم',resume:'افتح',leave:'اترك اللعبة',
  yourTurn:'دورك',theirTurn:'دور الخصم',youWin:'فزت! 🎉',youLose:'خسرت',draw:'تعادل',waiting:'في انتظار لاعب...',
  drawTile:'اسحب',pickEnd:'اضغط على طرف اللوحة المضيء (أو اسحب الحجر إليه)',tapDrag:'اضغط على حجر مضيء أو اسحبه إلى اللوحة',pass:'تخطّي',yard:'المخزن: ',oppT:'أحجار الخصم: ',left:'يسار؟ (موافق=يسار، إلغاء=يمين)',
  modLbl:'المشرف',setC:'اجعل موقعي مركز الجامعة',setDone:'تم تحديد مركز الجامعة',setNo:'لا يوجد موقع حالياً',testL:'وضع الاختبار: ',tOff:'بدون',tIn:'داخل الحرم',tFar:'خارج الحرم',
@@ -166,7 +169,7 @@ en:{
  anon:'Anon ',blocked:'Message has inappropriate words',banned:'You are blocked from writing until ',forever:'forever',
  pinned:'📌 Pinned',pin:'Pin',unpin:'Unpin',poll:'📊 Poll',pollQ:'Question',pollO:'Options (one per line, 2 to 6)',create:'Create',cancel:'Cancel',
  votes:' votes',mute:'🔕 Mute',unmute:'🔔 Unmute',muteAll:'Mute all',unmuteAll:'Unmute all',notif:'🔔 Allow notifications',
- dark:'🌙',light:'☀️',games:'Games',newXO:'New XO',newDom:'New Domino',open:'Open games',mine:'My games',join:'Join',resume:'Open',leave:'Leave game',
+ dark:'🌙',light:'☀️',games:'Games',newXO:'New XO',newDom:'New Domino',settings:'Settings',botXO:'XO vs computer',botDom:'Domino vs computer',bot:'Computer',exitAgain:'Press back again to exit',open:'Open games',mine:'My games',join:'Join',resume:'Open',leave:'Leave game',
  yourTurn:'Your turn',theirTurn:"Opponent's turn",youWin:'You won! 🎉',youLose:'You lost',draw:'Draw',waiting:'Waiting for a player...',
  drawTile:'Draw',pickEnd:'Tap a highlighted end of the board (or drag the tile there)',tapDrag:'Tap a glowing tile or drag it onto the board',pass:'Pass',yard:'Pile: ',oppT:'Opponent tiles: ',left:'Left end? (OK=left, Cancel=right)',
  modLbl:'Moderator',setC:'Set my location as campus center',setDone:'Campus center set',setNo:'No location yet',testL:'Test mode: ',tOff:'Off',tIn:'Inside',tFar:'Outside',
@@ -202,12 +205,12 @@ function applyLang(){document.documentElement.lang=S.lang;document.documentEleme
  $('aUser').placeholder=t('user');$('aPass').placeholder=t('pass');$('aLogin').textContent=t('login');$('aSign').textContent=t('signup');
  $('logout').textContent=t('logout');$('tRooms').textContent=t('rooms');$('back').textContent=t('back');$('send').textContent=t('send');$('text').placeholder=t('ph');
  $('tDemo').textContent=t('tDemo');$('gpsBtn').textContent=t('gpsOn');$('tLoc').textContent=t('locT');$('tGames').textContent=t('games');
- $('newXO').textContent=t('newXO');$('newDom').textContent=t('newDom');$('pollBtn').textContent=t('poll');$('notifBtn').textContent=t('notif');
+ $('tSet').textContent=t('settings');$('newXO').textContent=t('newXO');$('newDom').textContent=t('newDom');$('botXO').textContent=t('botXO');$('botDom').textContent=t('botDom');$('pollBtn').textContent=t('poll');$('notifBtn').textContent=t('notif');
  render();}
-function render(){renderGate();renderRooms();renderChat();renderGames();renderMod();}
+function render(){renderGate();renderRooms();renderChat();renderGames();renderMod();histSync();}
 // ---------- gate
 function renderGate(){
- const logged=!!S.user;$('authSec').classList.toggle('hidden',logged);$('appSec').classList.toggle('hidden',!logged);$('logout').classList.toggle('hidden',!logged);
+ const logged=!!S.user;$('authSec').classList.toggle('hidden',logged||!S.authReady);$('appSec').classList.toggle('hidden',!logged);$('logout').classList.toggle('hidden',!logged);
  if(!logged)return;
  let msg='';
  if(!S.isMod||S.test!=='off'){ if(!inside()){ msg=S.gpsErr||(!S.gps?t('gpsWait'):(!S.campus?t('noCampus'):t('outside'))); } }
@@ -230,7 +233,7 @@ function sync(){touchIn();const want=!!S.user;if(want&&!attached)attach();else i
  if(want)syncRoom();}
 function attach(){attached=true;
  ROOMS.forEach(r=>{let first=true;L['n_'+r]=onSnapshot(query(collection(db,'rooms',r,'messages'),orderBy('ts','desc'),limit(1)),s=>{if(first){first=false;return;}s.docChanges().forEach(c=>{if(c.type==='added'&&!c.doc.metadata.hasPendingWrites){const m=c.doc.data();if(m.uid!==S.user.uid)notify(r,m);}});},()=>{});});
- L.games=onSnapshot(query(collection(db,'games'),where('players','array-contains',S.user.uid)),s=>{S.games=s.docs.map(d=>({id:d.id,...d.data()}));if(S.game){const g=S.games.find(x=>x.id===S.game);if(!g)S.game=null;}render();},()=>{});
+ L.games=onSnapshot(query(collection(db,'games'),where('players','array-contains',S.user.uid)),s=>{S.games=s.docs.map(d=>({id:d.id,...d.data()}));if(S.game){const g=curG();if(!g)S.game=null;}render();},()=>{});
  L.open=onSnapshot(query(collection(db,'games'),where('status','==','open')),s=>{S.openGames=s.docs.map(d=>({id:d.id,...d.data()})).filter(g=>!g.players.includes(S.user.uid)&&Date.now()-(g.ts||0)<36e5);renderGames();},()=>{});}
 let curRoom=null;
 function syncRoom(){if(curRoom===S.room)return;off('m');off('p');off('r');curRoom=S.room;S.msgs=[];S.polls=[];S.pin=null;if(!S.room)return;const r=S.room;
@@ -282,7 +285,7 @@ $('pinBox').addEventListener('click',async e=>{if(e.target.dataset.a==='unpin')t
 $('pollBox').addEventListener('click',async e=>{const b=e.target.closest('button');if(!b)return;const p=S.polls.find(x=>x.id===b.dataset.p);if(b.dataset.a==='pv'){const i=+b.dataset.i;try{await updateDoc(doc(db,'rooms',S.room,'polls',p.id),{['votes.'+S.user.uid]:(p.votes||{})[S.user.uid]===i?deleteField():i});}catch(x){toast(x.code);}}
  else if(b.dataset.a==='pd'){try{await deleteDoc(doc(db,'rooms',S.room,'polls',p.id));}catch(x){toast(x.code);}}});
 $('rooms').addEventListener('click',e=>{const b=e.target.closest('button');if(b)openRoom(b.dataset.r);});
-$('back').onclick=closeRoom;
+$('back').onclick=()=>{if(S.inScreen)history.back();else closeRoom();};
 $('cancelReply').onclick=()=>{replyTo=null;$('replyBanner').classList.add('hidden');};
 $('muteBtn').onclick=()=>{S.muted[S.room]=!S.muted[S.room];SV('muted',S.muted);renderChat();renderRooms();};
 $('notifBtn').onclick=async()=>{try{await Notification.requestPermission();}catch(e){}};
@@ -297,9 +300,11 @@ $('pollBtn').onclick=()=>{if(!inside()){toast(t('outside'));return;}showModal('<
   try{await addDoc(collection(db,'rooms',S.room,'polls'),{uid:S.user.uid,q,opts:o,votes:{},ts:serverTimestamp()});}catch(e){toast(e.code);}};};
 // ---------- games
 const key=g=>g.id;
-function renderGames(){if(!S.user)return;const gl=g=>(g.type==='xo'?'XO':'🁣 Domino');
+function curG(){if(S.game==='bot')return S.bot||null;return S.games.find(x=>x.id===S.game);}
+async function gupd(g,u){if(g.bot){Object.assign(g,u);renderGame();botKick(g);return;}await gupd(g,u);}
+function renderGames(){if(!S.user)return;const gl=g=>(g.type==='xo'?'XO':'🁣 Domino')+(g.bot?' 🤖':'');
  $('gOpen').innerHTML=S.openGames.map(g=>'<button class="small" data-j="'+g.id+'" type="button">'+t('join')+' '+gl(g)+'</button>').join(' ');
- $('gMine').innerHTML=S.games.filter(g=>g.status!=='gone').map(g=>'<button class="small ghost" data-o="'+g.id+'" type="button">'+t('resume')+' '+gl(g)+(g.status==='open'?' ⏳':g.status==='done'?' ✔':'')+'</button>').join(' ');
+ $('gMine').innerHTML=(S.bot&&S.bot.status==='playing'?[S.bot]:[]).concat(S.games.filter(g=>g.status!=='gone')).map(g=>'<button class="small ghost" data-o="'+g.id+'" type="button">'+t('resume')+' '+gl(g)+(g.status==='open'?' ⏳':g.status==='done'?' ✔':'')+'</button>').join(' ');
  renderGame();}
 async function newGame(type){if(banned())return;const base={type,players:[S.user.uid],status:'open',ts:Date.now(),turn:0,winner:-2};
  if(type==='xo')base.board=Array(9).fill('');
@@ -310,10 +315,10 @@ $('newXO').onclick=()=>newGame('xo');$('newDom').onclick=()=>newGame('dom');
 $('gamesSec').addEventListener('click',async e=>{const b=e.target.closest('button');if(!b)return;
  if(b.dataset.o){S.game=b.dataset.o;render();}
  if(b.dataset.j){if(banned())return;try{await updateDoc(doc(db,'games',b.dataset.j),{players:arrayUnion(S.user.uid),status:'playing'});S.game=b.dataset.j;render();}catch(x){toast(x.code);}}});
-$('gBack').onclick=()=>{S.game=null;render();};
-$('gLeave').onclick=async()=>{const id=S.game;S.game=null;render();try{await deleteDoc(doc(db,'games',id));}catch(e){}};
+$('gBack').onclick=()=>{if(S.inScreen)history.back();else{S.game=null;render();}};
+$('gLeave').onclick=async()=>{const id=S.game;if(id==='bot'){S.bot=null;S.game=null;render();return;}S.game=null;render();try{await deleteDoc(doc(db,'games',id));}catch(e){}};
 function pips(h){return h.reduce((s,x)=>s+x.split('-').reduce((a,b)=>a+ +b,0),0);}
-function renderGame(){if(!S.game)return;const g=S.games.find(x=>x.id===S.game);const el=$('gameBody');if(!g){return;}
+function renderGame(){if(!S.game)return;const g=curG();const el=$('gameBody');if(!g){return;}
  const me=g.players.indexOf(S.user.uid);let st='';
  if(g.status==='open')st=t('waiting');else if(g.status==='done')st=g.winner===-1?t('draw'):g.winner===me?t('youWin'):t('youLose');else st=g.turn===me?t('yourTurn'):t('theirTurn');
  let h='<p class="note"><b>'+st+'</b></p>';
@@ -335,18 +340,36 @@ function renderGame(){if(!S.game)return;const g=S.games.find(x=>x.id===S.game);c
   h+='<div class="dhand">'+hand.map((x,i)=>{const [a,b]=x.split('-').map(Number);const ok=my&&fits(g,x);return domTile(a,b,false,(ok?'ok':'no')+(S.dpick===i?' sel':''),false,i);}).join('')+'</div>';}
  el.innerHTML=h;
  const d=$('dDraw');if(d)d.onclick=()=>domDraw(g,me);const p=$('dPass');if(p)p.onclick=()=>domPass(g,me);}
-$('gameBody').addEventListener('click',async e=>{const b=e.target.closest('button');if(!b)return;const g=S.games.find(x=>x.id===S.game);if(!g||g.status!=='playing')return;const me=g.players.indexOf(S.user.uid);if(g.turn!==me||banned())return;
- if(b.dataset.c!==undefined&&g.type==='xo'){const i=+b.dataset.c;if(g.board[i])return;const bd=[...g.board];bd[i]=me===0?'X':'O';
-  const W=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];const win=W.some(w=>w.every(k=>bd[k]===bd[i]));const full=bd.every(Boolean);
-  const u={board:bd,turn:1-me};if(win){u.status='done';u.winner=me;}else if(full){u.status='done';u.winner=-1;}try{await updateDoc(doc(db,'games',g.id),u);}catch(x){toast(x.code);}}
+$('gameBody').addEventListener('click',async e=>{const b=e.target.closest('button');if(!b)return;const g=curG();if(!g||g.status!=='playing')return;const me=g.players.indexOf(S.user.uid);if(g.turn!==me||banned())return;
+ if(b.dataset.c!==undefined&&g.type==='xo'){const i=+b.dataset.c;if(g.board[i])return;
+  const u=xoMove(g,me,i);try{await gupd(g,u);}catch(x){toast(x.code);}}
 });
+const XOW=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+function xoMove(g,me,i){const bd=[...g.board];bd[i]=me===0?'X':'O';const win=XOW.some(w=>w.every(k=>bd[k]===bd[i]));const u={board:bd,turn:1-me};if(win){u.status='done';u.winner=me;}else if(bd.every(Boolean)){u.status='done';u.winner=-1;}return u;}
+function xoBotPick(bd,mark,opp){const em=[];bd.forEach((c,i)=>{if(!c)em.push(i);});if(!em.length)return -1;
+ const tryM=m=>em.find(i=>XOW.some(w=>w.includes(i)&&w.every(k=>k===i?true:bd[k]===m)));
+ let r=tryM(mark);if(r===undefined)r=tryM(opp);if(r!==undefined)return r;
+ if(!bd[4])return 4;const cs=[0,2,6,8].filter(i=>!bd[i]);if(cs.length)return cs[Math.floor(Math.random()*cs.length)];return em[Math.floor(Math.random()*em.length)];}
+// domino bot: returns {i,side} | 'draw' | 'pass'
+function domBotPick(g,me){const hand=g['h'+me];let best=-1,bs=-1;hand.forEach((x,i)=>{if(fits(g,x)){const p=x.split('-').reduce((a,b)=>a+ +b,0);if(p>bs){bs=p;best=i;}}});
+ if(best>=0){const sd=domSides(g,hand[best]);return {i:best,side:sd.includes('R')?'R':sd[0]};}
+ return g.yard.length?'draw':'pass';}
+function botKick(g){if(!g.bot||g.status!=='playing'||g.turn!==1)return;clearTimeout(botKick.t);botKick.t=setTimeout(()=>{if(S.bot!==g||g.status!=='playing'||g.turn!==1)return;botStep(g);},800);}
+function botStep(g){if(g.type==='xo'){const i=xoBotPick(g.board,'O','X');if(i>=0)gupd(g,xoMove(g,1,i));return;}
+ const d=domBotPick(g,1);if(d==='draw'){const y=[...g.yard],h=[...g.h1];h.push(y.pop());gupd(g,{h1:h,yard:y});}else if(d==='pass')domPass(g,1);else{const u=domMove(g,1,d.i,d.side);if(u)gupd(g,u);}}
+function newBotGame(type){const base={bot:true,id:'bot',type,players:[S.user.uid,'bot'],status:'playing',ts:Date.now(),turn:0,winner:-2};
+ if(type==='xo')base.board=Array(9).fill('');
+ else{const all=[];for(let a=0;a<=6;a++)for(let b=a;b<=6;b++)all.push(a+'-'+b);for(let i=all.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[all[i],all[j]]=[all[j],all[i]];}
+  base.h0=all.slice(0,7);base.h1=all.slice(7,14);base.yard=all.slice(14);base.board=[];base.passes=0;}
+ S.bot=base;S.game='bot';S.dpick=null;render();}
+$('botXO').onclick=()=>newBotGame('xo');$('botDom').onclick=()=>newBotGame('dom');
 function ends(g){if(!g.board.length)return null;return [+g.board[0].split('-')[0],+g.board[g.board.length-1].split('-')[1]];}
 function fits(g,x){const e=ends(g);if(!e)return true;const [a,b]=x.split('-').map(Number);return a===e[0]||b===e[0]||a===e[1]||b===e[1];}
 function domSides(g,x){const e=ends(g);if(!e)return['R'];const [a,b]=x.split('-').map(Number);const r=[];if(a===e[0]||b===e[0])r.push('L');if(a===e[1]||b===e[1])r.push('R');return r;}
 function domMove(g,me,i,side){const hk='h'+me,hand=[...g[hk]],x=hand[i];if(x===undefined||!domSides(g,x).includes(side))return null;const [a,b]=x.split('-').map(Number);let bd=[...g.board];const e=ends(g);
  if(!e)bd=[x];else if(side==='L')bd.unshift(b===e[0]?a+'-'+b:b+'-'+a);else bd.push(a===e[1]?a+'-'+b:b+'-'+a);
  hand.splice(i,1);const u={[hk]:hand,board:bd,turn:1-me,passes:0};if(!hand.length){u.status='done';u.winner=me;}return u;}
-async function domPlay(g,me,i,side){S.dpick=null;const u=domMove(g,me,i,side);if(!u){renderGame();return;}try{await updateDoc(doc(db,'games',g.id),u);}catch(x){toast(x.code);}}
+async function domPlay(g,me,i,side){S.dpick=null;const u=domMove(g,me,i,side);if(!u){renderGame();return;}try{await gupd(g,u);}catch(x){toast(x.code);}}
 function domTile(a,b,vert,cls,back,idx){const W=vert?32:64,H=vert?64:32;const P={1:[[1,1]],2:[[0,0],[2,2]],3:[[0,0],[1,1],[2,2]],4:[[0,0],[2,0],[0,2],[2,2]],5:[[0,0],[2,0],[1,1],[0,2],[2,2]],6:[[0,0],[2,0],[0,1],[2,1],[0,2],[2,2]]};
  let c='<rect x="1" y="1" width="'+(W-2)+'" height="'+(H-2)+'" rx="6" fill="'+(back?'#1f6f5c':'#fff')+'" stroke="#333" stroke-width="2"/>';
  if(!back){c+=vert?'<line x1="5" y1="32" x2="27" y2="32" stroke="#333" stroke-width="2"/>':'<line x1="32" y1="5" x2="32" y2="27" stroke="#333" stroke-width="2"/>';
@@ -354,16 +377,16 @@ function domTile(a,b,vert,cls,back,idx){const W=vert?32:64,H=vert?64:32;const P=
  else c+=vert?'':'<line x1="32" y1="5" x2="32" y2="27" stroke="#fff6" stroke-width="2"/>';
  return '<div class="dt '+cls+'"'+(idx!==undefined?' data-d="'+idx+'"':'')+'><svg width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'">'+c+'</svg></div>';}
 let dDrag=null;
-document.addEventListener('pointerdown',e=>{const el=e.target.closest&&e.target.closest('#gameBody .dhand [data-d]');if(!el||!S.game)return;const g=S.games.find(x=>x.id===S.game);if(!g||g.status!=='playing')return;const me=g.players.indexOf(S.user.uid);if(g.turn!==me||banned())return;const i=+el.dataset.d,x=g['h'+me][i];if(x===undefined||!fits(g,x))return;dDrag={i,x0:e.clientX,y0:e.clientY,moved:false,ghost:null,el};});
+document.addEventListener('pointerdown',e=>{const el=e.target.closest&&e.target.closest('#gameBody .dhand [data-d]');if(!el||!S.game)return;const g=curG();if(!g||g.status!=='playing')return;const me=g.players.indexOf(S.user.uid);if(g.turn!==me||banned())return;const i=+el.dataset.d,x=g['h'+me][i];if(x===undefined||!fits(g,x))return;dDrag={i,x0:e.clientX,y0:e.clientY,moved:false,ghost:null,el};});
 document.addEventListener('pointermove',e=>{if(!dDrag)return;const d=dDrag;if(!d.moved&&Math.hypot(e.clientX-d.x0,e.clientY-d.y0)>8){d.moved=true;d.ghost=d.el.cloneNode(true);d.ghost.classList.add('dghost');d.ghost.classList.remove('sel');document.body.appendChild(d.ghost);}
  if(d.ghost){d.ghost.style.left=(e.clientX-32)+'px';d.ghost.style.top=(e.clientY-16)+'px';document.querySelectorAll('#dBoard .zone').forEach(z=>z.classList.remove('hot'));const z=document.elementFromPoint(e.clientX,e.clientY);const zz=z&&z.closest&&z.closest('#dBoard .zone');if(zz)zz.classList.add('hot');e.preventDefault();}});
-function dEnd(e,cancel){if(!dDrag)return;const d=dDrag;dDrag=null;if(d.ghost)d.ghost.remove();const g=S.games.find(x=>x.id===S.game);if(!g||cancel){renderGame();return;}const me=g.players.indexOf(S.user.uid);const x=g['h'+me][d.i];if(x===undefined)return;const sides=domSides(g,x);
+function dEnd(e,cancel){if(!dDrag)return;const d=dDrag;dDrag=null;if(d.ghost)d.ghost.remove();const g=curG();if(!g||cancel){renderGame();return;}const me=g.players.indexOf(S.user.uid);const x=g['h'+me][d.i];if(x===undefined)return;const sides=domSides(g,x);
  if(d.moved){const z=document.elementFromPoint(e.clientX,e.clientY);const zz=z&&z.closest&&z.closest('#dBoard .zone');const bdEl=z&&z.closest&&z.closest('#dBoard');let side=zz?zz.dataset.side:(bdEl&&!ends(g)?'R':null);if(side&&sides.includes(side))domPlay(g,me,d.i,side);else renderGame();}
  else{if(sides.length===1)domPlay(g,me,d.i,sides[0]);else{S.dpick=S.dpick===d.i?null:d.i;renderGame();}}}
 document.addEventListener('pointerup',e=>dEnd(e,false));document.addEventListener('pointercancel',e=>dEnd(e,true));
-document.addEventListener('click',e=>{const z=e.target.closest&&e.target.closest('#dBoard .zone');if(!z||!z.classList.contains('ok'))return;const g=S.games.find(x=>x.id===S.game);if(!g||g.status!=='playing')return;const me=g.players.indexOf(S.user.uid);if(g.turn!==me||banned())return;if(S.dpick===null||S.dpick===undefined)return;domPlay(g,me,S.dpick,z.dataset.side);});
-async function domDraw(g,me){const y=[...g.yard],hand=[...g['h'+me]];hand.push(y.pop());try{await updateDoc(doc(db,'games',g.id),{['h'+me]:hand,yard:y});}catch(x){toast(x.code);}}
-async function domPass(g,me){const u={turn:1-me,passes:(g.passes||0)+1};if(u.passes>=2){const a=pips(g.h0),b=pips(g.h1);u.status='done';u.winner=a===b?-1:(a<b?0:1);}try{await updateDoc(doc(db,'games',g.id),u);}catch(x){toast(x.code);}}
+document.addEventListener('click',e=>{const z=e.target.closest&&e.target.closest('#dBoard .zone');if(!z||!z.classList.contains('ok'))return;const g=curG();if(!g||g.status!=='playing')return;const me=g.players.indexOf(S.user.uid);if(g.turn!==me||banned())return;if(S.dpick===null||S.dpick===undefined)return;domPlay(g,me,S.dpick,z.dataset.side);});
+async function domDraw(g,me){const y=[...g.yard],hand=[...g['h'+me]];hand.push(y.pop());try{await gupd(g,{['h'+me]:hand,yard:y});}catch(x){toast(x.code);}}
+async function domPass(g,me){const u={turn:1-me,passes:(g.passes||0)+1};if(u.passes>=2){const a=pips(g.h0),b=pips(g.h1);u.status='done';u.winner=a===b?-1:(a<b?0:1);}try{await gupd(g,u);}catch(x){toast(x.code);}}
 // ---------- auth
 function authErr(e){const c=e.code||'';if(c.includes('email-already'))return t('taken');if(c.includes('weak'))return t('weak');if(c.includes('credential')||c.includes('user-not-found')||c.includes('wrong-password'))return t('wrong');if(c.includes('network'))return t('neterr');return c||e.message;}
 async function doAuth(mode){const u=$('aUser').value.trim(),p=$('aPass').value,er=$('aErr');er.textContent='';
@@ -374,7 +397,7 @@ async function doAuth(mode){const u=$('aUser').value.trim(),p=$('aPass').value,e
 $('aLogin').onclick=()=>doAuth('login');$('aSign').onclick=()=>doAuth('signup');
 $('logout').onclick=()=>signOut(auth);
 $('aPass').addEventListener('keydown',e=>{if(e.key==='Enter')doAuth('login');});
-onAuthStateChanged(auth,async u=>{offAll();off('me');curRoom=null;S.user=u;S.room=null;S.game=null;S.isMod=false;S.bannedUntil=0;S.uname='';
+onAuthStateChanged(auth,async u=>{S.authReady=true;offAll();off('me');curRoom=null;S.user=u;S.room=null;S.game=null;S.bot=null;S.isMod=false;S.bannedUntil=0;S.uname='';
  if(u){try{const m=await getDoc(doc(db,'mods',u.uid));S.isMod=m.exists();}catch(e){}
   L.me=onSnapshot(doc(db,'users',u.uid),s=>{if(s.exists()){S.uname=s.data().username;S.bannedUntil=s.data().bannedUntil||0;}renderGate();},()=>{});
   L.cfg=onSnapshot(doc(db,'config','campus'),s=>{S.campus=CAMPUS_FIXED;sync();render();},()=>{});}
@@ -388,6 +411,22 @@ async function claim(code){const uid=S.user.uid,mref=doc(db,'mods',uid);
  try{await setDoc(mref,{code});return true;}catch(e){}
  try{await setDoc(doc(db,'secret','mod'),{hash:await sha(code)});}catch(e){}
  try{await setDoc(mref,{code});return true;}catch(e){return false;}}
+// ---------- phone back button
+S.inScreen=false;
+try{history.replaceState({n:0},'');history.pushState({n:1},'');}catch(e){}
+function histSync(){const sc=!!(S.room||S.game);if(sc&&!S.inScreen){try{history.pushState({n:2},'');}catch(e){}S.inScreen=true;}
+ else if(!sc&&S.inScreen){S.inScreen=false;S.skip=true;history.back();}}
+let exitArmed=0;
+window.addEventListener('popstate',()=>{if(S.skip){S.skip=false;return;}
+ if(!$('setModal').classList.contains('hidden')){$('setModal').classList.add('hidden');try{history.pushState({n:S.inScreen?2:1},'');}catch(e){}return;}
+ if(!$('modal').classList.contains('hidden')){hideModal();try{history.pushState({n:S.inScreen?2:1},'');}catch(e){}return;}
+ if(S.inScreen){S.inScreen=false;S.dpick=null;if(S.game){S.game=null;render();}else closeRoom();return;}
+ if(Date.now()-exitArmed<2500){history.back();return;}
+ exitArmed=Date.now();toast(t('exitAgain'));try{history.pushState({n:1},'');}catch(e){}});
+$('gear').onclick=()=>$('setModal').classList.remove('hidden');
+$('setClose').onclick=()=>$('setModal').classList.add('hidden');
+$('setModal').addEventListener('click',e=>{if(e.target.id==='setModal')$('setModal').classList.add('hidden');});
+$('logout').addEventListener('click',()=>$('setModal').classList.add('hidden'));
 // ---------- misc
 $('lang').onclick=()=>{S.lang=S.lang==='ar'?'en':'ar';SV('lang',S.lang);applyLang();};
 $('dk').onclick=()=>{S.dark=!S.dark;SV('dark',S.dark);applyLang();};
