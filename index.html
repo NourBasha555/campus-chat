@@ -133,8 +133,8 @@ import {getFirestore,doc,getDoc,setDoc,updateDoc,deleteDoc,deleteField,collectio
 const app=initializeApp({apiKey:"AIzaSyBQ4W_NwUbARaXpQcbkNFpr6rPL4rQL6Mg",authDomain:"campus-chat-729ea.firebaseapp.com",projectId:"campus-chat-729ea",storageBucket:"campus-chat-729ea.firebasestorage.app",messagingSenderId:"800618580958",appId:"1:800618580958:web:99769a0c3c21b79a7c6b4f"});
 const auth=getAuth(app),db=getFirestore(app);
 const UNIVERSITY={en:'Capital University',ar:'جامعة العاصمة'};
-const CAMPUS_RADIUS_M=1000;
-const CAMPUS_FIXED={lat:29.86672,lon:31.31559};
+const CAMPUS_RADIUS_M=1100;
+const CAMPUS_FIXED={lat:29.86677,lon:31.31522};
 const DOM='@campus.chat';
 const ROOMS=['general',...Array.from({length:18},(_,i)=>'hall'+(i+1))];
 const EMO=['👍','❤️','😂','😮','😢','🙏'];
