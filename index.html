@@ -392,7 +392,7 @@ function renderGame(force){if(!S.game)return;const g=curG();const el=$('gameBody
   const pk=S.dpick!==null&&S.dpick!==undefined?hand[S.dpick]:null;
   const legal=x=>domSides(g,x);
   h+='<div class="dopp">'+opp.map(()=>domTile(0,0,false,'back',true)).join('')+'</div>';
-  let bd='';const T=Math.max(30,Math.min(44,Math.floor(bW/10)));
+  let bd='';const T=Math.max(30,Math.min(46,Math.floor(bW/9)));
   if(!e){bd=my?'<div class="zone ok" data-side="R">'+t('tapDrag')+'</div>':'<span class="note">—</span>';}
   else{const zb=my?'<div class="dzbar"><div class="zone'+(pk&&legal(pk).includes('L')?' ok':'')+'" data-side="L">◀ '+e[0]+'</div><div class="zone'+(pk&&legal(pk).includes('R')?' ok':'')+'" data-side="R">'+e[1]+' ▶</div></div>':'';
    const L=domLayout(g.board,T,bW);
